@@ -46,8 +46,9 @@ echo Create package %packageFileName%
 echo Clean
 if exist "%tempPackageFolder%" rmdir /S /Q "%tempPackageFolder%" || goto :error
 
+:: COMPLETE
 echo [102m[30mCOMPLETE[0m
-rem timeout 1
+timeout 1
 goto :eof
 
 :error

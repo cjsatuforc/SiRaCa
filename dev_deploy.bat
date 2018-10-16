@@ -8,7 +8,7 @@ if exist src\acptemplates xcopy /Y /S src\acptemplates\* %woltlabPath%\acp\templ
 
 :: COMPLETE
 echo [102m[30mFILES DEPLOYED[0m
-::timeout 2
+timeout 2
 goto :eof
 
 :error

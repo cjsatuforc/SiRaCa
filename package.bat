@@ -4,14 +4,13 @@ setlocal enabledelayedexpansion
 
 set sourceFolder=src
 set tempPackageFolder=temp_package
-set subFolders=files files_update templates acptemplates
+set foldersToArchive=files files_update templates acptemplates
 set packageFileName=fr.chatcureuil.siraca.tar
 set zip="C:\Program Files\7-Zip\7z.exe"
-set batchName=%~n0%~x0
 
 echo Clean
 if exist "%tempPackageFolder%" rmdir /S /Q "%tempPackageFolder%"
-if exist "%packageFileName%" (del "%packageFileName%")
+if exist "%packageFileName%" del "%packageFileName%"
 
 echo Create temporary folder %tempPackageFolder%
 mkdir "%tempPackageFolder%" || goto :error
@@ -20,7 +19,7 @@ mkdir "%tempPackageFolder%" || goto :error
 for /d %%i in ("%sourceFolder%\*") do (
 	set isArchive=false
 	
-	for %%j in (%subFolders%) do (
+	for %%j in (%foldersToArchive%) do (
 		if %%~ni == %%j (
 			set isArchive=true
 		)
@@ -50,7 +49,7 @@ if exist "%tempPackageFolder%" rmdir /S /Q "%tempPackageFolder%" || goto :error
 
 :: COMPLETE
 echo [102m[30mPACKAGE CREATED[0m
-::timeout 2
+timeout 2
 goto :eof
 
 :error

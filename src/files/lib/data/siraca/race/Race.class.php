@@ -31,7 +31,7 @@ class Race extends DatabaseObject implements IRouteController, ILinkableObject {
 		
 		return $statement->fetchSingleColumn() > 0;
 	}
-    
+	
 	public function getLink() {
 		return LinkHandler::getInstance()->getLink('Race', [
 			'forceFrontend' => true,

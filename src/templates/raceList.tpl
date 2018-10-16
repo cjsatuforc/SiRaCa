@@ -7,8 +7,9 @@
 	
 	<nav class="contentHeaderNavigation">
 		<ul>
+			{if $__wcf->getSession()->getPermission('mod.siraca.canManageRace')}
 			<li><a href="{link controller='RaceAdd'}{/link}" class="button"><span class="icon icon16 fa-plus"></span> <span>{lang}siraca.link.race.add{/lang}</span></a></li>
-			
+			{/if}
 			{event name='contentHeaderNavigation'}
 		</ul>
 	</nav>

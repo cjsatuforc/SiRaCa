@@ -6,8 +6,9 @@ use wcf\system\exception\UserInputException;
 use wcf\system\WCF;
 use wcf\util\StringUtil;
 
-
 class RaceAddForm extends AbstractForm {
+
+	public $neededPermissions = ['mod.siraca.canManageRace'];
 
     public $title = '';
 

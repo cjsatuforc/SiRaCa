@@ -19,4 +19,7 @@
 	</nav>
 </header>
 
+
+{if $race->isParticipant()}<span>Inscrit</span>{/if}
+
 {include file='footer'}

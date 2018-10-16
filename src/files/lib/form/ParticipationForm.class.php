@@ -12,7 +12,6 @@ class ParticipationForm extends AbstractForm {
 	
 	private $raceID;
 	private $race;
-	private $participation;
 
 	// public function ParticipationForm () {
 	// 	throw new IllegalLinkException();
@@ -22,7 +21,6 @@ class ParticipationForm extends AbstractForm {
 		parent::assignVariables();
 		
 		WCF::getTPL()->assign([
-			'participation' => $this->participation,
 			'raceID' => $this->raceID,
 			'race' => $this->race
 		]);
@@ -32,31 +30,28 @@ class ParticipationForm extends AbstractForm {
 		parent::readParameters();
 		
 		if (isset($_REQUEST['id'])) $this->raceID = intval($_REQUEST['id']);
+		$this->checkParameters();
 	}
 
     public function readFormParameters() {
 		parent::readFormParameters();
 		
 		if (isset($_POST['id'])) $this->raceID = intval($_POST['id']);
+		$this->checkParameters();
 	}
 	
-	public function readData() {
-		parent::readData();
-
+	public function checkParameters() {
 		$this->race = new Race($this->raceID);
 		
 		if (!$this->race->raceID) {
 			throw new IllegalLinkException();
 		}
-
-		// TODO utiliser isParticipant() sur Race
-		$this->participation = Participation::getParticipation($this->race->raceID, WCF::getUser()->userID);
 	}
 
 	public function save() {
 		parent::save();
 		
-		if(Participation::getParticipation($this->raceID, WCF::getUser()->userID) != null) return;
+		if($this->race->isParticipant()) return;
 
 		$this->objectAction = new ParticipationAction([], 'create', [
 			'data' => array_merge($this->additionalFields, [

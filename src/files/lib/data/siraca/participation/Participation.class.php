@@ -20,17 +20,17 @@ class Participation extends DatabaseObject {
 		return $this->raceID." ".$this->userID;
 	}
 	
-	public static function getParticipation($raceID, $userID) {
-		$sql = "SELECT	*
-			FROM	wcf".WCF_N."_siraca_participation
-			WHERE	raceID = ?
-				AND userID = ?";
-		$statement = WCF::getDB()->prepareStatement($sql);
-		$statement->execute([
-			$raceID,
-			$userID
-		]);
+	// public static function getParticipation($raceID, $userID) {
+	// 	$sql = "SELECT	*
+	// 		FROM	wcf".WCF_N."_siraca_participation
+	// 		WHERE	raceID = ?
+	// 			AND userID = ?";
+	// 	$statement = WCF::getDB()->prepareStatement($sql);
+	// 	$statement->execute([
+	// 		$raceID,
+	// 		$userID
+	// 	]);
 		
-		return $statement->fetchObject(self::class);
-	}
+	// 	return $statement->fetchObject(self::class);
+	// }
 }

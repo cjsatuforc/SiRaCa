@@ -25,7 +25,7 @@
 						<div class="details raceInformation">
 							<div class="containerHeadline">
 								<h3><a href="{$race->getLink()}">{$race}</a></h3>
-								{* <span></span> *}
+								{if $race->isParticipant()}<span>Inscrit</span>{/if}
 							</div>
 						</div>
 					</div>

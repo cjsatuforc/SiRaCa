@@ -16,6 +16,7 @@ if exist "%packageFileName%" (del "%packageFileName%")
 echo Create temporary folder %tempPackageFolder%
 mkdir "%tempPackageFolder%" || goto :error
 
+:: DIRECTORIES
 for /d %%i in ("%sourceFolder%\*") do (
 	set isArchive=false
 	
@@ -31,10 +32,11 @@ for /d %%i in ("%sourceFolder%\*") do (
 	) else (
 		echo Copy %%i
 		mkdir "%tempPackageFolder%\%%~ni" || goto :error
-		copy "%%i" "%tempPackageFolder%\%%~ni" > nul || goto :error
+		xcopy /Y /S "%%i" "%tempPackageFolder%\%%~ni" > nul || goto :error
 	)
 )
 
+:: FILES
 for /r %%i in ("%sourceFolder%\*") do (
 	echo Copy %%~nxi
 	copy "%%i" "%tempPackageFolder%" > nul || goto :error
@@ -47,8 +49,8 @@ echo Clean
 if exist "%tempPackageFolder%" rmdir /S /Q "%tempPackageFolder%" || goto :error
 
 :: COMPLETE
-echo [102m[30mCOMPLETE[0m
-timeout 1
+echo [102m[30mPACKAGE CREATED[0m
+::timeout 2
 goto :eof
 
 :error

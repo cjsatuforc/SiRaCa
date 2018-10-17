@@ -4,7 +4,7 @@
 
 {capture assign='contentHeaderNavigation'}
 	{if $__wcf->getSession()->getPermission('user.siraca.canParticipateRace')}
-	<a href="{link controller='Participation' object=$race}{/link}" class="button"><span class="icon icon16 fa-plus"></span> <span>{lang}siraca.participation.link{/lang}</span></a>
+	<a href="{link controller='Participation' object=$race}{/link}" class="button"><span class="icon icon16 fa-sign-in"></span> <span>{lang}siraca.participation.link{/lang}</span></a>
 	{/if}
 {/capture}
 

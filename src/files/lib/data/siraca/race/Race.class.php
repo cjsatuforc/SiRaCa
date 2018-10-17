@@ -13,20 +13,9 @@ class Race extends DatabaseObject implements IRouteController, ILinkableObject {
 	public function getTitle() {
 		return $this->title;
 	}
-
-	// public function canParticipate() {
-	// 	$userID = WCF::getUser()->userID;
-
-	// 	return $userID != 0;
-	// }
 	
 	public function isParticipant() {
 		$userID = WCF::getUser()->userID;
-		
-		// guests cannot participate at all
-		// if (!$userID) { // TODO intéressant
-		// 	return false;
-		// }
 		
 		$sql = "SELECT	COUNT(*)
 			FROM	wcf".WCF_N."_siraca_participation

@@ -1,18 +1,12 @@
-{include file='header' pageTitle='siraca.race.'|concat:$action}
+{capture assign='pageTitle'}{lang}siraca.race.add.title{/lang}{/capture}
 
-<header class="contentHeader">
-	<div class="contentHeaderTitle">
-		<h1 class="contentTitle">{lang}siraca.race.{$action}{/lang}</h1>
-	</div>
-	
-	<nav class="contentHeaderNavigation">
-		<ul>
-			<li><a href="{link controller='RaceList'}{/link}" class="button"><span class="icon icon16 fa-list"></span> <span>{lang}siraca.menu.link.race.list{/lang}</span></a></li>
-			
-			{event name='contentHeaderNavigation'}
-		</ul>
-	</nav>
-</header>
+{capture assign='contentTitle'}{lang}siraca.race.add.title{/lang}{/capture}
+
+{capture assign='contentHeaderNavigation'}
+	<a href="{link controller='RaceList'}{/link}" class="button"><span class="icon icon16 fa-plus"></span> <span>{lang}siraca.race.list.link{/lang}</span></a>
+{/capture}
+
+{include file='header'}
 
 {include file='formError'}
 
@@ -23,7 +17,7 @@
 <form method="post" action="{link controller='RaceAdd'}{/link}">
 	<div class="section">
 		<dl {if $errorField == 'title'} class="formError"{/if}>
-			<dt><label for="title">{lang}siraca.race.title{/lang}</label></dt>
+			<dt><label for="title">{lang}siraca.race.add.form.title{/lang}</label></dt>
 			<dd>
 				<input type="text" id="title" name="title" value="{$title}" required autofocus maxlength="255" class="long">
 				{if $errorField == 'title'}
@@ -31,6 +25,7 @@
 						{if $errorType == 'empty'}
 							{lang}wcf.global.form.error.empty{/lang}
 						{else}
+							{* TODO gestion d'erreur ? *}
 							{lang}siraca.race.title.error.{$errorType}{/lang}
 						{/if}
 					</small>

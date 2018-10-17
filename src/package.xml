@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <package name="fr.chatcureuil.siraca" xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/tornado/package.xsd">
 	<packageinformation>
-		<packagename>Sim Racing Calendar</packagename>
+		<packagename>SiRaCa: Sim Racing Calendar</packagename>
 		<packagedescription>A sim racing oriented calendar</packagedescription>
 		<version>0.2.0</version>
 		<date>2018-10-16</date>
@@ -29,7 +29,7 @@
 		<instruction type="file" />
 		<instruction type="sql" />
 		<instruction type="template" />
-		<!-- <instruction type="language" /> -->
+		<instruction type="language" />
 		
 		<!-- <instruction type="acpMenu" /> -->
 		<instruction type="page" />

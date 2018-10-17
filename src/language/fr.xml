@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<language xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/tornado/language.xsd" languagecode="en">
+	
+    <category name="wcf.acp.group">
+		<item name="wcf.acp.group.option.category.mod.siraca"><![CDATA[SiRaCa]]></item>
+		<item name="wcf.acp.group.option.category.user.siraca"><![CDATA[SiRaCa]]></item>
+		
+		<item name="wcf.acp.group.option.mod.siraca.canManageRace"><![CDATA[Organisation de courses]]></item>
+		
+		<item name="wcf.acp.group.option.user.siraca.canParticipateRace"><![CDATA[Participation aux courses]]></item>
+	</category>
+	
+    <category name="siraca.race.add">
+        <item name="siraca.race.add.link"><![CDATA[Organiser une course]]></item>
+        <item name="siraca.race.add.title"><![CDATA[Organiser une course]]></item>
+
+        <item name="siraca.race.add.form.title"><![CDATA[Titre]]></item>
+    </category>
+
+    <category name="siraca.race.list">
+        <item name="siraca.race.list.link"><![CDATA[Liste des courses]]></item>
+        <item name="siraca.race.list.title"><![CDATA[Courses]]></item>
+    </category>
+
+    <category name="siraca.participation">
+        <item name="siraca.participation.link"><![CDATA[Gérer ma participation]]></item>
+        <item name="siraca.participation.title"><![CDATA[Participation à]]></item>
+    </category>
+
+    <category name="siraca.participation.registration">
+        <item name="siraca.participation.registration.registered"><![CDATA[Vous êtes inscrit]]></item>
+        <item name="siraca.participation.registration.registeredShort"><![CDATA[Inscrit]]></item>
+        <item name="siraca.participation.registration.notRegistered"><![CDATA[Vous n'êtes pas inscrit]]></item>
+    </category>
+</language>

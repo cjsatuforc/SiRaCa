@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<language xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/tornado/language.xsd" languagecode="en">
+	
+    <category name="wcf.acp.group">
+		<!-- <item name="wcf.acp.group.option.admin.content.canManagePeople"><![CDATA[Can manage people]]></item> -->
+		
+		<item name="wcf.acp.group.option.category.mod.siraca"><![CDATA[SiRaCa]]></item>
+		<item name="wcf.acp.group.option.category.user.siraca"><![CDATA[SiRaCa]]></item>
+		
+		<item name="wcf.acp.group.option.mod.siraca.canManageRace"><![CDATA[Can manage races]]></item>
+		
+		<item name="wcf.acp.group.option.user.siraca.canParticipateRace"><![CDATA[Can participate to races]]></item>
+	</category>
+	
+    <category name="siraca.race.add">
+        <item name="siraca.race.add.link"><![CDATA[Organize a race]]></item>
+        <item name="siraca.race.add.title"><![CDATA[Organize a race]]></item>
+
+        <item name="siraca.race.add.form.title"><![CDATA[Title]]></item>
+    </category>
+
+    <category name="siraca.race.list">
+        <item name="siraca.race.list.link"><![CDATA[Race list]]></item>
+        <item name="siraca.race.list.title"><![CDATA[Races]]></item>
+    </category>
+
+    <category name="siraca.participation">
+        <item name="siraca.participation.link"><![CDATA[Manage my participation]]></item>
+        <item name="siraca.participation.title"><![CDATA[Registration to]]></item>
+    </category>
+
+    <category name="siraca.participation.registration">
+        <item name="siraca.participation.registration.registered"><![CDATA[You are registered]]></item>
+        <item name="siraca.participation.registration.registeredShort"><![CDATA[Registered]]></item>
+        <item name="siraca.participation.registration.notRegistered"><![CDATA[You are not registered]]></item>
+    </category>
+
+	<!-- <category name="wcf.acp.menu">
+		<item name="wcf.acp.menu.link.person"><![CDATA[People]]></item>
+		<item name="wcf.acp.menu.link.person.add"><![CDATA[Add Person]]></item>
+		<item name="wcf.acp.menu.link.person.list"><![CDATA[People]]></item>
+	</category> -->
+</language>

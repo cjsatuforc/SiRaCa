@@ -1,6 +1,6 @@
-{capture assign='pageTitle'}{$race}{/capture}
+{capture assign='pageTitle'}{lang}siraca.race.title{/lang}{$race}{/capture}
 
-{capture assign='contentTitle'}{$race}{/capture}
+{capture assign='contentTitle'}{lang}siraca.race.title{/lang}{$race}{/capture}
 
 {capture assign='contentHeaderNavigation'}
 	{if $__wcf->getSession()->getPermission('user.siraca.canParticipateRace')}

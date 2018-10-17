@@ -1,6 +1,6 @@
-{capture assign='pageTitle'}{lang}siraca.participation.title{/lang} {$race->title}{/capture}
+{capture assign='pageTitle'}{lang}siraca.participation.title{/lang}{$race->title}{/capture}
 
-{capture assign='contentTitle'}{lang}siraca.participation.title{/lang} {$race->title}{/capture}
+{capture assign='contentTitle'}{lang}siraca.participation.title{/lang}{$race->title}{/capture}
 
 {include file='header'}
 

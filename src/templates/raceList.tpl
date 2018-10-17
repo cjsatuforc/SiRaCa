@@ -35,16 +35,16 @@
 			{/foreach}
 		</ol>
 	</div>
+	
+	<footer class="contentFooter">
+		{hascontent}
+			<div class="paginationBottom">
+				{content}{@$pagesLinks}{/content}
+			</div>
+		{/hascontent}
+	</footer>
 {else}
 	<p class="info">{lang}wcf.global.noItems{/lang}</p>
 {/if}
-
-<footer class="contentFooter">
-	{hascontent}
-		<div class="paginationBottom">
-			{content}{@$pagesLinks}{/content}
-		</div>
-	{/hascontent}
-</footer>
 
 {include file='footer'}

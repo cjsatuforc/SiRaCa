@@ -9,6 +9,10 @@
 		
 		<item name="wcf.acp.group.option.user.siraca.canParticipateRace"><![CDATA[Participation aux courses]]></item>
 	</category>
+
+    <category name="siraca.race">
+        <item name="siraca.race.title"><![CDATA[Course : ]]></item>
+    </category>
 	
     <category name="siraca.race.add">
         <item name="siraca.race.add.link"><![CDATA[Organiser une course]]></item>
@@ -24,7 +28,7 @@
 
     <category name="siraca.participation">
         <item name="siraca.participation.link"><![CDATA[Gérer ma participation]]></item>
-        <item name="siraca.participation.title"><![CDATA[Participation à]]></item>
+        <item name="siraca.participation.title"><![CDATA[Participation : ]]></item>
     </category>
 
     <category name="siraca.participation.registration">

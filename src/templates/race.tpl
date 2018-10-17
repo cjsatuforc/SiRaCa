@@ -5,6 +5,7 @@
 {include file='header'}
 
 
+{if $__wcf->getSession()->getPermission('user.siraca.canParticipateRace')}
 <header class="contentHeader">
 	<div class="contentHeaderTitle">
 		<h1 class="contentTitle">{lang}siraca.race.participation{/lang}</h1>
@@ -18,7 +19,7 @@
 		</ul>
 	</nav>
 </header>
-
+{/if}
 
 {if $race->isParticipant()}<span>Inscrit</span>{/if}
 

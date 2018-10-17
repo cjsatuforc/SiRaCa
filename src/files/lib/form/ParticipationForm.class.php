@@ -12,6 +12,8 @@ class ParticipationForm extends AbstractForm {
 	
 	private $raceID;
 	private $race;
+	
+	public $neededPermissions = ['user.siraca.canParticipateRace'];
 
 	// public function ParticipationForm () {
 	// 	throw new IllegalLinkException();

@@ -13,6 +13,12 @@ class Race extends DatabaseObject implements IRouteController, ILinkableObject {
 	public function getTitle() {
 		return $this->title;
 	}
+
+	// public function canParticipate() {
+	// 	$userID = WCF::getUser()->userID;
+
+	// 	return $userID != 0;
+	// }
 	
 	public function isParticipant() {
 		$userID = WCF::getUser()->userID;

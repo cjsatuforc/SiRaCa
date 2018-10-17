@@ -2,9 +2,9 @@
 <data xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/tornado/userGroupOption.xsd">
 	<import>
 		<categories>
-			<!-- <category name="user.siraca">
+			<category name="user.siraca">
 				<parent>user</parent>
-			</category> -->
+			</category>
 			
 			<category name="mod.siraca">
 				<parent>mod</parent>
@@ -33,11 +33,12 @@
 				<usersonly>1</usersonly>
 			</option>
 
-			<!-- <option name="user.siraca.canManageRace">
+			<option name="user.siraca.canParticipateRace">
 				<categoryname>user.siraca</categoryname>
 				<optiontype>boolean</optiontype>
 				<defaultvalue>1</defaultvalue>
-			</option> -->
+				<usersonly>1</usersonly>
+			</option>
 		</options>
 	</import>
 </data>

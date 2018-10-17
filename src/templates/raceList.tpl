@@ -39,18 +39,12 @@
 	<p class="info">{lang}wcf.global.noItems{/lang}</p>
 {/if}
 
-{capture assign='contentFooter'}
+<footer class="contentFooter">
 	{hascontent}
 		<div class="paginationBottom">
 			{content}{@$pagesLinks}{/content}
 		</div>
 	{/hascontent}
-{/capture}
-
-{capture assign='contentFooterNavigation'}
-	{if $__wcf->getSession()->getPermission('mod.siraca.canManageRace')}
-		<a href="{link controller='RaceAdd'}{/link}" class="button"><span class="icon icon16 fa-plus"></span> <span>{lang}siraca.race.add.link{/lang}</span></a>
-	{/if}
-{/capture}
+</footer>
 
 {include file='footer'}

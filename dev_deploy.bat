@@ -2,6 +2,11 @@
 
 set woltlabPath=E:\easyPhp\eds-www\woltlab
 
+if not exist %woltlabPath% (
+	echo Destination directory doesn't exist.
+	goto :error
+)
+
 if exist src\files\lib xcopy /Y /S src\files\lib\* %woltlabPath%\lib\  || goto :error
 if exist src\templates xcopy /Y /S src\templates\* %woltlabPath%\templates\  || goto :error
 if exist src\acptemplates xcopy /Y /S src\acptemplates\* %woltlabPath%\acp\templates\  || goto :error

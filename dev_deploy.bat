@@ -1,22 +1,47 @@
 @echo off
 
-set woltlabPath=E:\easyPhp\eds-www\woltlab
+set functionsPath=cmd\functions.bat
 
-if not exist %woltlabPath% (
+call cmd\user_options.bat || goto :error
+
+if not exist "%woltlabWwwPath%" (
 	echo Destination directory doesn't exist.
 	goto :error
 )
 
-if exist src\files\lib xcopy /Y /S src\files\lib\* %woltlabPath%\lib\  || goto :error
-if exist src\templates xcopy /Y /S src\templates\* %woltlabPath%\templates\  || goto :error
-if exist src\acptemplates xcopy /Y /S src\acptemplates\* %woltlabPath%\acp\templates\  || goto :error
+call:cat "Moving files"
+call:task "Move lib"
+if exist src\files\lib xcopy /Y /S src\files\lib\* "%woltlabPath%\lib\" > nul || goto :error
+
+call:task "Move templates"
+if exist src\templates xcopy /Y /S src\templates\* "%woltlabPath%\templates\" > nul || goto :error
+
+call:task "Move acptemplates"
+if exist src\acptemplates xcopy /Y /S src\acptemplates\* "%woltlabPath%\acp\templates\" > nul || goto :error
 
 :: COMPLETE
-echo [102m[30mFILES DEPLOYED[0m
+call:done "FILES DEPLOYED"
 ::timeout 2
 goto :eof
 
 :error
-echo [101m[30mERROR[0m
+call:err "ERROR"
 pause
-goto :eof
+goto:eof
+
+:: Functions
+:cat
+call %functionsPath% cat "%~1" "%useColors%"
+goto:eof
+
+:task
+call %functionsPath% task "%~1" "%useColors%"
+goto:eof
+
+:err
+call %functionsPath% err "%~1" "%useColors%"
+goto:eof
+
+:done
+call %functionsPath% done "%~1" "%useColors%"
+goto:eof

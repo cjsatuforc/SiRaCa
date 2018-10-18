@@ -1,0 +1,9 @@
+@echo off
+
+:: Copy this file with the name 'user_options.bat' and set your values.
+:: Don't forget to add 'cmd/user_options.bat' to your .gitignore file.
+
+set zip="C:\Program Files\7-Zip\7z.exe"
+set woltlabWwwPath=E:\easyPhp\eds-www\woltlab
+
+set useColors=true

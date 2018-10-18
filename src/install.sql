@@ -8,5 +8,6 @@ DROP TABLE IF EXISTS wcf1_siraca_participation;
 CREATE TABLE wcf1_siraca_participation (
 	participationID INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	raceID INT(10) NOT NULL,
-	userID INT(10) NOT NULL
+	userID INT(10) NOT NULL,
+	type TINYINT NOT NULL
 );

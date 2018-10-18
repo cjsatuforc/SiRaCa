@@ -49,7 +49,7 @@ if exist "%tempPackageFolder%" rmdir /S /Q "%tempPackageFolder%" || goto :error
 
 :: COMPLETE
 echo [102m[30mPACKAGE CREATED[0m
-timeout 2
+::timeout 2
 goto :eof
 
 :error

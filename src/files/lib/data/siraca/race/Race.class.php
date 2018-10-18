@@ -20,7 +20,7 @@ class Race extends DatabaseObject implements IRouteController, ILinkableObject {
 		$sql = "SELECT	COUNT(*)
 			FROM	wcf".WCF_N."_siraca_participation
 			WHERE	raceID = ?
-				AND userID = ?";
+			AND userID = ?";
 		$statement = WCF::getDB()->prepareStatement($sql);
 		$statement->execute([$this->raceID, $userID]);
 		

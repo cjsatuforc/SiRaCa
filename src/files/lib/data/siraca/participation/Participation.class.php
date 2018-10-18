@@ -7,30 +7,25 @@ use wcf\system\WCF;
 class Participation extends DatabaseObject {
     protected static $databaseTableName = 'siraca_participation';
     
-    // private $raceData;
+	public function getLangId($type) {
+		return ParticipationType::getLangId($type);
+	}
 
-	// protected function handleData($data) {
-	// 	parent::handleData($data);
-		
-	// 	$this->raceData = @unserialize($this->race);
-	// 	if (!is_array($this->raceData)) $this->raceData = [];
-    // }
-    
 	public function __toString() {
 		return $this->raceID." ".$this->userID;
 	}
-	
-	// public static function getParticipation($raceID, $userID) {
-	// 	$sql = "SELECT	*
-	// 		FROM	wcf".WCF_N."_siraca_participation
-	// 		WHERE	raceID = ?
-	// 			AND userID = ?";
-	// 	$statement = WCF::getDB()->prepareStatement($sql);
-	// 	$statement->execute([
-	// 		$raceID,
-	// 		$userID
-	// 	]);
-		
-	// 	return $statement->fetchObject(self::class);
-	// }
+
+	public static function getParticipation($raceID) {
+		$userID = WCF::getUser()->userID;
+
+		$statement = WCF::getDB()->prepareStatement("SELECT * FROM wcf".WCF_N."_siraca_participation WHERE userID=$userID AND raceID={$raceID}");
+		$statement->execute();
+
+		$participation = $statement->fetchObject(Participation::class);
+
+		if (!$participation)
+			$participation = new Participation(null, ["userID"=>$userID, "raceID"=>$raceID, "type"=>ParticipationType::ABSENCE]);
+
+		return $participation;
+	}
 }

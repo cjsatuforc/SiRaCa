@@ -29,11 +29,20 @@
     <category name="siraca.participation">
         <item name="siraca.participation.link"><![CDATA[Gérer ma participation]]></item>
         <item name="siraca.participation.title"><![CDATA[Participation : ]]></item>
+
+        <item name="siraca.participation.form.presence"><![CDATA[Modifier ma participation]]></item>
+        <item name="siraca.participation.form.error.noChange"><![CDATA[Vous n'avez fait aucun changement]]></item>
     </category>
 
     <category name="siraca.participation.registration">
         <item name="siraca.participation.registration.registered"><![CDATA[Vous êtes inscrit]]></item>
         <item name="siraca.participation.registration.registeredShort"><![CDATA[Inscrit]]></item>
         <item name="siraca.participation.registration.notRegistered"><![CDATA[Vous n'êtes pas inscrit]]></item>
+    </category>
+
+    <category name="siraca.participation.type">
+        <item name="siraca.participation.type.presence"><![CDATA[Présent]]></item>
+        <item name="siraca.participation.type.absence"><![CDATA[Absent]]></item>
+        <item name="siraca.participation.type.presenceNotConfirmed"><![CDATA[Incertain]]></item>
     </category>
 </language>

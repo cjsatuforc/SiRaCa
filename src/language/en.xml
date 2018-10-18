@@ -31,12 +31,22 @@
     <category name="siraca.participation">
         <item name="siraca.participation.link"><![CDATA[Manage my participation]]></item>
         <item name="siraca.participation.title"><![CDATA[Registration: ]]></item>
+
+        <item name="siraca.participation.form.presence"><![CDATA[Change my participation]]></item>
+        <item name="siraca.participation.form.error.noChange"><![CDATA[No participation change]]></item>
+        
     </category>
 
     <category name="siraca.participation.registration">
         <item name="siraca.participation.registration.registered"><![CDATA[You are registered]]></item>
         <item name="siraca.participation.registration.registeredShort"><![CDATA[Registered]]></item>
         <item name="siraca.participation.registration.notRegistered"><![CDATA[You are not registered]]></item>
+    </category>
+
+    <category name="siraca.participation.type">
+        <item name="siraca.participation.type.presence"><![CDATA[Present]]></item>
+        <item name="siraca.participation.type.absence"><![CDATA[Absent]]></item>
+        <item name="siraca.participation.type.presenceNotConfirmed"><![CDATA[Undecided]]></item>
     </category>
 
 	<!-- <category name="wcf.acp.menu">

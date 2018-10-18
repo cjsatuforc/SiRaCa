@@ -1,6 +1,7 @@
 <?php
 
 namespace wcf\data\siraca\race;
+use wcf\data\siraca\participation\Participation;
 use wcf\data\DatabaseObject;
 use wcf\data\ILinkableObject;
 use wcf\system\request\IRouteController;
@@ -9,7 +10,9 @@ use wcf\system\WCF;
 
 class Race extends DatabaseObject implements IRouteController, ILinkableObject {
     protected static $databaseTableName = 'siraca_race';
-    
+	
+	private $participation;
+
 	public function getTitle() {
 		return $this->title;
 	}
@@ -25,6 +28,13 @@ class Race extends DatabaseObject implements IRouteController, ILinkableObject {
 		$statement->execute([$this->raceID, $userID]);
 		
 		return $statement->fetchSingleColumn() > 0;
+	}
+
+	public function getParticipation() {
+		// TODO Utiliser Runtime cache au lieu de le faire soi-même, c'est peut-être pas correct ça.
+		if (!$this->participation) $this->participation = Participation::getUserParticipation($this->raceID);
+
+		return $this->participation;
 	}
 	
 	public function getLink() {

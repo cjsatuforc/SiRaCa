@@ -39,8 +39,12 @@
 
     <category name="siraca.participation.registration">
         <item name="siraca.participation.registration.registered"><![CDATA[You are registered]]></item>
-        <item name="siraca.participation.registration.registeredShort"><![CDATA[Registered]]></item>
         <item name="siraca.participation.registration.notRegistered"><![CDATA[You are not registered]]></item>
+        <item name="siraca.participation.registration.notConfirmed"><![CDATA[Your registration is not confirmed]]></item>
+
+        <item name="siraca.participation.registration.registeredShort"><![CDATA[Registered]]></item>
+        <item name="siraca.participation.registration.notRegisteredShort"><![CDATA[Not registered]]></item>
+        <item name="siraca.participation.registration.notConfirmedShort"><![CDATA[Registration not confirmed]]></item>
     </category>
 
     <category name="siraca.participation.type">

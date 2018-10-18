@@ -41,10 +41,10 @@ class ParticipationForm extends AbstractForm {
     public function validate() {
 		parent::validate();
 
-		$this->participation = Participation::getParticipation($this->race->raceID);
+		$this->participation = Participation::getUserParticipation($this->race->raceID);
 
 		if ($this->newParticipationType == $this->participation->type)
-			throw new UserInputException("participationType", "noChange");
+			throw new UserInputException("participationType", "noChange"); // TODO Gérer aussi l'erreur dans le formulaire, cf. création de course et titre vide
 	}
 
 	public function save() {
@@ -93,7 +93,7 @@ class ParticipationForm extends AbstractForm {
 	public function readData() {
 		parent::readData();
 
-		$this->participation = Participation::getParticipation($this->race->raceID);
+		$this->participation = Participation::getUserParticipation($this->race->raceID);
 	}
 
 	public function assignVariables() {

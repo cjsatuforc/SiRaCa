@@ -27,7 +27,7 @@
 						<div class="details raceInformation">
 							<div class="containerHeadline">
 								<h3><a href="{$race->getLink()}">{$race}</a></h3>
-								{if $race->isParticipant()}<span>{lang}siraca.participation.registration.registeredShort{/lang}</span>{/if}
+								{if $race->isParticipant()}<span>{lang}{$race->getParticipation()->getType()->shortTextLangId}{/lang}</span>{/if}
 							</div>
 						</div>
 					</div>

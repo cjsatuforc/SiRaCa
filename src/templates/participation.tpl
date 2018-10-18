@@ -4,9 +4,7 @@
 
 {include file='header'}
 
-{if $race->isParticipant()}<p>{lang}siraca.participation.registration.registered{/lang}</p>
-{else}<p>{lang}siraca.participation.registration.notRegistered{/lang}</p>
-{/if}
+<span>{lang}{$participation->getType()->longTextLangId}{/lang}</span>
 
 {include file='formError'}
 
@@ -17,7 +15,7 @@
 			<dd>
 				<select name="participationType" id="participationType">
 					{foreach from=$participationTypes item=participationType}
-						<option value="{$participationType}"{if $participation->type == $participationType} selected{/if}>{lang}{$participation->getLangId($participationType)}{/lang}</option>
+						<option value="{$participationType->type}"{if $participation->type == $participationType->type} selected{/if}>{lang}{$participationType->typeLangId}{/lang}</option>
 					{/foreach}
 				</select>
 				{if $errorField == 'participationType'}

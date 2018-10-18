@@ -5,8 +5,7 @@
 {capture assign='contentHeaderNavigation'}
 	<ul>
 		<li><span>
-			{if $race->isParticipant()}{lang}siraca.participation.registration.registered{/lang}
-			{else}{lang}siraca.participation.registration.notRegistered{/lang}{/if}
+			{lang}{$race->getParticipation()->getType()->longTextLangId}{/lang}
 		</li></span>
 		
 		{if $__wcf->getSession()->getPermission('user.siraca.canParticipateRace')}

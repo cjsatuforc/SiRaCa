@@ -24,10 +24,11 @@ class Race extends DatabaseObject implements IRouteController, ILinkableObject
     {
         $userID = WCF::getUser()->userID;
 
-        $sql = "SELECT	COUNT(*)
-			FROM	wcf" . WCF_N . "_siraca_participation
-			WHERE	raceID = ?
-			AND userID = ?";
+        $sql = "SELECT COUNT(*) FROM wcf" . WCF_N .
+            "_siraca_participation
+			WHERE   raceID = ?
+            AND     userID = ?";
+
         $statement = WCF::getDB()->prepareStatement($sql);
         $statement->execute([$this->raceID, $userID]);
 
@@ -48,7 +49,7 @@ class Race extends DatabaseObject implements IRouteController, ILinkableObject
     {
         return LinkHandler::getInstance()->getLink('Race', [
             'forceFrontend' => true,
-            'object' => $this,
+            'object'        => $this,
         ]);
     }
 

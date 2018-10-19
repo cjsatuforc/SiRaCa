@@ -69,21 +69,19 @@ class ParticipationForm extends AbstractForm
         switch ($action) {
             case 'create':
                 $objects = [];
-                $row = [
+                $row     = [
                     'raceID' => $this->race->raceID,
                     'userID' => WCF::getUser()->userID,
-                    'type' => $this->newParticipationType,
+                    'type'   => $this->newParticipationType,
                 ];
                 break;
             case 'update':
                 $objects = [$this->participation];
-                $row = [
-                    'type' => $this->newParticipationType,
-                ];
+                $row     = ['type' => $this->newParticipationType];
                 break;
             case 'delete':
                 $objects = [$this->participation];
-                $row = [];
+                $row     = [];
         }
 
         $this->objectAction = new ParticipationAction($objects, $action, [
@@ -111,8 +109,8 @@ class ParticipationForm extends AbstractForm
         parent::assignVariables();
 
         WCF::getTPL()->assign([
-            'race' => $this->race,
-            'participation' => $this->participation,
+            'race'               => $this->race,
+            'participation'      => $this->participation,
             'participationTypes' => ParticipationType::getTypes(),
         ]);
     }

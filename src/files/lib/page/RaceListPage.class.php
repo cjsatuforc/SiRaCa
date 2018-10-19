@@ -6,7 +6,6 @@ use wcf\page\SortablePage;
 
 class RaceListPage extends SortablePage
 {
-
     public $defaultSortField = 'title';
 
     public $objectListClassName = RaceList::class;

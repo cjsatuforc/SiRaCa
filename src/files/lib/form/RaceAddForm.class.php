@@ -9,7 +9,6 @@ use wcf\util\StringUtil;
 
 class RaceAddForm extends AbstractForm
 {
-
     public $neededPermissions = ['mod.siraca.canManageRace'];
 
     public $title = '';
@@ -20,7 +19,7 @@ class RaceAddForm extends AbstractForm
 
         WCF::getTPL()->assign([
             'action' => 'add',
-            'title' => $this->title,
+            'title'  => $this->title,
         ]);
     }
 

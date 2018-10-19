@@ -4,25 +4,24 @@ namespace wcf\data\siraca\participation;
 
 class ParticipationType
 {
-
-    const ABSENCE = 1;
+    const ABSENCE                = 1;
     const PRESENCE_NOT_CONFIRMED = 2;
-    const PRESENCE = 3;
+    const PRESENCE               = 3;
 
-    private static $absenceInstance = null;
+    private static $absenceInstance      = null;
     private static $notConfirmedInstance = null;
-    private static $presenceInstance = null;
+    private static $presenceInstance     = null;
 
-    private $type = 0;
-    private $typeLangId = '';
-    private $longTextLangId = '';
+    private $type            = 0;
+    private $typeLangId      = '';
+    private $longTextLangId  = '';
     private $shortTextLangId = '';
 
     protected function __construct($type, $typeLangId, $longTextLangId, $shortTextLangId)
     {
-        $this->type = $type;
-        $this->typeLangId = $typeLangId;
-        $this->longTextLangId = $longTextLangId;
+        $this->type            = $type;
+        $this->typeLangId      = $typeLangId;
+        $this->longTextLangId  = $longTextLangId;
         $this->shortTextLangId = $shortTextLangId;
     }
 
@@ -37,7 +36,11 @@ class ParticipationType
             self::createInstances();
         }
 
-        return [self::ABSENCE => self::$absenceInstance, self::PRESENCE_NOT_CONFIRMED => self::$notConfirmedInstance, self::PRESENCE => self::$presenceInstance];
+        return [
+            self::ABSENCE                => self::$absenceInstance,
+            self::PRESENCE_NOT_CONFIRMED => self::$notConfirmedInstance,
+            self::PRESENCE               => self::$presenceInstance,
+        ];
     }
 
     private static function createInstances()

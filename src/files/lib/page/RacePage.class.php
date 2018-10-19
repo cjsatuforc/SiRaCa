@@ -8,7 +8,6 @@ use wcf\system\WCF;
 
 class RacePage extends AbstractPage
 {
-
     public $race;
     public $raceID = 0;
 

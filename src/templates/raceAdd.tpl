@@ -1,10 +1,6 @@
 {capture assign='pageTitle'}{lang}siraca.race.add.title{/lang}{/capture}
 {capture assign='contentTitle'}{lang}siraca.race.add.title{/lang}{/capture}
 
-{capture assign='contentHeaderNavigation'}
-	<a href="{link controller='RaceList'}{/link}" class="button"><span class="icon icon16 fa-list"></span> <span>{lang}siraca.race.list.link{/lang}</span></a>
-{/capture}
-
 {include file='header'}
 
 {include file='formError'}

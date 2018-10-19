@@ -12,7 +12,7 @@
     </category>
 
     <category name="siraca.race">
-        <item name="siraca.race.title"><![CDATA[Course : ]]></item>
+        <!-- <item name="siraca.race.title"><![CDATA[Course : ]]></item> -->
     </category>
 
     <category name="siraca.race.add">

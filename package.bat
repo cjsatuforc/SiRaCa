@@ -9,11 +9,10 @@ set packageFileName=fr.chatcureuil.siraca.tar
 
 set functionsPath=cmd\functions.bat
 
-echo Read user paths
+echo Read user options
 call cmd\user_options.bat || goto:error
 
-call:cat Preparation
-call:task "Remove temporary folder"
+call:cat Preparation & call:task "Remove temporary folder"
 if exist "%tempPackageFolder%" rmdir /S /Q "%tempPackageFolder%" || goto:error
 
 call:task "Remove old package"
@@ -24,7 +23,6 @@ mkdir "%tempPackageFolder%" || goto:error
 
 
 call:cat Directories
-:: DIRECTORIES
 for /d %%i in ("%sourceFolder%\*") do (
 	set isArchive=false
 	
@@ -46,20 +44,17 @@ for /d %%i in ("%sourceFolder%\*") do (
 
 
 call:cat Files
-:: FILES
 for /r %%i in ("%sourceFolder%\*") do (
 	call:task "Copy %%~nxi"
 	copy "%%i" "%tempPackageFolder%" > nul || goto:error
 )
 
 
-call:cat Package
-call:task "Create package %packageFileName%"
+call:cat Package & call:task "Create package %packageFileName%"
 %zip% a "%packageFileName%" "./%tempPackageFolder%/*" > nul || goto:error
 
 
-call:cat Clean
-call:task "Remove temporary folder"
+call:cat Clean & call:task "Remove temporary folder"
 if exist "%tempPackageFolder%" rmdir /S /Q "%tempPackageFolder%" || goto:error
 
 
@@ -73,6 +68,7 @@ goto :eof
 call:err ERROR
 pause
 goto:eof
+
 
 :: Functions
 :cat

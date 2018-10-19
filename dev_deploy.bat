@@ -2,6 +2,7 @@
 
 set functionsPath=cmd\functions.bat
 
+echo Read user options
 call cmd\user_options.bat || goto :error
 
 if not exist "%woltlabWwwPath%" (
@@ -9,8 +10,7 @@ if not exist "%woltlabWwwPath%" (
 	goto :error
 )
 
-call:cat "Moving files"
-call:task "Move lib"
+call:cat "Moving files" & call:task "Move lib"
 if exist src\files\lib xcopy /Y /S src\files\lib\* "%woltlabPath%\lib\" > nul || goto :error
 
 call:task "Move templates"
@@ -19,15 +19,18 @@ if exist src\templates xcopy /Y /S src\templates\* "%woltlabPath%\templates\" > 
 call:task "Move acptemplates"
 if exist src\acptemplates xcopy /Y /S src\acptemplates\* "%woltlabPath%\acp\templates\" > nul || goto :error
 
+
 :: COMPLETE
 call:done "FILES DEPLOYED"
 ::timeout 2
 goto :eof
 
+
 :error
 call:err "ERROR"
 pause
 goto:eof
+
 
 :: Functions
 :cat

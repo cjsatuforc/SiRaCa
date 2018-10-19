@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<language xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/tornado/language.xsd" languagecode="en">
-	
+<language xmlns="http://www.woltlab.com" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/tornado/language.xsd" languagecode="en">
+
     <category name="wcf.acp.group">
-		<!-- <item name="wcf.acp.group.option.admin.content.canManagePeople"><![CDATA[Can manage people]]></item> -->
-		
-		<item name="wcf.acp.group.option.category.mod.siraca"><![CDATA[SiRaCa]]></item>
-		<item name="wcf.acp.group.option.category.user.siraca"><![CDATA[SiRaCa]]></item>
-		
-		<item name="wcf.acp.group.option.mod.siraca.canManageRace"><![CDATA[Can manage races]]></item>
-		
-		<item name="wcf.acp.group.option.user.siraca.canParticipateRace"><![CDATA[Can participate to races]]></item>
-	</category>
+        <!-- <item name="wcf.acp.group.option.admin.content.canManagePeople"><![CDATA[Can manage people]]></item> -->
+
+        <item name="wcf.acp.group.option.category.mod.siraca"><![CDATA[SiRaCa]]></item>
+        <item name="wcf.acp.group.option.category.user.siraca"><![CDATA[SiRaCa]]></item>
+
+        <item name="wcf.acp.group.option.mod.siraca.canManageRace"><![CDATA[Can manage races]]></item>
+
+        <item name="wcf.acp.group.option.user.siraca.canParticipateRace"><![CDATA[Can participate to races]]></item>
+    </category>
 
     <category name="siraca.race">
         <item name="siraca.race.title"><![CDATA[Race: ]]></item>
     </category>
-	
+
     <category name="siraca.race.add">
         <item name="siraca.race.add.link"><![CDATA[Organize a race]]></item>
         <item name="siraca.race.add.title"><![CDATA[Organize a race]]></item>
@@ -34,7 +35,7 @@
 
         <item name="siraca.participation.form.presence"><![CDATA[Change my participation]]></item>
         <item name="siraca.participation.form.error.noChange"><![CDATA[No participation change]]></item>
-        
+
     </category>
 
     <category name="siraca.participation.registration">
@@ -53,7 +54,7 @@
         <item name="siraca.participation.type.presenceNotConfirmed"><![CDATA[Undecided]]></item>
     </category>
 
-	<!-- <category name="wcf.acp.menu">
+    <!-- <category name="wcf.acp.menu">
 		<item name="wcf.acp.menu.link.person"><![CDATA[People]]></item>
 		<item name="wcf.acp.menu.link.person.add"><![CDATA[Add Person]]></item>
 		<item name="wcf.acp.menu.link.person.list"><![CDATA[People]]></item>

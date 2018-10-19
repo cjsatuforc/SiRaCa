@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<language xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/tornado/language.xsd" languagecode="en">
-	
+<language xmlns="http://www.woltlab.com" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/tornado/language.xsd" languagecode="en">
+
     <category name="wcf.acp.group">
-		<item name="wcf.acp.group.option.category.mod.siraca"><![CDATA[SiRaCa]]></item>
-		<item name="wcf.acp.group.option.category.user.siraca"><![CDATA[SiRaCa]]></item>
-		
-		<item name="wcf.acp.group.option.mod.siraca.canManageRace"><![CDATA[Organisation de courses]]></item>
-		
-		<item name="wcf.acp.group.option.user.siraca.canParticipateRace"><![CDATA[Participation aux courses]]></item>
-	</category>
+        <item name="wcf.acp.group.option.category.mod.siraca"><![CDATA[SiRaCa]]></item>
+        <item name="wcf.acp.group.option.category.user.siraca"><![CDATA[SiRaCa]]></item>
+
+        <item name="wcf.acp.group.option.mod.siraca.canManageRace"><![CDATA[Organisation de courses]]></item>
+
+        <item name="wcf.acp.group.option.user.siraca.canParticipateRace"><![CDATA[Participation aux courses]]></item>
+    </category>
 
     <category name="siraca.race">
         <item name="siraca.race.title"><![CDATA[Course : ]]></item>
     </category>
-	
+
     <category name="siraca.race.add">
         <item name="siraca.race.add.link"><![CDATA[Organiser une course]]></item>
         <item name="siraca.race.add.title"><![CDATA[Organiser une course]]></item>

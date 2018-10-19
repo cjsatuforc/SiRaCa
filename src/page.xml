@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<data xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/tornado/page.xsd">
-	<import>
-		<page identifier="fr.chatcureuil.siraca.RaceList">
-			<pageType>system</pageType>
-			<controller>wcf\page\RaceListPage</controller>
-			<name language="en">Races</name>
-			<name language="fr">Courses</name>
-			
-			<content language="en">
-				<title>Races</title>
-			</content>
-			<content language="fr">
-				<title>Courses</title>
-			</content>
-		</page>
-	</import>
+<data xmlns="http://www.woltlab.com" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/tornado/page.xsd">
+    <import>
+        <page identifier="fr.chatcureuil.siraca.RaceList">
+            <pageType>system</pageType>
+            <controller>wcf\page\RaceListPage</controller>
+            <name language="en">Races</name>
+            <name language="fr">Courses</name>
+
+            <content language="en">
+                <title>Races</title>
+            </content>
+            <content language="fr">
+                <title>Courses</title>
+            </content>
+        </page>
+    </import>
 </data>

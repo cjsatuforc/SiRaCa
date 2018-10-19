@@ -5,7 +5,8 @@ setlocal enabledelayedexpansion
 set sourceFolder=src
 set tempPackageFolder=temp_package
 set foldersToArchive=files files_update templates acptemplates
-set packageFileName=fr.chatcureuil.siraca.tar
+set packageFileName=fr.chatcureuil.siraca
+set archiveFileName=%packageFileName%.tar.gz
 
 set functionsPath=cmd\functions.bat
 
@@ -16,7 +17,7 @@ call:cat Preparation & call:task "Remove temporary folder"
 if exist "%tempPackageFolder%" rmdir /S /Q "%tempPackageFolder%" || goto:error
 
 call:task "Remove old package"
-if exist "%packageFileName%" del "%packageFileName%" || goto:error
+if exist "%archiveFileName%" del "%archiveFileName%" || goto:error
 
 call:task "Create temporary folder"
 mkdir "%tempPackageFolder%" || goto:error
@@ -34,7 +35,7 @@ for /d %%i in ("%sourceFolder%\*") do (
 	
 	if !isArchive! == true (
 		call:task "Tar %%i"
-		%zip% a "%tempPackageFolder%\%%~ni.tar" ".\%%i\*" > nul || goto:error
+		%zip% a -ttar "%tempPackageFolder%\%%~ni.tar" ".\%%i\*" > nul || goto:error
 	) else (
 		call:task "Copy %%i"
 		mkdir "%tempPackageFolder%\%%~ni" || goto:error
@@ -51,7 +52,7 @@ for /r %%i in ("%sourceFolder%\*") do (
 
 
 call:cat Package & call:task "Create package %packageFileName%"
-%zip% a "%packageFileName%" "./%tempPackageFolder%/*" > nul || goto:error
+%zip% a -ttar -so "%packageFileName%.tar" "./%tempPackageFolder%/*" | %zip% a -tgzip -si "%archiveFileName%" > nul || goto:error
 
 
 call:cat Clean & call:task "Remove temporary folder"

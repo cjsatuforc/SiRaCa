@@ -15,5 +15,41 @@
                 <title>Courses</title>
             </content>
         </page>
+
+        <page identifier="fr.chatcureuil.siraca.Race">
+            <pageType>system</pageType>
+            <controller>wcf\page\RacePage</controller>
+            <!-- <handler>wcf\system\page\handler\RacePageHandler</handler> -->
+            <name language="en">Race</name>
+            <name language="fr">Course</name>
+            <requireObjectID>1</requireObjectID>
+            <parent>fr.chatcureuil.siraca.RaceList</parent>
+        </page>
+
+        <page identifier="fr.chatcureuil.siraca.RaceAdd">
+            <pageType>system</pageType>
+            <controller>wcf\form\RaceAddForm</controller>
+            <name language="en">Organize race</name>
+            <name language="fr">Organiser une course</name>
+
+            <content language="en">
+                <title>Organize race</title>
+            </content>
+            <content language="fr">
+                <title>Organiser une course</title>
+            </content>
+
+            <parent>fr.chatcureuil.siraca.RaceList</parent>
+        </page>
+
+        <page identifier="fr.chatcureuil.siraca.Participation">
+            <pageType>system</pageType>
+            <controller>wcf\form\ParticipationForm</controller>
+            <name language="en">Participation</name>
+            <name language="fr">Participation</name>
+            <requireObjectID>1</requireObjectID>
+            <parent>fr.chatcureuil.siraca.Race</parent>
+        </page>
+
     </import>
 </data>

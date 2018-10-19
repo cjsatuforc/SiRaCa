@@ -8,6 +8,7 @@ use wcf\data\siraca\race\Race;
 use wcf\form\AbstractForm;
 use wcf\system\exception\IllegalLinkException;
 use wcf\system\exception\UserInputException;
+use wcf\system\page\PageLocationManager;
 use wcf\system\request\LinkHandler;
 use wcf\system\WCF;
 use wcf\util\HeaderUtil;
@@ -53,7 +54,6 @@ class ParticipationForm extends AbstractForm
         if ($this->newParticipationType == $this->participation->type) {
             throw new UserInputException("participationType", "noChange");
         }
-        // TODO Gérer aussi l'erreur dans le formulaire, cf. création de course et titre vide
     }
 
     public function save()
@@ -75,10 +75,12 @@ class ParticipationForm extends AbstractForm
                     'type'   => $this->newParticipationType,
                 ];
                 break;
+
             case 'update':
                 $objects = [$this->participation];
                 $row     = ['type' => $this->newParticipationType];
                 break;
+
             case 'delete':
                 $objects = [$this->participation];
                 $row     = [];
@@ -102,6 +104,7 @@ class ParticipationForm extends AbstractForm
         parent::readData();
 
         $this->participation = Participation::getUserParticipation($this->race->raceID);
+        PageLocationManager::getInstance()->addParentLocation('fr.chatcureuil.siraca.Race', $this->race->raceID, $this->race);
     }
 
     public function assignVariables()

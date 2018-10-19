@@ -3,22 +3,16 @@
 namespace wcf\data\siraca\race;
 
 use wcf\data\DatabaseObject;
-use wcf\data\ILinkableObject;
+use wcf\data\ITitledLinkObject;
 use wcf\data\siraca\participation\Participation;
 use wcf\system\request\IRouteController;
 use wcf\system\request\LinkHandler;
 use wcf\system\WCF;
 
-class Race extends DatabaseObject implements IRouteController, ILinkableObject
+class Race extends DatabaseObject implements IRouteController, ITitledLinkObject
 {
     protected static $databaseTableName = 'siraca_race';
-
     private $participation;
-
-    public function getTitle()
-    {
-        return $this->title;
-    }
 
     public function isParticipant()
     {
@@ -43,6 +37,11 @@ class Race extends DatabaseObject implements IRouteController, ILinkableObject
         }
 
         return $this->participation;
+    }
+
+    public function getTitle()
+    {
+        return $this->title;
     }
 
     public function getLink()

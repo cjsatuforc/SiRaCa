@@ -27,7 +27,10 @@
 				{/if}
 			</dd>
 		</dl>
+		{event name='dataFields'}
 	</section>
+    
+	{event name='sections'}
 
 	<div class="formSubmit">
 		<input type="submit" value="{lang}wcf.global.button.submit{/lang}" accesskey="s">

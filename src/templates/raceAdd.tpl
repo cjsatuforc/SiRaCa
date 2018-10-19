@@ -1,5 +1,4 @@
 {capture assign='pageTitle'}{lang}siraca.race.add.title{/lang}{/capture}
-
 {capture assign='contentTitle'}{lang}siraca.race.add.title{/lang}{/capture}
 
 {capture assign='contentHeaderNavigation'}

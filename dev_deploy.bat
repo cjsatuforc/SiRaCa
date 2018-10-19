@@ -11,14 +11,13 @@ if not exist "%woltlabWwwPath%" (
 )
 
 call:cat "Moving files" & call:task "Move lib"
-if exist src\files\lib xcopy /Y /S src\files\lib\* "%woltlabPath%\lib\" > nul || goto :error
+if exist src\files\lib xcopy /Y /S src\files\lib\* "%woltlabWwwPath%\lib\" > nul || goto :error
 
 call:task "Move templates"
-if exist src\templates xcopy /Y /S src\templates\* "%woltlabPath%\templates\" > nul || goto :error
+if exist src\templates xcopy /Y /S src\templates\* "%woltlabWwwPath%\templates\" > nul || goto :error
 
 call:task "Move acptemplates"
-if exist src\acptemplates xcopy /Y /S src\acptemplates\* "%woltlabPath%\acp\templates\" > nul || goto :error
-
+if exist src\acptemplates xcopy /Y /S src\acptemplates\* "%woltlabWwwPath%\acp\templates\" > nul || goto :error
 
 :: COMPLETE
 call:done "FILES DEPLOYED"

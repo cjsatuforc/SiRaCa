@@ -10,10 +10,17 @@ set archiveFileName=%packageFileName%.tar.gz
 
 set functionsPath=cmd\functions.bat
 
+
 echo Read user options
 call cmd\user_options.bat || goto:error
 
-call:cat Preparation & call:task "Remove temporary folder"
+call:cat Preparation & call:task "Check source folder"
+if not exist %sourceFolder% (
+	echo Source folder '%sourceFolder%' doesn't exist.
+	goto:error
+)
+
+call:task "Remove temporary folder"
 if exist "%tempPackageFolder%" rmdir /S /Q "%tempPackageFolder%" || goto:error
 
 call:task "Remove old package"
@@ -38,8 +45,7 @@ for /d %%i in ("%sourceFolder%\*") do (
 		%zip% a -ttar "%tempPackageFolder%\%%~ni.tar" ".\%%i\*" > nul || goto:error
 	) else (
 		call:task "Copy %%i"
-		mkdir "%tempPackageFolder%\%%~ni" || goto:error
-		xcopy /Y /S "%%i" "%tempPackageFolder%\%%~ni" > nul || goto:error
+		xcopy /Y /S /I "%%i" "%tempPackageFolder%\%%~ni" > nul || goto:error
 	)
 )
 
@@ -51,7 +57,7 @@ for /r %%i in ("%sourceFolder%\*") do (
 )
 
 
-call:cat Package & call:task "Create package %packageFileName%"
+call:cat Package & call:task "Create package %archiveFileName%"
 %zip% a -ttar -so "%packageFileName%.tar" "./%tempPackageFolder%/*" | %zip% a -tgzip -si "%archiveFileName%" > nul || goto:error
 
 

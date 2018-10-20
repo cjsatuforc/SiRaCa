@@ -51,5 +51,21 @@
             <parent>fr.chatcureuil.siraca.Race</parent>
         </page>
 
+        <page identifier="fr.chatcureuil.siraca.MyParticipationsList">
+            <pageType>system</pageType>
+            <controller>wcf\page\MyParticipationsListPage</controller>
+            <name language="en">My races</name>
+            <name language="fr">Mes courses</name>
+            <!-- <requireObjectID>1</requireObjectID> -->
+            <parent>fr.chatcureuil.siraca.RaceList</parent>
+
+            <content language="en">
+                <title>My races</title>
+            </content>
+            <content language="fr">
+                <title>Mes courses</title>
+            </content>
+        </page>
+
     </import>
 </data>

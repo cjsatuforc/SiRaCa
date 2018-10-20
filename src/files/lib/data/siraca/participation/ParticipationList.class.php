@@ -5,4 +5,5 @@ use wcf\data\DatabaseObjectList;
 
 class ParticipationList extends DatabaseObjectList
 {
+    public $className = Participation::class;
 }

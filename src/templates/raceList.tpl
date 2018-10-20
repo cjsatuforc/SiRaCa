@@ -22,7 +22,7 @@
 			{foreach from=$objects item=race}
 				<li>
 					<div class="box48">
-						<span class="icon icon48 fa-user"></span>
+						<span class="icon icon48 fa-car"></span>
 						
 						<div class="details raceInformation">
 							<div class="containerHeadline">

@@ -15,6 +15,7 @@ class RacePage extends AbstractPage
     {
         parent::assignVariables();
 
+        // TODO donner les infos détaillées pour éviter que le tpl fasse plusieurs requêtes DB (ex. remplacer $race->getParticipation()->getType() par $participationType).
         WCF::getTPL()->assign([
             'race' => $this->race,
         ]);

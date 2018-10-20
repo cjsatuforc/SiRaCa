@@ -31,7 +31,6 @@ class Race extends DatabaseObject implements IRouteController, ITitledLinkObject
 
     public function getParticipation()
     {
-        // TODO Utiliser Runtime cache au lieu de le faire soi-même, c'est peut-être pas correct ça.
         if (!$this->participation) {
             $this->participation = Participation::getUserParticipation($this->raceID);
         }

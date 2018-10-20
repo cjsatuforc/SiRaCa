@@ -14,12 +14,12 @@
     </category>
 
     <category name="siraca.race">
-        <!-- <item name="siraca.race.title"><![CDATA[Race: ]]></item> -->
+        <item name="siraca.race.title"><![CDATA[Race: ]]></item>
     </category>
 
     <category name="siraca.race.add">
         <item name="siraca.race.add.link"><![CDATA[Organize a race]]></item>
-        <item name="siraca.race.add.title"><![CDATA[Organize a race]]></item>
+        <!-- <item name="siraca.race.add.title"><![CDATA[Organize a race]]></item> -->
 
         <item name="siraca.race.add.form.title"><![CDATA[Title]]></item>
     </category>
@@ -31,7 +31,7 @@
 
     <category name="siraca.participation">
         <item name="siraca.participation.link"><![CDATA[Manage my participation]]></item>
-        <item name="siraca.participation.title"><![CDATA[Registration: ]]></item>
+        <item name="siraca.participation.title"><![CDATA[Registration to ]]></item>
 
         <item name="siraca.participation.form.presence"><![CDATA[Change my participation]]></item>
         <item name="siraca.participation.form.error.noChange"><![CDATA[No participation change]]></item>

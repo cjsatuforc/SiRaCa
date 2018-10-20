@@ -51,9 +51,9 @@
             <parent>fr.chatcureuil.siraca.Race</parent>
         </page>
 
-        <page identifier="fr.chatcureuil.siraca.MyParticipationsList">
+        <page identifier="fr.chatcureuil.siraca.MyRacesList">
             <pageType>system</pageType>
-            <controller>wcf\page\MyParticipationsListPage</controller>
+            <controller>wcf\page\MyRacesListPage</controller>
             <name language="en">My races</name>
             <name language="fr">Mes courses</name>
             <!-- <requireObjectID>1</requireObjectID> -->

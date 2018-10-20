@@ -11,11 +11,11 @@
             <page>fr.chatcureuil.siraca.RaceList</page>
         </item>
 
-        <item identifier="fr.chatcureuil.siraca.MyParticipations">
+        <item identifier="fr.chatcureuil.siraca.MyRaces">
             <parent>fr.chatcureuil.siraca.MainMenu</parent>
             <title language="en">My races</title>
             <title language="fr">Mes courses</title>
-            <page>fr.chatcureuil.siraca.MyParticipationsList</page>
+            <page>fr.chatcureuil.siraca.MyRacesList</page>
         </item>
 
     </import>

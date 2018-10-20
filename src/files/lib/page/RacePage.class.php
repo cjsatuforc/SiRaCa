@@ -2,6 +2,7 @@
 namespace wcf\page;
 
 use wcf\data\siraca\race\Race;
+use wcf\data\siraca\race\ViewableRace;
 use wcf\page\AbstractPage;
 use wcf\system\exception\IllegalLinkException;
 use wcf\system\WCF;
@@ -34,7 +35,7 @@ class RacePage extends AbstractPage
             $this->raceID = intval($_REQUEST['id']);
         }
 
-        $this->race = new Race($this->raceID);
+        $this->race = new ViewableRace(new Race($this->raceID));
         if (!$this->race->raceID) {
             throw new IllegalLinkException();
         }

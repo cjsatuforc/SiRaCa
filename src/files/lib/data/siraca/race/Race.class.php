@@ -5,6 +5,7 @@ namespace wcf\data\siraca\race;
 use wcf\data\DatabaseObject;
 use wcf\data\ITitledLinkObject;
 use wcf\data\siraca\participation\Participation;
+use wcf\data\siraca\participation\ParticipationType;
 use wcf\system\request\IRouteController;
 use wcf\system\request\LinkHandler;
 use wcf\system\WCF;
@@ -16,17 +17,7 @@ class Race extends DatabaseObject implements IRouteController, ITitledLinkObject
 
     public function isParticipant()
     {
-        $userID = WCF::getUser()->userID;
-
-        $sql = "SELECT COUNT(*) FROM wcf" . WCF_N .
-            "_siraca_participation
-			WHERE   raceID = ?
-            AND     userID = ?";
-
-        $statement = WCF::getDB()->prepareStatement($sql);
-        $statement->execute([$this->raceID, $userID]);
-
-        return $statement->fetchSingleColumn() > 0;
+        return $this->getParticipationType()->type != ParticipationType::ABSENCE;
     }
 
     public function getParticipation()
@@ -36,6 +27,11 @@ class Race extends DatabaseObject implements IRouteController, ITitledLinkObject
         }
 
         return $this->participation;
+    }
+
+    public function getParticipationType()
+    {
+        return $this->getParticipation()->getType();
     }
 
     public function getTitle()

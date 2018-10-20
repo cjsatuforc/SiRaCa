@@ -17,7 +17,7 @@
 						<div class="details raceInformation">
 							<div class="containerHeadline">
 								<h3><a href="{$participation->getRace()->getLink()}">{$participation->getRace()}</a></h3>
-								<span>{lang}{$participation->getRace()->getParticipation()->getType()->shortTextLangId}{/lang}</span>
+								<span>{lang}{$participation->getType()->shortTextLangId}{/lang}</span>
 							</div>
 						</div>
 					</div>

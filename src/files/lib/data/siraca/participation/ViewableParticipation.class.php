@@ -17,7 +17,6 @@ class ViewableParticipation extends DatabaseObjectDecorator
 
         $this->race = new Race($this->getDecoratedObject()->raceID);
     }
-
     public function getRace()
     {
         return $this->race;

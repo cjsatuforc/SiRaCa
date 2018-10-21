@@ -1,6 +1,7 @@
 <?php
 namespace wcf\page;
 
+use wcf\data\siraca\participation\ViewableParticipationList;
 use wcf\data\siraca\race\Race;
 use wcf\data\siraca\race\ViewableRace;
 use wcf\page\AbstractPage;
@@ -11,21 +12,7 @@ class RacePage extends AbstractPage
 {
     public $race;
     public $raceID = 0;
-
-    public function assignVariables()
-    {
-        parent::assignVariables();
-
-        // TODO donner les infos détaillées pour éviter que le tpl fasse plusieurs requêtes DB (ex. remplacer $race->getParticipation()->getType() par $participationType).
-        WCF::getTPL()->assign([
-            'race' => $this->race,
-        ]);
-    }
-
-    public function readData()
-    {
-        parent::readData();
-    }
+    private $participationList;
 
     public function readParameters()
     {
@@ -39,5 +26,23 @@ class RacePage extends AbstractPage
         if (!$this->race->raceID) {
             throw new IllegalLinkException();
         }
+    }
+
+    public function readData()
+    {
+        parent::readData();
+
+        $this->participationList = new ViewableParticipationList($this->race->raceID);
+        $this->participationList->readObjects(); // TODO regarder quand/pourquoi AbstractPage utilise le readObjectIDs
+    }
+
+    public function assignVariables()
+    {
+        parent::assignVariables();
+
+        WCF::getTPL()->assign([
+            'race'           => $this->race,
+            'participations' => $this->participationList->getObjects(),
+        ]);
     }
 }

@@ -15,6 +15,7 @@
 
     <category name="siraca.race">
         <item name="siraca.race.title"><![CDATA[Race: ]]></item>
+        <item name="siraca.race.participants"><![CDATA[Participants]]></item>
     </category>
 
     <category name="siraca.race.add">

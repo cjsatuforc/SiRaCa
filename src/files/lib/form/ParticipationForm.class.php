@@ -1,9 +1,9 @@
 <?php
 namespace wcf\form;
 
-use wcf\data\siraca\participation\Participation;
 use wcf\data\siraca\participation\ParticipationAction;
 use wcf\data\siraca\participation\ParticipationType;
+use wcf\data\siraca\participation\ViewableParticipation;
 use wcf\data\siraca\race\Race;
 use wcf\form\AbstractForm;
 use wcf\system\exception\IllegalLinkException;
@@ -49,7 +49,7 @@ class ParticipationForm extends AbstractForm
     {
         parent::validate();
 
-        $this->participation = Participation::getUserParticipation($this->race->raceID);
+        $this->participation = ViewableParticipation::getUserParticipation($this->race->raceID);
 
         if ($this->newParticipationType == $this->participation->type) {
             throw new UserInputException("participationType", "noChange");
@@ -77,12 +77,12 @@ class ParticipationForm extends AbstractForm
                 break;
 
             case 'update':
-                $objects = [$this->participation];
+                $objects = [$this->participation->getDecoratedObject()];
                 $row     = ['type' => $this->newParticipationType];
                 break;
 
             case 'delete':
-                $objects = [$this->participation];
+                $objects = [$this->participation->getDecoratedObject()];
                 $row     = [];
         }
 
@@ -103,7 +103,7 @@ class ParticipationForm extends AbstractForm
     {
         parent::readData();
 
-        $this->participation = Participation::getUserParticipation($this->race->raceID);
+        $this->participation = ViewableParticipation::getUserParticipation($this->race->raceID);
         PageLocationManager::getInstance()->addParentLocation('fr.chatcureuil.siraca.Race', $this->race->raceID, $this->race);
     }
 

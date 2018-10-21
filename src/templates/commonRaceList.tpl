@@ -8,7 +8,7 @@
                     <div class="details raceInformation">
                         <div class="containerHeadline">
                             <h3><a href="{$race->getLink()}">{$race}</a></h3>
-                            <span>{lang}{$race->getParticipationType()->shortTextLangId}{/lang}</span>
+                            {if $race->isParticipant()}<span>{lang}{$race->getParticipationType()->shortTextLangId}{/lang}</span>{/if}
                         </div>
                     </div>
                 </div>

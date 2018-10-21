@@ -19,7 +19,8 @@
 {include file='header'}
 
 <div class="section sectionContainerList">
-    <ol>
+    <div class="sectionTitle">{lang}siraca.race.participants{/lang}</div>
+    <ol> 
         {foreach from=$participations item=participation}
             <li>
                 <div class="box16">

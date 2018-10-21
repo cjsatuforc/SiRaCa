@@ -19,23 +19,27 @@
 {include file='header'}
 
 <div class="section sectionContainerList">
-    <div class="sectionTitle">{lang}siraca.race.participants{/lang}</div>
-    <ol> 
-        {foreach from=$participations item=participation}
-            <li>
-                <div class="box16">
-                    <span class="icon ico16 fa-user"></span>
-                    
-                    <div class="details">
-                        <div class="containerHeadline">
-                            <a href="{$participation->getUserLink()}">{$participation->getUsername()}</a>
-                            {if $participation->isUncertain()}<small>({lang}{$participation->getType()->shortTextLangId}{/lang})</small>{/if}
+    <h2 class="sectionTitle">{lang}siraca.race.participants{/lang}
+        <span class="badge">{#$participations}</span></h2>
+        {if #$participations}
+            <ol> 
+                {foreach from=$participations item=participation}
+                    <li>
+                        <div class="box16">
+                            <span class="icon ico16 fa-user"></span>
+                            
+                            <div class="details">
+                                <div class="containerHeadline">
+                                    <a href="{$participation->getUserLink()}">{$participation->getUsername()}</a>
+                                    {if $participation->isUncertain()}<small>({lang}{$participation->getType()->shortTextLangId}{/lang})</small>{/if}
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </li>
-        {/foreach}
-    </ol>
+                    </li>
+                {/foreach}
+            </ol>
+        {/if}
+
 </div>
 
 {include file='footer'}

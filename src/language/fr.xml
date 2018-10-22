@@ -41,6 +41,11 @@
         <item name="siraca.participation.form.error.noChange"><![CDATA[Vous n'avez fait aucun changement]]></item>
     </category>
 
+    <category name="siraca.participation.deniedReason">
+        <item name="siraca.participation.deniedReason.guest"><![CDATA[Seuls les membres du forum peuvent participer]]></item>
+        <item name="siraca.participation.deniedReason.noPermission"><![CDATA[Vous n'êtes pas autorisé à participer]]></item>
+    </category>
+
     <category name="siraca.participation.registration">
         <item name="siraca.participation.registration.registered"><![CDATA[Vous êtes inscrit]]></item>
         <item name="siraca.participation.registration.notRegistered"><![CDATA[Vous n'êtes pas inscrit]]></item>

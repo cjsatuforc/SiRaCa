@@ -4,17 +4,24 @@
 
 {capture assign='contentHeaderNavigation'}
 	<ul>
-		<li><span>
-			{lang}{$race->getParticipationType()->longTextLangId}{/lang}
-		</li></span>
+		<li>
+            {if !$__wcf->user->userID}
+                <span>{lang}siraca.participation.deniedReason.guest{/lang}</span>
+            {elseif !$__wcf->getSession()->getPermission('user.siraca.canParticipateRace')}
+                <span>{lang}siraca.participation.deniedReason.noPermission{/lang}</span>
+            {else}
+                <span>{lang}{$race->getParticipationType()->longTextLangId}{/lang}</span>
+            {/if}
+        </li>
 		
-		{if $__wcf->getSession()->getPermission('user.siraca.canParticipateRace')}
-			<li>
-				<a href="{link controller='Participation' object=$race}{/link}" class="button">
-                    <span class="icon icon16 fa-sign-in"></span> <span>{lang}siraca.participation.link{/lang}</span>
-                </a>
-			</li>
-		{/if}
+        <li>
+            <a href="{link controller='Participation' object=$race}{/link}"class="button
+                    {if !$__wcf->user->userID
+                    || !$__wcf->getSession()->getPermission('user.siraca.canParticipateRace')}disabled{/if}">
+                    
+                <span class="icon icon16 fa-sign-in"></span> <span>{lang}siraca.participation.link{/lang}</span>
+            </a>
+        </li>
 	</ul>
 {/capture}
 

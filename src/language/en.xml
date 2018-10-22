@@ -41,7 +41,11 @@
 
         <item name="siraca.participation.form.presence"><![CDATA[Change my participation]]></item>
         <item name="siraca.participation.form.error.noChange"><![CDATA[No participation change]]></item>
+    </category>
 
+    <category name="siraca.participation.deniedReason">
+        <item name="siraca.participation.deniedReason.guest"><![CDATA[Only forum members can participate]]></item>
+        <item name="siraca.participation.deniedReason.noPermission"><![CDATA[You're not allowed to participate]]></item>
     </category>
 
     <category name="siraca.participation.registration">

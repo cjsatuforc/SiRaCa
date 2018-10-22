@@ -5,13 +5,15 @@
 {capture assign='contentHeaderNavigation'}
 	<ul>
 		<li>
-            {if !$__wcf->user->userID}
-                <span>{lang}siraca.participation.deniedReason.guest{/lang}</span>
-            {elseif !$__wcf->getSession()->getPermission('user.siraca.canParticipateRace')}
-                <span>{lang}siraca.participation.deniedReason.noPermission{/lang}</span>
-            {else}
-                <span>{lang}{$race->getParticipationType()->longTextLangId}{/lang}</span>
-            {/if}
+            <small>
+                {if !$__wcf->user->userID}
+                    {lang}siraca.participation.deniedReason.guest{/lang}
+                {elseif !$__wcf->getSession()->getPermission('user.siraca.canParticipateRace')}
+                    {lang}siraca.participation.deniedReason.noPermission{/lang}
+                {else}
+                    {lang}{$race->getParticipationType()->longTextLangId}{/lang}
+                {/if}
+            </small>
         </li>
 		
         <li>

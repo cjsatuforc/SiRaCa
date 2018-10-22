@@ -50,7 +50,7 @@
                     {if $__wcf->user->userID && $__wcf->session->getPermission('mod.siraca.canManageRace')}
                         <li>
                             <a href="{link controller='RaceEdit' object=$race}{/link}" class="button buttonPrimary">
-                            <span class="icon icon16 fa-sign-in"></span> <span>{lang}wcf.global.button.edit{/lang}</span></a>
+                            <span class="icon icon16 fa-pencil"></span> <span>{lang}wcf.global.button.edit{/lang}</span></a>
                         </li>
                     {/if}
                     {event name='contentFooterNavigation'}

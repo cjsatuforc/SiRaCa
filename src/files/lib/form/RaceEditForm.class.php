@@ -1,0 +1,67 @@
+<?php
+namespace wcf\form;
+
+use wcf\data\siraca\race\Race;
+use wcf\data\siraca\race\RaceAction;
+use wcf\system\request\LinkHandler;
+use wcf\system\WCF;
+use wcf\util\HeaderUtil;
+
+class RaceEditForm extends RaceAddForm
+{
+    private $race;
+
+    public function readParameters()
+    {
+        parent::readParameters();
+
+        $raceID = 0;
+
+        if (isset($_REQUEST['id'])) {
+            $raceID = intval($_REQUEST['id']);
+        }
+
+        $this->race = new Race($raceID);
+        if (!$this->race->raceID) {
+            throw new IllegalLinkException();
+        }
+    }
+
+    public function readData()
+    {
+        parent::readData();
+
+        if (empty($_POST)) {
+            $this->title = $this->race->title;
+        }
+    }
+
+    public function assignVariables()
+    {
+        parent::assignVariables();
+
+        WCF::getTPL()->assign([
+            'action' => 'edit',
+            'race'   => $this->race,
+        ]);
+    }
+
+    public function save()
+    {
+        AbstractForm::save();
+
+        $action = new RaceAction([$this->race], 'update', [
+            'data' => array_merge($this->additionalFields, [
+                'title' => $this->title,
+            ]),
+        ]);
+
+        $action->executeAction();
+
+        $this->saved();
+
+        HeaderUtil::redirect(LinkHandler::getInstance()->getLink('Race', [
+            'object' => $this->race,
+        ]));
+    }
+}

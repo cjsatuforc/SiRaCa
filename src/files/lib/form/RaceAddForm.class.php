@@ -13,16 +13,6 @@ class RaceAddForm extends AbstractForm
 
     public $title = '';
 
-    public function assignVariables()
-    {
-        parent::assignVariables();
-
-        WCF::getTPL()->assign([
-            'action' => 'add',
-            'title'  => $this->title,
-        ]);
-    }
-
     public function readFormParameters()
     {
         parent::readFormParameters();
@@ -31,6 +21,18 @@ class RaceAddForm extends AbstractForm
             $this->title = StringUtil::trim($_POST['title']);
         }
 
+    }
+
+    public function validate()
+    {
+        parent::validate();
+
+        if (empty($this->title)) {
+            throw new UserInputException('title');
+        }
+        if (mb_strlen($this->title) > 255) {
+            throw new UserInputException('title', 'tooLong');
+        }
     }
 
     public function save()
@@ -53,16 +55,14 @@ class RaceAddForm extends AbstractForm
         WCF::getTPL()->assign('success', true);
     }
 
-    public function validate()
+    public function assignVariables()
     {
-        parent::validate();
+        parent::assignVariables();
 
-        if (empty($this->title)) {
-            throw new UserInputException('title');
-        }
-        if (mb_strlen($this->title) > 255) {
-            throw new UserInputException('title', 'tooLong');
-        }
+        WCF::getTPL()->assign([
+            'action' => 'add',
+            'title'  => $this->title,
+        ]);
     }
 
 }

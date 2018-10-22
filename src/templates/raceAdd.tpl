@@ -6,7 +6,7 @@
 	<p class="success">{lang}wcf.global.success.{$action}{/lang}</p>
 {/if}
 
-<form method="post" action="{link controller='RaceAdd'}{/link}">
+<form method="post" action="{if $action == 'add'}{link controller='RaceAdd'}{/link}{else}{link controller='RaceEdit' object=$race}{/link}{/if}">
 	<div class="section">
 		<dl {if $errorField == 'title'} class="formError"{/if}>
 			<dt><label for="title">{lang}siraca.race.add.form.title{/lang}</label></dt>

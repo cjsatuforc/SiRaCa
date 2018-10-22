@@ -32,14 +32,16 @@
             <name language="en">Organize race</name>
             <name language="fr">Organiser une course</name>
 
-            <content language="en">
-                <title>Organize race</title>
-            </content>
-            <content language="fr">
-                <title>Organiser une course</title>
-            </content>
-
             <parent>fr.chatcureuil.siraca.RaceList</parent>
+        </page>
+
+        <page identifier="fr.chatcureuil.siraca.RaceEdit">
+            <pageType>system</pageType>
+            <controller>wcf\form\RaceEditForm</controller>
+            <name language="en">Edit race</name>
+            <name language="fr">Édition de la course</name>
+
+            <parent>fr.chatcureuil.siraca.Race</parent>
         </page>
 
         <page identifier="fr.chatcureuil.siraca.Participation">

@@ -3,6 +3,7 @@ namespace wcf\form;
 
 use wcf\data\siraca\race\Race;
 use wcf\data\siraca\race\RaceAction;
+use wcf\system\page\PageLocationManager;
 use wcf\system\request\LinkHandler;
 use wcf\system\WCF;
 use wcf\util\HeaderUtil;
@@ -34,6 +35,8 @@ class RaceEditForm extends RaceAddForm
         if (empty($_POST)) {
             $this->title = $this->race->title;
         }
+
+        PageLocationManager::getInstance()->addParentLocation('fr.chatcureuil.siraca.Race', $this->race->raceID, $this->race);
     }
 
     public function assignVariables()

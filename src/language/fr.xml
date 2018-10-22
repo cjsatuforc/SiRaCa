@@ -18,9 +18,14 @@
 
     <category name="siraca.race.add">
         <item name="siraca.race.add.link"><![CDATA[Organiser une course]]></item>
-        <!-- <item name="siraca.race.add.title"><![CDATA[Organiser une course]]></item> -->
+        <item name="siraca.race.add.title"><![CDATA[Organiser une course]]></item>
 
         <item name="siraca.race.add.form.title"><![CDATA[Titre]]></item>
+    </category>
+
+    <category name="siraca.race.edit">
+        <item name="siraca.race.edit.link"><![CDATA[Éditer]]></item>
+        <item name="siraca.race.edit.title"><![CDATA[Édition de ]]></item>
     </category>
 
     <category name="siraca.race.list">

@@ -1,3 +1,11 @@
+{if $action == 'add'}
+    {capture assign='pageTitle'}{lang}siraca.race.add.title{/lang}{/capture}
+    {capture assign='contentTitle'}{lang}siraca.race.add.title{/lang}{/capture}
+{else}
+    {capture assign='pageTitle'}{lang}siraca.race.edit.title{/lang} {$race->title}{/capture}
+    {capture assign='contentTitle'}{lang}siraca.race.edit.title{/lang} {$race->title}{/capture}
+{/if}
+
 {include file='header'}
 
 {include file='formError'}

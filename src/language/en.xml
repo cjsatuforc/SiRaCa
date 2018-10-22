@@ -20,9 +20,14 @@
 
     <category name="siraca.race.add">
         <item name="siraca.race.add.link"><![CDATA[Organize a race]]></item>
-        <!-- <item name="siraca.race.add.title"><![CDATA[Organize a race]]></item> -->
+        <item name="siraca.race.add.title"><![CDATA[Organize a race]]></item>
 
         <item name="siraca.race.add.form.title"><![CDATA[Title]]></item>
+    </category>
+
+    <category name="siraca.race.edit">
+        <item name="siraca.race.edit.link"><![CDATA[Edit]]></item>
+        <item name="siraca.race.edit.title"><![CDATA[Editing ]]></item>
     </category>
 
     <category name="siraca.race.list">

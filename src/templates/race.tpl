@@ -10,7 +10,9 @@
 		
 		{if $__wcf->getSession()->getPermission('user.siraca.canParticipateRace')}
 			<li>
-				<a href="{link controller='Participation' object=$race}{/link}" class="button"><span class="icon icon16 fa-sign-in"></span> <span>{lang}siraca.participation.link{/lang}</span></a>
+				<a href="{link controller='Participation' object=$race}{/link}" class="button">
+                    <span class="icon icon16 fa-sign-in"></span> <span>{lang}siraca.participation.link{/lang}</span>
+                </a>
 			</li>
 		{/if}
 	</ul>
@@ -38,7 +40,6 @@
             {/foreach}
         </ol>
     {/if}
-
 </div>
 
 <footer class="contentFooter">

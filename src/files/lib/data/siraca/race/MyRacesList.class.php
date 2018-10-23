@@ -19,7 +19,7 @@ class MyRacesList extends RaceList
         }
 
         // TODO Pas bien compris pourquoi il faut renseigner les deux. Revoir le code de DatabaseObjectList.
-        $this->sqlJoins .= " INNER JOIN wcf" . WCF_N . "_siraca_participation p ON (p.raceID = siraca_race.raceID)";
-        $this->sqlConditionJoins .= " INNER JOIN wcf" . WCF_N . "_siraca_participation p ON (p.raceID = siraca_race.raceID)";
+        $this->sqlJoins .= " INNER JOIN wcf" . WCF_N . "_siraca_participation p ON (p.raceID = siraca_race.raceID AND p.userID = $userID)";
+        $this->sqlConditionJoins .= " INNER JOIN wcf" . WCF_N . "_siraca_participation p ON (p.raceID = siraca_race.raceID AND p.userID = $userID)";
     }
 }

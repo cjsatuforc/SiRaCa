@@ -68,8 +68,6 @@
 		{* </nav>
 </footer> *}
 
-    
-
     <script data-relocate="true">
         elBySelAll('.jsSpoilerBox', null, function(spoilerBox) {
             spoilerBox.classList.remove('jsSpoilerBox');
@@ -86,6 +84,8 @@
                 if (!elDataBool(toggleButton, 'has-custom-label')) {
                     toggleButton.textContent = (toggleButton.classList.contains('active')) ? 'Hide Spoiler' : 'Display Spoiler';
                 }
+
+                elById("deleteRaceCheck").checked = false;
             });
         });
     </script>
@@ -112,7 +112,7 @@
             }
 
             function deleteRace() {
-                new WCF.Action.Proxy({ // TODO boite de confirmation
+                new WCF.Action.Proxy({
                         autoSend: true,
                         data: {
                             actionName: 'delete',
@@ -127,6 +127,5 @@
         });
     </script>
 {/if}
-
 
 {include file='footer'}

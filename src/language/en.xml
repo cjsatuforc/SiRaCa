@@ -28,6 +28,9 @@
     <category name="siraca.race.edit">
         <item name="siraca.race.edit.link"><![CDATA[Edit]]></item>
         <item name="siraca.race.edit.title"><![CDATA[Editing ]]></item>
+
+        <item name="siraca.race.edit.form.delete.label"><![CDATA[Delete race]]></item>
+        <item name="siraca.race.edit.form.delete.confirm"><![CDATA[Delete race? This action can't be undone.]]></item>
     </category>
 
     <category name="siraca.race.list">

@@ -26,6 +26,9 @@
     <category name="siraca.race.edit">
         <item name="siraca.race.edit.link"><![CDATA[Éditer]]></item>
         <item name="siraca.race.edit.title"><![CDATA[Édition de ]]></item>
+
+        <item name="siraca.race.edit.form.delete.label"><![CDATA[Supprimer la course]]></item>
+        <item name="siraca.race.edit.form.delete.confirm"><![CDATA[Supprimer la course ? Cette action est irréversible.]]></item>
     </category>
 
     <category name="siraca.race.list">

@@ -14,8 +14,9 @@
 	<p class="success">{lang}wcf.global.success.{$action}{/lang}</p>
 {/if}
 
+<div class="section">
 <form method="post" action="{if $action == 'add'}{link controller='RaceAdd'}{/link}{else}{link controller='RaceEdit' object=$race}{/link}{/if}">
-	<div class="section">
+	
 		<dl {if $errorField == 'title'} class="formError"{/if}>
 			<dt><label for="title">{lang}siraca.race.add.form.title{/lang}</label></dt>
 			<dd>
@@ -32,16 +33,100 @@
 				{/if}
 			</dd>
 		</dl>
-		
-		{event name='dataFields'}
-	</div>
-	
-	{event name='sections'}
 	
 	<div class="formSubmit">
-		<input type="submit" value="{lang}wcf.global.button.submit{/lang}" accesskey="s">
+		<input type="submit" value="{lang}wcf.global.button.submit{/lang}" accesskey="s" />
 		{@SECURITY_TOKEN_INPUT_TAG}
 	</div>
 </form>
+	</div>
+
+{if $action == 'edit'}
+{* <footer class="contentFooter">
+		<nav class="contentFooterNavigation"> *}
+            <div class="section">
+                <div class="spoilerBox jsSpoilerBox">
+                    <div class="jsOnly spoilerBoxHeader">
+                        <a class="button buttonPrimary small jsSpoilerToggle" data-has-custom-label="true">{lang}siraca.race.edit.form.delete.label{/lang}</a>
+                    </div>
+
+                    <div style="display: none">
+                        <dl>
+                            <dt></dt>
+                            <dd>
+                                <label><input type="checkbox" id="deleteRaceCheck" name="deleteRaceCheck" >{lang}siraca.race.edit.form.delete.label{/lang}</label>
+                            </dd>
+                        </dl>
+
+                        <div class="formSubmit"><!-- TODO remplacer formSubmit par un autre style centré -->
+                            <a class="button buttonPrimary" id="deleteRaceButton" name="deleteRaceButton">
+                                    <span class="icon icon16 fa-trash"></span> <span>{lang}wcf.global.button.delete{/lang}</span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+		{* </nav>
+</footer> *}
+
+    
+
+    <script data-relocate="true">
+        elBySelAll('.jsSpoilerBox', null, function(spoilerBox) {
+            spoilerBox.classList.remove('jsSpoilerBox');
+            
+            var toggleButton = elBySel('.jsSpoilerToggle', spoilerBox);
+            var container = toggleButton.parentNode.nextElementSibling;
+            
+            toggleButton.addEventListener(WCF_CLICK_EVENT, function(event) {
+                event.preventDefault();
+                
+                toggleButton.classList.toggle('active');
+                window[(toggleButton.classList.contains('active') ? 'elShow' : 'elHide')](container);
+                
+                if (!elDataBool(toggleButton, 'has-custom-label')) {
+                    toggleButton.textContent = (toggleButton.classList.contains('active')) ? 'Hide Spoiler' : 'Display Spoiler';
+                }
+            });
+        });
+    </script>
+
+    <script data-relocate="true">
+        $(function() {
+            elById("deleteRaceButton").addEventListener("click", deleteRaceClickHandler);
+            
+            function deleteRaceClickHandler(event) {
+                if($("#deleteRaceCheck").prop("checked")) {
+                    confirmDeletion();
+                }
+                else {
+                    // TODO message
+                }
+            }
+
+            function confirmDeletion() {
+                WCF.System.Confirmation.show(WCF.Language.get('{lang}siraca.race.edit.form.delete.confirm{/lang}'), function(action) {
+					if (action === 'confirm') {
+						deleteRace();
+					}
+				});
+            }
+
+            function deleteRace() {
+                new WCF.Action.Proxy({ // TODO boite de confirmation
+                        autoSend: true,
+                        data: {
+                            actionName: 'delete',
+                            className: 'wcf\\data\\siraca\\race\\RaceAction',
+                            objectIDs: [ {$race->raceID} ]
+                        },
+                        success: function(data) {
+                            window.location = "{link controller='RaceList' encode=false}{/link}";
+                        }
+                    });
+            }
+        });
+    </script>
+{/if}
+
 
 {include file='footer'}

@@ -3,11 +3,8 @@ namespace wcf\data\siraca\participation;
 
 class ParticipationManager
 {
-
     public static function deleteRaceParticipations(array $raceIDs)
     {
-        // $commentIDs = [];
-
         $participationList = new ParticipationList();
         $participationList->getConditionBuilder()->add('siraca_participation.raceID = ?', $raceIDs);
         $participationList->readObjectIDs();
@@ -16,5 +13,4 @@ class ParticipationManager
         $deleteAction = new ParticipationAction($participationIDs, 'delete');
         $deleteAction->executeAction();
     }
-
 }

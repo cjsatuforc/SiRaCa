@@ -47,7 +47,7 @@
             <div class="section">
                 <div class="spoilerBox jsSpoilerBox">
                     <div class="jsOnly spoilerBoxHeader">
-                        <a class="button buttonPrimary small jsSpoilerToggle" data-has-custom-label="true">{lang}siraca.race.edit.form.delete.label{/lang}</a>
+                        <a class="button small jsSpoilerToggle" data-has-custom-label="true">{lang}siraca.race.edit.form.delete.label{/lang}</a>
                     </div>
 
                     <div style="display: none">

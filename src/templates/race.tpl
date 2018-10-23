@@ -30,8 +30,8 @@
 {include file='header'}
 
 <div class="section sectionContainerList">
-    <h2 class="sectionTitle">{lang}siraca.race.participants{/lang} <span class="badge">{#$participations}</span></h2>
-    {if #$participations}
+    <h2 class="sectionTitle">{lang}siraca.race.participants{/lang} <span class="badge">{$participations|count}</span></h2>
+    {if !$participations|empty}
         <ol> 
             {foreach from=$participations item=participation}
                 <li>

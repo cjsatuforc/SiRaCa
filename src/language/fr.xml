@@ -45,7 +45,7 @@
     </category>
 
     <category name="siraca.participation.deniedReason">
-        <item name="siraca.participation.deniedReason.guest"><![CDATA[Seuls les membres du forum peuvent participer]]></item>
+        <item name="siraca.participation.deniedReason.guest"><![CDATA[Inscription réservée aux membres du forum]]></item>
         <item name="siraca.participation.deniedReason.noPermission"><![CDATA[Vous n'êtes pas autorisé à participer]]></item>
     </category>
 

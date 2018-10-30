@@ -85,7 +85,7 @@ class RaceAddForm extends AbstractForm
         WCF::getTPL()->assign([
             'action'    => 'add',
             'title'     => $this->title,
-            'startTime' => $this->startTime,
+            'startTime' => $this->startDateTime != null ? $this->startDateTime->format('c') : null,
         ]);
     }
 

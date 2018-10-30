@@ -15,32 +15,59 @@
 {/if}
 
 <div class="section">
-<form method="post" action="{if $action == 'add'}{link controller='RaceAdd'}{/link}{else}{link controller='RaceEdit' object=$race}{/link}{/if}">
-	
-		<dl {if $errorField == 'title'} class="formError"{/if}>
-			<dt><label for="title">{lang}siraca.race.add.form.title{/lang}</label></dt>
-			<dd>
-				<input type="text" id="title" name="title" value="{$title}" required autofocus maxlength="255" class="long">
-				{if $errorField == 'title'}
-					<small class="innerError">
-						{if $errorType == 'empty'}
-							{lang}wcf.global.form.error.empty{/lang}
-						{else}
-							{* TODO gestion d'erreur ? *}
-							{lang}siraca.race.title.error.{$errorType}{/lang}
-						{/if}
-					</small>
-				{/if}
-			</dd>
-		</dl>
-	
-	<div class="formSubmit">
-		<input type="submit" value="{lang}wcf.global.button.submit{/lang}" accesskey="s" />
-		{@SECURITY_TOKEN_INPUT_TAG}
-	</div>
-</form>
-	</div>
+    <form method="post" action="{if $action == 'add'}{link controller='RaceAdd'}{/link}{else}{link controller='RaceEdit' object=$race}{/link}{/if}">
+        
+        <dl {if $errorField == 'title'} class="formError"{/if}>
+            <dt><label for="title">{lang}siraca.race.add.form.title{/lang}</label></dt>
+            <dd>
+                <input type="text" id="title" name="title" value="{$title}" required autofocus maxlength="255" class="long">
+                {if $errorField == 'title'}
+                    <small class="innerError">
+                        {if $errorType == 'empty'}
+                            {lang}wcf.global.form.error.empty{/lang}
+                        {else}
+                            {* TODO gestion d'erreur ? *}
+                            {lang}siraca.race.title.error.{$errorType}{/lang}
+                        {/if}
+                    </small>
+                {/if}
+            </dd>
+        </dl>
 
+        <dl {if $errorField == 'startTime'} class="formError"{/if}>
+            <dt><label for="startTime">{lang}siraca.race.add.form.startTime{/lang}</label></dt>
+            <dd>
+                <input type="datetime" id="startTime" name="startTime" class="medium"
+                        {if $startTime|isset}value={$startTime} {/if}data-ignore-timezone="true" data-disable-clear="true">
+                {if $errorField == 'startTime'}
+                    <small class="innerError">
+                        {if $errorType == 'empty'}
+                            {lang}wcf.global.form.error.empty{/lang}
+                        {else}
+                            {lang}siraca.race.add.form.startTime.error.{@$errorType}{/lang}
+                        {/if}
+                    </small>
+                {/if}
+            </dd>
+        </dl>
+            
+        <div class="formSubmit">
+            <input type="submit" value="{lang}wcf.global.button.submit{/lang}" accesskey="s" />
+            {@SECURITY_TOKEN_INPUT_TAG}
+        </div>
+    </form>
+</div>
+
+<script data-relocate="true">
+    $(function() {
+        elById("test").addEventListener("click", function(){
+            alert(elById("startTime").value);
+        });
+    });
+</script>
+
+
+{* DELETE RACE *}
 {if $action == 'edit'}
 {* <footer class="contentFooter">
 		<nav class="contentFooterNavigation"> *}

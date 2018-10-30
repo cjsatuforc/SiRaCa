@@ -13,7 +13,9 @@ class RaceAddForm extends AbstractForm
 {
     public $neededPermissions = ['mod.siraca.canManageRace'];
 
-    public $title = '';
+    public $title         = '';
+    public $startTime     = null;
+    public $startDateTime = null;
 
     public function readFormParameters()
     {
@@ -22,19 +24,38 @@ class RaceAddForm extends AbstractForm
         if (isset($_POST['title'])) {
             $this->title = StringUtil::trim($_POST['title']);
         }
+        if (isset($_POST['startTime'])) {
+            $this->startTime = $_POST['startTime'];
 
+            $timezoneObj         = WCF::getUser()->getTimeZone();
+            $this->startDateTime = \DateTime::createFromFormat('Y-m-d\TH:i:s', $this->startTime, $timezoneObj);
+        }
     }
 
     public function validate()
     {
         parent::validate();
 
+        // TITLE
         if (empty($this->title)) {
             throw new UserInputException('title');
         }
         if (mb_strlen($this->title) > 255) {
             throw new UserInputException('title', 'tooLong');
         }
+
+        // START TIME
+        if (empty($this->startTime)) {
+            throw new UserInputException('startTime');
+        } else if ($this->startDateTime === false) {
+            throw new UserInputException('startTime', 'invalid');
+        } else {
+            $currentTimestamp = (new \DateTime())->getTimestamp();
+            if ($this->startDateTime->getTimestamp() < $currentTimestamp) {
+                throw new UserInputException('startTime', 'past');
+            }
+        }
+
     }
 
     public function save()
@@ -43,7 +64,8 @@ class RaceAddForm extends AbstractForm
 
         $this->objectAction = new RaceAction([], 'create', [
             'data' => array_merge($this->additionalFields, [
-                'title' => $this->title,
+                'title'     => $this->title,
+                'startTime' => $this->startDateTime->getTimestamp(),
             ]),
         ]);
 
@@ -61,8 +83,9 @@ class RaceAddForm extends AbstractForm
         parent::assignVariables();
 
         WCF::getTPL()->assign([
-            'action' => 'add',
-            'title'  => $this->title,
+            'action'    => 'add',
+            'title'     => $this->title,
+            'startTime' => $this->startTime,
         ]);
     }
 

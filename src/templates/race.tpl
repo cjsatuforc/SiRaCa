@@ -29,6 +29,10 @@
 
 {include file='header'}
 
+<div class="section">
+    <span>{$startTime}</span>
+</div>
+
 <div class="section sectionContainerList">
     <h2 class="sectionTitle">{lang}siraca.race.participants{/lang} <span class="badge">{$participations|count}</span></h2>
     {if !$participations|empty}

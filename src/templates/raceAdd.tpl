@@ -34,6 +34,18 @@
             </dd>
         </dl>
 
+        <dl {if $errorField == 'availableSlots'} class="formError"{/if}>
+            <dt><label for="availableSlots">{lang}siraca.race.add.form.availableSlots{/lang}</label></dt>
+            <dd>
+                <input type="number" id="availableSlots" name="availableSlots" min="1" {if $availableSlots|isset} value="{$availableSlots}{/if}">
+                {if $errorField == 'availableSlots'}
+                    <small class="innerError">
+                        {lang}siraca.race.add.form.availableSlots.error.{@$errorType}{/lang}
+                    </small>
+                {/if}
+            </dd>
+        </dl>
+
         <dl {if $errorField == 'startTime'} class="formError"{/if}>
             <dt><label for="startTime">{lang}siraca.race.add.form.startTime{/lang}</label></dt>
             <dd>

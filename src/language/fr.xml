@@ -21,9 +21,14 @@
         <item name="siraca.race.add.title"><![CDATA[Organiser une course]]></item>
 
         <item name="siraca.race.add.form.title"><![CDATA[Titre]]></item>
+
         <item name="siraca.race.add.form.startTime"><![CDATA[Début]]></item>
         <item name="siraca.race.add.form.startTime.error.past"><![CDATA[La date de début ne peut être dans le passé.]]></item>
         <item name="siraca.race.add.form.startTime.error.invalid"><![CDATA[La date de début n'est pas valide.]]></item>
+
+        <item name="siraca.race.add.form.availableSlots"><![CDATA[Nombre de places disponibles]]></item>
+        <item name="siraca.race.add.form.availableSlots.error.tooLow"><![CDATA[Nombre de places insuffisant]]></item>
+        <item name="siraca.race.add.form.availableSlots.error.tooHigh"><![CDATA[Nombre de places trop grand]]></item>
     </category>
 
     <category name="siraca.race.edit">

@@ -13,9 +13,10 @@ class RaceAddForm extends AbstractForm
 {
     public $neededPermissions = ['mod.siraca.canManageRace'];
 
-    public $title         = '';
-    public $startTime     = null;
-    public $startDateTime = null;
+    public $title          = '';
+    public $startTime      = null;
+    public $startDateTime  = null;
+    public $availableSlots = null;
 
     public function readFormParameters()
     {
@@ -24,11 +25,16 @@ class RaceAddForm extends AbstractForm
         if (isset($_POST['title'])) {
             $this->title = StringUtil::trim($_POST['title']);
         }
+
         if (isset($_POST['startTime'])) {
             $this->startTime = $_POST['startTime'];
 
             $timezoneObj         = WCF::getUser()->getTimeZone();
             $this->startDateTime = \DateTime::createFromFormat('Y-m-d\TH:i:s', $this->startTime, $timezoneObj);
+        }
+
+        if (isset($_POST['availableSlots'])) {
+            $this->availableSlots = intval($_POST['availableSlots']);
         }
     }
 
@@ -44,6 +50,13 @@ class RaceAddForm extends AbstractForm
             throw new UserInputException('title', 'tooLong');
         }
 
+        // AVAILABLE SLOTS
+        if ($this->availableSlots < 1) {
+            throw new UserInputException('availableSlots', 'tooLow');
+        } else if ($this->availableSlots > PHP_INT_MAX) {
+            throw new UserInputException('availableSlots', 'tooHigh');
+        }
+
         // START TIME
         if (empty($this->startTime)) {
             throw new UserInputException('startTime');
@@ -55,7 +68,6 @@ class RaceAddForm extends AbstractForm
                 throw new UserInputException('startTime', 'past');
             }
         }
-
     }
 
     public function save()
@@ -64,8 +76,9 @@ class RaceAddForm extends AbstractForm
 
         $this->objectAction = new RaceAction([], 'create', [
             'data' => array_merge($this->additionalFields, [
-                'title'     => $this->title,
-                'startTime' => $this->startDateTime->getTimestamp(),
+                'title'          => $this->title,
+                'startTime'      => $this->startDateTime->getTimestamp(),
+                'availableSlots' => $this->availableSlots,
             ]),
         ]);
 
@@ -83,9 +96,10 @@ class RaceAddForm extends AbstractForm
         parent::assignVariables();
 
         WCF::getTPL()->assign([
-            'action'    => 'add',
-            'title'     => $this->title,
-            'startTime' => $this->startDateTime != null ? $this->startDateTime->format('c') : null,
+            'action'         => 'add',
+            'title'          => $this->title,
+            'startTime'      => $this->startDateTime != null ? $this->startDateTime->format('c') : null,
+            'availableSlots' => $this->availableSlots,
         ]);
     }
 

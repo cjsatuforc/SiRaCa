@@ -30,7 +30,8 @@
 {include file='header'}
 
 <div class="section">
-    <span>{$startTime}</span>
+    <div>{$startTime}</div>
+    <div>{lang}siraca.race.slots{/lang}{$participations|count} / {$race->availableSlots}</div>
 </div>
 
 <div class="section sectionContainerList">

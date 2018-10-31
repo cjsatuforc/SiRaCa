@@ -38,6 +38,8 @@ class RaceEditForm extends RaceAddForm
             $timezoneObj         = WCF::getUser()->getTimeZone();
             $this->startDateTime = new \DateTime('now', $timezoneObj);
             $this->startDateTime->setTimestamp($this->race->startTime);
+
+            $this->availableSlots = $this->race->availableSlots;
         }
 
         PageLocationManager::getInstance()->addParentLocation('fr.chatcureuil.siraca.Race', $this->race->raceID, $this->race);
@@ -59,8 +61,9 @@ class RaceEditForm extends RaceAddForm
 
         $action = new RaceAction([$this->race], 'update', [
             'data' => array_merge($this->additionalFields, [
-                'title'     => $this->title,
-                'startTime' => $this->startDateTime->getTimestamp(),
+                'title'          => $this->title,
+                'startTime'      => $this->startDateTime->getTimestamp(),
+                'availableSlots' => $this->availableSlots,
             ]),
         ]);
 

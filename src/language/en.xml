@@ -30,7 +30,6 @@
 
         <item name="siraca.race.add.form.availableSlots"><![CDATA[Available seats]]></item>
         <item name="siraca.race.add.form.availableSlots.error.tooLow"><![CDATA[Number is too low]]></item>
-        <item name="siraca.race.add.form.availableSlots.error.tooHigh"><![CDATA[Number is too high]]></item>
     </category>
 
     <category name="siraca.race.edit">

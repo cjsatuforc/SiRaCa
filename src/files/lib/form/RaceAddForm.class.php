@@ -53,8 +53,6 @@ class RaceAddForm extends AbstractForm
         // AVAILABLE SLOTS
         if ($this->availableSlots < 1) {
             throw new UserInputException('availableSlots', 'tooLow');
-        } else if ($this->availableSlots > PHP_INT_MAX) {
-            throw new UserInputException('availableSlots', 'tooHigh');
         }
 
         // START TIME

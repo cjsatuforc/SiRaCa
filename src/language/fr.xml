@@ -28,7 +28,6 @@
 
         <item name="siraca.race.add.form.availableSlots"><![CDATA[Nombre de places disponibles]]></item>
         <item name="siraca.race.add.form.availableSlots.error.tooLow"><![CDATA[Nombre de places insuffisant]]></item>
-        <item name="siraca.race.add.form.availableSlots.error.tooHigh"><![CDATA[Nombre de places trop grand]]></item>
     </category>
 
     <category name="siraca.race.edit">

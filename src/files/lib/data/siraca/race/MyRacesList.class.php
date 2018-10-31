@@ -14,9 +14,9 @@ class MyRacesList extends RaceList
 
         $userID = WCF::getUser()->userID;
 
-        if (!empty($this->sqlSelects)) {
-            $this->sqlSelects .= ',';
-        }
+        // if (!empty($this->sqlSelects)) {
+        //     $this->sqlSelects .= ',';
+        // }
 
         // TODO Pas bien compris pourquoi il faut renseigner les deux. Revoir le code de DatabaseObjectList.
         $joins = " INNER JOIN wcf" . WCF_N . "_siraca_participation p ON (p.raceID = siraca_race.raceID AND p.userID = $userID)";

@@ -2,15 +2,12 @@
 namespace wcf\page;
 
 use wcf\data\siraca\race\ViewableRaceList;
-use wcf\page\SortablePage;
 use wcf\system\WCF;
 
-class RaceListPage extends SortablePage
+class RaceListPage extends MultipleLinkPage
 {
-    // TODO virer Sortable
-    public $defaultSortField = 'title';
+    // public $defaultSortField = 'title';
+    // public $validSortFields = ['raceID', 'title'];
 
     public $objectListClassName = ViewableRaceList::class;
-
-    public $validSortFields = ['raceID', 'title'];
 }

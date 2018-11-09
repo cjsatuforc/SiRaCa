@@ -31,29 +31,47 @@
 
 <div class="section">
     <div>{$startTime}</div>
-    <div>{lang}siraca.race.slots{/lang}{$participations|count} / {$race->availableSlots}</div>
+    <div>{lang}siraca.race.slots{/lang}{$participantCount} / {$race->availableSlots}</div>
 </div>
 
 <div class="section sectionContainerList">
-    <h2 class="sectionTitle">{lang}siraca.race.participants{/lang} <span class="badge">{$participations|count}</span></h2>
-    {if !$participations|empty}
-        <ol> 
-            {foreach from=$participations item=participation}
-                <li>
-                    <div class="box16">
-                        <span class="icon ico16 fa-user"></span>
-                        
-                        <div class="details">
-                            <div class="containerHeadline">
-                                <a href="{$participation->getUserLink()}">{$participation->getUsername()}</a>
-                                {if $participation->isUncertain()}<small>({lang}{$participation->getType()->shortTextLangId}{/lang})</small>{/if}
-                            </div>
+    <h2 class="sectionTitle">{lang}siraca.race.participants{/lang} <span class="badge">{$participantCount}</span></h2>
+    <div>TEST titulaire</div>
+    <ol> 
+        {foreach from=$titularList item=participation}
+            <li>
+                <div class="box16">
+                    <span>{$participation->position}</span>
+                    <span class="icon ico16 fa-user"></span>
+                    
+                    <div class="details">
+                        <div class="containerHeadline">
+                            <a href="{$participation->getUserLink()}">{$participation->getUsername()}</a>
+                            {if $participation->isUncertain()}<small>({lang}{$participation->getType()->shortTextLangId}{/lang})</small>{/if}
                         </div>
                     </div>
-                </li>
-            {/foreach}
-        </ol>
-    {/if}
+                </div>
+            </li>
+        {/foreach}
+    </ol>
+    <div>TEST attente</div>
+    <ol> 
+        {foreach from=$waitingList item=participation}
+            <li>
+                <div class="box16">
+                    <span>{$participation->position}</span>
+                    <span class="icon ico16 fa-user"></span>
+                    
+                    <div class="details">
+                        <div class="containerHeadline">
+                            <a href="{$participation->getUserLink()}">{$participation->getUsername()}</a>
+                            {if $participation->isUncertain()}<small>({lang}{$participation->getType()->shortTextLangId}{/lang})</small>{/if}
+                        </div>
+                    </div>
+                </div>
+            </li>
+        {/foreach}
+    </ol>
 </div>
 
 <footer class="contentFooter">

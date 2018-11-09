@@ -1,8 +1,8 @@
 <?php
 namespace wcf\form;
 
-use wcf\data\siraca\participation\ParticipationAction;
 use wcf\data\siraca\participation\ParticipationManager;
+use wcf\data\siraca\participation\ParticipationOrganizer;
 use wcf\data\siraca\participation\ParticipationType;
 use wcf\data\siraca\race\Race;
 use wcf\form\AbstractForm;
@@ -60,37 +60,40 @@ class ParticipationForm extends AbstractForm
     {
         parent::save();
 
+        ParticipationOrganizer::setParticipation($this->race, WCF::getUser(), $this->participation, $this->newParticipationType);
+        /*
         if ($this->newParticipationType == ParticipationType::ABSENCE) {
-            $action = 'delete';
+        $action = 'delete';
         } else {
-            $action = $this->participation->participationID ? 'update' : 'create';
+        $action = $this->participation->participationID ? 'update' : 'create';
         }
 
         switch ($action) {
-            case 'create':
-                $objects = [];
-                $row     = [
-                    'raceID' => $this->race->raceID,
-                    'userID' => WCF::getUser()->userID,
-                    'type'   => $this->newParticipationType,
-                ];
-                break;
+        case 'create':
+        $objects = [];
+        $row     = [
+        'raceID' => $this->race->raceID,
+        'userID' => WCF::getUser()->userID,
+        'type'   => $this->newParticipationType,
+        ];
+        break;
 
-            case 'update':
-                $objects = [$this->participation->getDecoratedObject()];
-                $row     = ['type' => $this->newParticipationType];
-                break;
+        case 'update':
+        $objects = [$this->participation->getDecoratedObject()];
+        $row     = ['type' => $this->newParticipationType];
+        break;
 
-            case 'delete':
-                $objects = [$this->participation->getDecoratedObject()];
-                $row     = [];
+        case 'delete':
+        $objects = [$this->participation->getDecoratedObject()];
+        $row     = [];
         }
 
         $this->objectAction = new ParticipationAction($objects, $action, [
-            'data' => array_merge($this->additionalFields, $row),
+        'data' => array_merge($this->additionalFields, $row),
         ]);
 
         $this->objectAction->executeAction();
+         */
 
         $this->saved();
 

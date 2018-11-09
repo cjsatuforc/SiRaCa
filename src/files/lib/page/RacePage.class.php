@@ -13,7 +13,8 @@ class RacePage extends AbstractPage
 {
     public $race;
     public $raceID = 0;
-    private $participationList;
+    private $titularList;
+    private $waitingList;
     private $startDateTime;
 
     public function readParameters()
@@ -34,8 +35,13 @@ class RacePage extends AbstractPage
     {
         parent::readData();
 
-        $this->participationList = new ViewableParticipationList($this->race->raceID);
-        $this->participationList->readObjects(); // TODO regarder quand/pourquoi AbstractPage utilise le readObjectIDs
+        $this->titularList = new ViewableParticipationList($this->race->raceID);
+        $this->titularList->getConditionBuilder()->add("siraca_participation.waitingList = 0");
+        $this->titularList->readObjects(); // TODO regarder quand/pourquoi AbstractPage utilise le readObjectIDs
+
+        $this->waitingList = new ViewableParticipationList($this->race->raceID);
+        $this->waitingList->getConditionBuilder()->add("siraca_participation.waitingList = 1");
+        $this->waitingList->readObjects();
 
         $this->startDateTime = DateUtil::getDateTimeByTimestamp($this->race->startTime);
 
@@ -51,10 +57,15 @@ class RacePage extends AbstractPage
         $language = WCF::getLanguage();
         $user     = WCF::getUser();
 
+        $titularArray = $this->titularList->getObjects();
+        $waitingArray = $this->waitingList->getObjects();
+
         WCF::getTPL()->assign([
-            'race'           => $this->race,
-            'participations' => $this->participationList->getObjects(),
-            'startTime'      => DateUtil::format($this->startDateTime, DateUtil::DATE_FORMAT, $language, $user)
+            'race'             => $this->race,
+            'titularList'      => $titularArray,
+            'waitingList'      => $waitingArray,
+            'participantCount' => count($titularArray) + count($waitingArray),
+            'startTime'        => DateUtil::format($this->startDateTime, DateUtil::DATE_FORMAT, $language, $user)
             . ' - ' .
             DateUtil::format($this->startDateTime, DateUtil::TIME_FORMAT, $language, $user),
             /*

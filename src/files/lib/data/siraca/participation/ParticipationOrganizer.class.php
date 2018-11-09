@@ -29,7 +29,10 @@ class ParticipationOrganizer
         - prendre tous les suivants de la même liste et enlever une position
         - si titulaire et qu'elle était pleine et qu'il y a un Présent en liste d'attente, le ramener en titulaire et enlever une position aux suivants
          */
-        $action = new ParticipationAction([$participation->getDecoratedObject()], 'delete', null);
+        $action = new ParticipationAction([$participation->getDecoratedObject()], 'delete', []);
+        $action->executeAction();
+
+        self::unstackPositions($race, $participation->position + 1, $participation->waitingList);
     }
 
     /*
@@ -39,8 +42,33 @@ class ParticipationOrganizer
     {
         $list = new ParticipationList();
         $list->getConditionBuilder()->add("siraca_participation.raceID = {$race->raceID}");
-        $list->getConditionBuilder()->add("siraca_participation.waitingList = {$isWaitingList}");
+        $list->getConditionBuilder()->add("siraca_participation.waitingList = {$waitingList}");
         $list->getConditionBuilder()->add("siraca_participation.position >= {$fromPosition}");
+        $list->readObjects();
+
+        $updateList = $list->getObjects();
+
+        $updateData = [];
+
+        foreach ($updateList as $participation) {
+            $updateData[$participation->participationID] = $participation->position - 1;
+        }
+
+        // TODO Si on peut pas utiliser les actions pour ça, pourquoi les utiliser ailleurs ?
+
+        $statement = WCF::getDB()->prepareStatement(
+            "UPDATE wcf" . WCF_N . "_siraca_participation p
+            SET position = ?
+            WHERE p.participationID = ?");
+
+        WCF::getDB()->beginTransaction();
+        foreach ($updateData as $participationID => $position) {
+            $statement->execute([
+                $position,
+                $participationID,
+            ]);
+        }
+        WCF::getDB()->commitTransaction();
     }
 
     private static function addUser($race, $user, $participationType)

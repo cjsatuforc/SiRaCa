@@ -9,13 +9,18 @@ use wcf\system\WCF;
  */
 class ParticipationOrganizer
 {
-
     public static function setParticipation($race, $user, $currentParticipation, $newParticipationType)
     {
+        if ($currentParticipation->type == $newParticipationType) {
+            return;
+        }
+
         if ($newParticipationType == ParticipationType::ABSENCE) {
+            // REMOVE REGISTRATION
             self::removeUser($race, $user, $currentParticipation);
         } else {
             if ($currentParticipation->type == ParticipationType::ABSENCE) {
+                // NEW REGISTRATION
                 self::addUser($race, $user, $newParticipationType);
             }
         }
@@ -23,22 +28,45 @@ class ParticipationOrganizer
 
     private static function removeUser($race, $user, $participation)
     {
-        /*
-        - titulaire ou attente ?
-        - supprimer participation
-        - prendre tous les suivants de la même liste et enlever une position
-        - si titulaire et qu'elle était pleine et qu'il y a un Présent en liste d'attente, le ramener en titulaire et enlever une position aux suivants
-         */
-        $action = new ParticipationAction([$participation->getDecoratedObject()], 'delete', []);
-        $action->executeAction();
+        // TODO peut-être plutôt récupérer les 2 listes complètes, faire les traitements en local et update la bdd à la fin.
 
-        self::unstackPositions($race, $participation->position + 1, $participation->waitingList);
+        if ($participation->waitingList == 0 && self::countParticipants($race, 0) == $race->availableSlots) {
+            // REMOVE FROM FULL TITULAR LIST
+            $action = new ParticipationAction([$participation], 'delete', []);
+            $action->executeAction();
+
+            self::updateNextPositions($race, $participation->position + 1, 0, -1);
+
+            $firstWaitingPresent = self::findFirstPresenceInWaitingList($race);
+            if ($firstWaitingPresent != null) {
+                self::updateNextPositions($race, $firstWaitingPresent->position + 1, 1, -1);
+
+                $newTitularPosition = self::findTitularPosition($race, $firstWaitingPresent->presenceTime);
+                self::updateNextPositions($race, $newTitularPosition, 0, +1);
+
+                $action = new ParticipationAction([$firstWaitingPresent], 'update', [
+                    'data' => [
+                        'waitingList' => 0,
+                        'position'    => $newTitularPosition,
+                    ],
+                ]);
+
+                $action->executeAction();
+            }
+
+        } else {
+            // REMOVE FROM TITULAR LIST WITH FREE SLOTS OR WAITING LIST
+            $action = new ParticipationAction([$participation], 'delete', []);
+            $action->executeAction();
+
+            self::updateNextPositions($race, $participation->position + 1, $participation->waitingList, -1);
+        }
     }
 
     /*
-    $waitingList: [0,1]
+    waitingList: [0,1]
      */
-    private static function unstackPositions($race, $fromPosition, $waitingList)
+    private static function updateNextPositions($race, $fromPosition, $waitingList, $increment)
     {
         $list = new ParticipationList();
         $list->getConditionBuilder()->add("siraca_participation.raceID = {$race->raceID}");
@@ -51,7 +79,7 @@ class ParticipationOrganizer
         $updateData = [];
 
         foreach ($updateList as $participation) {
-            $updateData[$participation->participationID] = $participation->position - 1;
+            $updateData[$participation->participationID] = $participation->position + $increment;
         }
 
         // TODO Si on peut pas utiliser les actions pour ça, pourquoi les utiliser ailleurs ?
@@ -75,10 +103,10 @@ class ParticipationOrganizer
     {
         switch ($participationType) {
             case ParticipationType::PRESENCE_NOT_CONFIRMED:
-                self::addUnconfirmedParticipation($race, $user, $participationType);
+                self::addUnconfirmedParticipation($race, $user);
                 break;
             case ParticipationType::PRESENCE:
-                self::addPresence($race, $user, $participationType);
+                self::addPresence($race, $user);
                 break;
             case ParticipationType::ABSENCE:
                 throw new Exception("Illegal state ABSENCE.");
@@ -86,36 +114,40 @@ class ParticipationOrganizer
         }
     }
 
-    private static function addUnconfirmedParticipation($race, $user, $participationType)
+    private static function addUnconfirmedParticipation($race, $user)
     {
         $position = self::countParticipants($race, 1) + 1;
 
         $action = new ParticipationAction([], 'create', [
             'data' => [
-                'raceID'      => $race->raceID,
-                'userID'      => $user->userID,
-                'type'        => $participationType,
-                'waitingList' => 1,
-                'position'    => $position,
+                'raceID'           => $race->raceID,
+                'userID'           => $user->userID,
+                'type'             => ParticipationType::PRESENCE_NOT_CONFIRMED,
+                'waitingList'      => 1,
+                'position'         => $position,
+                'registrationTime' => (new \DateTime())->getTimestamp(),
             ],
         ]);
 
         $action->executeAction();
     }
 
-    private static function addPresence($race, $user, $participationType)
+    private static function addPresence($race, $user)
     {
         $titularCount = self::countParticipants($race, 0);
         $waitingList  = $titularCount == $race->availableSlots ? 1 : 0;
         $position     = self::countParticipants($race, $waitingList) + 1;
+        $time         = (new \DateTime())->getTimestamp();
 
         $action = new ParticipationAction([], 'create', [
             'data' => [
-                'raceID'      => $race->raceID,
-                'userID'      => $user->userID,
-                'type'        => $participationType,
-                'waitingList' => $waitingList,
-                'position'    => $position,
+                'raceID'           => $race->raceID,
+                'userID'           => $user->userID,
+                'type'             => ParticipationType::PRESENCE,
+                'waitingList'      => $waitingList,
+                'position'         => $position,
+                'registrationTime' => $time,
+                'presenceTime'     => $time,
             ],
         ]);
 
@@ -132,6 +164,59 @@ class ParticipationOrganizer
         $statement->execute();
 
         return $statement->fetchSingleColumn();
+    }
+
+    private static function findFirstPresenceInWaitingList($race)
+    {
+        // TODO pas trouvé comment faire ça en une seule requête, ça marche dans phpmyadmin mais pas easyPHP
+        $statement = WCF::getDB()->prepareStatement(
+            "SELECT MIN(p.presenceTime) FROM wcf" . WCF_N . "_siraca_participation p
+            WHERE p.raceID = {$race->raceID}
+            AND p.waitingList = 1
+            AND p.type = " . ParticipationType::PRESENCE . "
+            LIMIT 1
+            "
+        );
+        $statement->execute();
+        $minPresenceTime = $statement->fetchSingleColumn();
+
+        if (!$minPresenceTime) {
+            return null;
+        }
+
+        $statement = WCF::getDB()->prepareStatement(
+            "SELECT * FROM wcf" . WCF_N . "_siraca_participation p
+            WHERE p.raceID = {$race->raceID}
+            AND p.waitingList = 1
+            AND p.type = " . ParticipationType::PRESENCE . "
+            AND p.presenceTime = $minPresenceTime
+            LIMIT 1
+            "
+        );
+
+        $statement->execute();
+
+        $participation = $statement->fetchObject(Participation::class);
+
+        return $participation ? $participation : null;
+    }
+
+    private static function findTitularPosition($race, $presenceTime)
+    {
+        $statement = WCF::getDB()->prepareStatement(
+            "SELECT * FROM wcf" . WCF_N . "_siraca_participation p
+            WHERE p.raceID = {$race->raceID}
+            AND p.waitingList = 0
+            AND p.presenceTime > {$presenceTime}
+            ORDER BY p.presenceTime ASC LIMIT 1"
+        );
+        $statement->execute();
+
+        $nextParticipation = $statement->fetchObject(Participation::class);
+        if (!$nextParticipation) {
+            return self::countParticipants($race, 0) + 1;
+        }
+        return $nextParticipation->position;
     }
 
     // private static function getTitularList($race)

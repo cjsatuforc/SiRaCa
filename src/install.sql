@@ -15,5 +15,8 @@ CREATE TABLE wcf1_siraca_participation (
     /* waitingList [0,1] */
     waitingList TINYINT NOT NULL,
     /* Local position in list (titular and waiting list are separated) */
-    position INT(10) NOT NULL
+    position INT(10) NOT NULL,
+    registrationTime INT(10) NOT NULL,
+    /* Can be null */
+    presenceTime INT(10)
 );

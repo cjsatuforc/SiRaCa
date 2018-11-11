@@ -60,7 +60,7 @@ class ParticipationForm extends AbstractForm
     {
         parent::save();
 
-        ParticipationOrganizer::setParticipation($this->race, WCF::getUser(), $this->participation, $this->newParticipationType);
+        ParticipationOrganizer::setParticipation($this->race, WCF::getUser(), $this->participation->getDecoratedObject(), $this->newParticipationType);
         /*
         if ($this->newParticipationType == ParticipationType::ABSENCE) {
         $action = 'delete';

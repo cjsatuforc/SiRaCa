@@ -2,7 +2,7 @@
 namespace wcf\data\siraca\race;
 
 use wcf\data\AbstractDatabaseObjectAction;
-use wcf\data\siraca\participation\ParticipationManager;
+use wcf\data\siraca\participation\ParticipationUtil;
 
 class RaceAction extends AbstractDatabaseObjectAction
 {
@@ -18,7 +18,7 @@ class RaceAction extends AbstractDatabaseObjectAction
         }
 
         if (!empty($raceIDs)) {
-            ParticipationManager::deleteRaceParticipations($raceIDs);
+            ParticipationUtil::deleteRaceParticipations($raceIDs);
         }
     }
 }

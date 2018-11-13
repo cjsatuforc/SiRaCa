@@ -3,8 +3,8 @@ namespace wcf\data\siraca\race;
 
 use wcf\data\DatabaseObject;
 use wcf\data\DatabaseObjectDecorator;
-use wcf\data\siraca\participation\ParticipationManager;
 use wcf\data\siraca\participation\ParticipationType;
+use wcf\data\siraca\participation\ParticipationUtil;
 use wcf\data\siraca\race\Race;
 
 class ViewableRace extends DatabaseObjectDecorator
@@ -17,7 +17,7 @@ class ViewableRace extends DatabaseObjectDecorator
     {
         parent::__construct($object);
 
-        $this->participation = ParticipationManager::getUserParticipation($this->getDecoratedObject()->raceID);
+        $this->participation = ParticipationUtil::getUserParticipation($this->getDecoratedObject()->raceID);
     }
 
     public function getParticipation()

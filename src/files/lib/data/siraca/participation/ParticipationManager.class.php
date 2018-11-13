@@ -36,6 +36,129 @@ class ParticipationManager
         }
     }
 
+    public static function recomputeListsAfterRaceCapacityChange($race, $newCapacity)
+    {
+        if ($newCapacity == $race->availableSlots) {
+            return;
+        }
+
+        $deltaCapacity = abs($newCapacity - $race->availableSlots);
+
+        if ($newCapacity > $race->availableSlots) {
+            // passer en liste titu les premiers présent de la liste d'attente et les classer par présenceTime
+            $statement = WCF::getDB()->prepareStatement(
+                "SELECT * FROM wcf" . WCF_N . "_siraca_participation p
+                WHERE p.raceID = {$race->raceID}
+                AND p.waitingList = 1
+                AND p.type = " . ParticipationType::PRESENCE . "
+                ORDER BY p.position ASC
+                LIMIT $deltaCapacity
+                "
+            );
+            $statement->execute();
+
+            $participations = $statement->fetchObjects(Participation::class);
+
+            foreach ($participations as $participation) {
+                $newPosition = self::findTitularPosition($race, $participation->presenceTime);
+                // throw new RuntimeException($newPosition);
+                $action = new ParticipationAction([$participation], 'update', [
+                    'data' => [
+                        'waitingList' => 0,
+                        'position'    => $newPosition,
+                    ],
+                ]);
+                $action->executeAction();
+                self::updateNextPositions($race, $newPosition + 1, 0, +1);
+                self::updateNextPositions($race, $participation->position + 1, 1, -1);
+            }
+        } else {
+            // passer en attente les derniers de la liste titu et les classer par registrationTime
+            $statement = WCF::getDB()->prepareStatement(
+                "SELECT * FROM wcf" . WCF_N . "_siraca_participation p
+                WHERE p.raceID = {$race->raceID}
+                AND p.waitingList = 0
+                ORDER BY p.position DESC
+                LIMIT $deltaCapacity
+                "
+            );
+            $statement->execute();
+
+            $participations = $statement->fetchObjects(Participation::class);
+
+            foreach ($participations as $participation) {
+                $newPosition = self::findPositionInWaitingList($race, $participation->registrationTime);
+                self::updateNextPositions($race, $newPosition, 1, +1);
+                // throw new RuntimeException($newPosition);
+                $action = new ParticipationAction([$participation], 'update', [
+                    'data' => [
+                        'waitingList' => 1,
+                        'position'    => $newPosition,
+                    ],
+                ]);
+                $action->executeAction();
+            }
+        }
+
+        // // TITULAR LIST
+        // $list = new ParticipationList();
+        // $list->getConditionBuilder()->add("siraca_participation.raceID = {$race->raceID}");
+        // $list->getConditionBuilder()->add("siraca_participation.type = " . ParticipationType::PRESENCE);
+        // $list->sqlOrderBy = "siraca_participation.presenceTime ASC";
+        // $list->sqlLimit   = "{$newCapacity}";
+        // $list->readObjects();
+
+        // $titularList = $list->getObjects();
+
+        // $statement = WCF::getDB()->prepareStatement(
+        //     "UPDATE wcf" . WCF_N . "_siraca_participation p
+        //     SET waitingList = 0,
+        //     position = ?
+        //     WHERE p.participationID = ?");
+
+        // $position   = 1;
+        // $titularIDs = [];
+
+        // WCF::getDB()->beginTransaction();
+        // foreach ($titularList as $participation) {
+        //     $titularIDs[] = $participation->participationID;
+        //     $statement->execute([
+        //         $position++,
+        //         $participation->participationID,
+        //     ]);
+        // }
+        // WCF::getDB()->commitTransaction();
+
+        // // WAITING LIST
+        // $list = new ParticipationList();
+        // $list->getConditionBuilder()->add("siraca_participation.raceID = {$race->raceID}");
+        // $list->sqlOrderBy = "siraca_participation.registrationTime ASC";
+        // $list->readObjects();
+
+        // $registrationList = $list->getObjects();
+
+        // $statement = WCF::getDB()->prepareStatement(
+        //     "UPDATE wcf" . WCF_N . "_siraca_participation p
+        //     SET waitingList = 1,
+        //     position = ?
+        //     WHERE p.participationID = ?");
+
+        // $position = 1;
+
+        // WCF::getDB()->beginTransaction();
+        // foreach ($registrationList as $participation) {
+        //     if (in_array($participation->participationID, $titularIDs)) {
+        //         continue;
+        //     }
+
+        //     $statement->execute([
+        //         $position++,
+        //         $participation->participationID,
+        //     ]);
+        // }
+        // WCF::getDB()->commitTransaction();
+    }
+
     private static function switchToUnconfirmed($race, $user, $currentParticipation)
     {
         if ($currentParticipation->waitingList == 1) {

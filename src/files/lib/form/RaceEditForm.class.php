@@ -1,6 +1,7 @@
 <?php
 namespace wcf\form;
 
+use wcf\data\siraca\participation\ParticipationManager;
 use wcf\data\siraca\race\Race;
 use wcf\data\siraca\race\RaceAction;
 use wcf\system\page\PageLocationManager;
@@ -68,6 +69,10 @@ class RaceEditForm extends RaceAddForm
         ]);
 
         $action->executeAction();
+
+        if ($this->availableSlots != $this->race->availableSlots) {
+            ParticipationManager::recomputeListsAfterRaceCapacityChange($this->race, $this->availableSlots);
+        }
 
         $this->saved();
 

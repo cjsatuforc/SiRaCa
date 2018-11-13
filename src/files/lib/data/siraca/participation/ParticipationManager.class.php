@@ -30,8 +30,22 @@ class ParticipationManager
                     self::switchToPresence($race, $user, $currentParticipation);
                     break;
                 case ParticipationType::PRESENCE:
+                    self::switchToUnconfirmed($race, $user, $currentParticipation);
                     break;
             }
+        }
+    }
+
+    private static function switchToUnconfirmed($race, $user, $currentParticipation)
+    {
+        if ($currentParticipation->waitingList == 1) {
+            $action = new ParticipationAction([$currentParticipation], 'update', [
+                'data' => [
+                    'type'         => ParticipationType::PRESENCE_NOT_CONFIRMED,
+                    'presenceTime' => null,
+                ],
+            ]);
+            $action->executeAction();
         }
     }
 

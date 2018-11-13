@@ -46,6 +46,22 @@ class ParticipationManager
                 ],
             ]);
             $action->executeAction();
+        } else {
+            $newPosition = self::findPositionInWaitingList($race, $currentParticipation->registrationTime);
+            self::updateNextPositions($race, $newPosition, 1, +1);
+            self::updateNextPositions($race, $currentParticipation->position + 1, 0, -1);
+
+            $action = new ParticipationAction([$currentParticipation], 'update', [
+                'data' => [
+                    'waitingList'  => 1,
+                    'type'         => ParticipationType::PRESENCE_NOT_CONFIRMED,
+                    'presenceTime' => null,
+                    'position'     => $newPosition,
+                ],
+            ]);
+            $action->executeAction();
+
+            self::switchFirstWaitingPresentToTitular($race);
         }
     }
 
@@ -87,29 +103,33 @@ class ParticipationManager
 
             self::updateNextPositions($race, $participation->position + 1, 0, -1);
 
-            $firstWaitingPresent = self::findFirstPresenceInWaitingList($race);
-            if ($firstWaitingPresent != null) {
-                self::updateNextPositions($race, $firstWaitingPresent->position + 1, 1, -1);
-
-                $newTitularPosition = self::findTitularPosition($race, $firstWaitingPresent->presenceTime);
-                self::updateNextPositions($race, $newTitularPosition, 0, +1);
-
-                $action = new ParticipationAction([$firstWaitingPresent], 'update', [
-                    'data' => [
-                        'waitingList' => 0,
-                        'position'    => $newTitularPosition,
-                    ],
-                ]);
-
-                $action->executeAction();
-            }
-
+            self::switchFirstWaitingPresentToTitular($race);
         } else {
             // REMOVE FROM TITULAR LIST WITH FREE SLOTS OR WAITING LIST
             $action = new ParticipationAction([$participation], 'delete', []);
             $action->executeAction();
 
             self::updateNextPositions($race, $participation->position + 1, $participation->waitingList, -1);
+        }
+    }
+
+    private static function switchFirstWaitingPresentToTitular($race)
+    {
+        $firstWaitingPresent = self::findFirstPresenceInWaitingList($race);
+        if ($firstWaitingPresent != null) {
+            self::updateNextPositions($race, $firstWaitingPresent->position + 1, 1, -1);
+
+            $newTitularPosition = self::findTitularPosition($race, $firstWaitingPresent->presenceTime);
+            self::updateNextPositions($race, $newTitularPosition, 0, +1);
+
+            $action = new ParticipationAction([$firstWaitingPresent], 'update', [
+                'data' => [
+                    'waitingList' => 0,
+                    'position'    => $newTitularPosition,
+                ],
+            ]);
+
+            $action->executeAction();
         }
     }
 
@@ -269,6 +289,24 @@ class ParticipationManager
         $nextParticipation = $statement->fetchObject(Participation::class);
         if (!$nextParticipation) {
             return self::countParticipants($race, 0) + 1;
+        }
+        return $nextParticipation->position;
+    }
+
+    private static function findPositionInWaitingList($race, $registrationTime)
+    {
+        $statement = WCF::getDB()->prepareStatement(
+            "SELECT * FROM wcf" . WCF_N . "_siraca_participation p
+            WHERE p.raceID = {$race->raceID}
+            AND p.waitingList = 1
+            AND p.registrationTime > {$registrationTime}
+            ORDER BY p.registrationTime ASC LIMIT 1"
+        );
+        $statement->execute();
+
+        $nextParticipation = $statement->fetchObject(Participation::class);
+        if (!$nextParticipation) {
+            return self::countParticipants($race, 1) + 1;
         }
         return $nextParticipation->position;
     }

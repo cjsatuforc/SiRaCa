@@ -9,6 +9,8 @@ use wcf\system\WCF;
  */
 class ParticipationOrganizer
 {
+    // TODO enlever les params inutilisés
+
     public static function setParticipation($race, $user, $currentParticipation, $newParticipationType)
     {
         if ($currentParticipation->type == $newParticipationType) {
@@ -19,10 +21,44 @@ class ParticipationOrganizer
             // REMOVE REGISTRATION
             self::removeUser($race, $user, $currentParticipation);
         } else {
-            if ($currentParticipation->type == ParticipationType::ABSENCE) {
-                // NEW REGISTRATION
-                self::addUser($race, $user, $newParticipationType);
+            switch ($currentParticipation->type) {
+                case ParticipationType::ABSENCE:
+                    // NEW REGISTRATION
+                    self::addUser($race, $user, $newParticipationType);
+                    break;
+                case ParticipationType::PRESENCE_NOT_CONFIRMED:
+                    self::switchToPresence($race, $user, $currentParticipation);
+                    break;
+                case ParticipationType::PRESENCE:
+                    break;
             }
+        }
+    }
+
+    private static function switchToPresence($race, $user, $currentParticipation)
+    {
+        $titularCount = self::countParticipants($race, 0);
+
+        if ($titularCount == $race->availableSlots) {
+            // STAY IN WAITING LIST AT SAME POSITION
+            $action = new ParticipationAction([$currentParticipation], 'update', [
+                'data' => [
+                    'type'         => ParticipationType::PRESENCE,
+                    'presenceTime' => (new \DateTime())->getTimestamp(),
+                ],
+            ]);
+            $action->executeAction();
+        } else {
+            // MOVE TO END OF TITULAR LIST
+            $action = new ParticipationAction([$currentParticipation], 'update', [
+                'data' => [
+                    'type'         => ParticipationType::PRESENCE,
+                    'waitingList'  => 0,
+                    'position'     => $titularCount + 1,
+                    'presenceTime' => (new \DateTime())->getTimestamp(),
+                ],
+            ]);
+            $action->executeAction();
         }
     }
 
@@ -75,6 +111,10 @@ class ParticipationOrganizer
         $list->readObjects();
 
         $updateList = $list->getObjects();
+
+        if (empty($updateList)) {
+            return;
+        }
 
         $updateData = [];
 
@@ -170,7 +210,7 @@ class ParticipationOrganizer
     {
         // TODO pas trouvé comment faire ça en une seule requête, ça marche dans phpmyadmin mais pas easyPHP
         $statement = WCF::getDB()->prepareStatement(
-            "SELECT MIN(p.presenceTime) FROM wcf" . WCF_N . "_siraca_participation p
+            "SELECT MIN(p.position) FROM wcf" . WCF_N . "_siraca_participation p
             WHERE p.raceID = {$race->raceID}
             AND p.waitingList = 1
             AND p.type = " . ParticipationType::PRESENCE . "
@@ -178,9 +218,9 @@ class ParticipationOrganizer
             "
         );
         $statement->execute();
-        $minPresenceTime = $statement->fetchSingleColumn();
+        $minPosition = $statement->fetchSingleColumn();
 
-        if (!$minPresenceTime) {
+        if (!$minPosition) {
             return null;
         }
 
@@ -189,7 +229,7 @@ class ParticipationOrganizer
             WHERE p.raceID = {$race->raceID}
             AND p.waitingList = 1
             AND p.type = " . ParticipationType::PRESENCE . "
-            AND p.presenceTime = $minPresenceTime
+            AND p.position = $minPosition
             LIMIT 1
             "
         );

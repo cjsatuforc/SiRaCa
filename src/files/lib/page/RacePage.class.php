@@ -37,10 +37,12 @@ class RacePage extends AbstractPage
 
         $this->titularList = new ViewableParticipationList($this->race->raceID);
         $this->titularList->getConditionBuilder()->add("siraca_participation.waitingList = 0");
+        $this->titularList->sqlOrderBy = "position";
         $this->titularList->readObjects(); // TODO regarder quand/pourquoi AbstractPage utilise le readObjectIDs
 
         $this->waitingList = new ViewableParticipationList($this->race->raceID);
         $this->waitingList->getConditionBuilder()->add("siraca_participation.waitingList = 1");
+        $this->waitingList->sqlOrderBy = "position";
         $this->waitingList->readObjects();
 
         $this->startDateTime = DateUtil::getDateTimeByTimestamp($this->race->startTime);

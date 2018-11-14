@@ -42,26 +42,27 @@ class ParticipationManager
             return;
         }
 
-        $deltaCapacity = abs($newCapacity - $race->availableSlots);
-
         if ($newCapacity > $race->availableSlots) {
             // passer en liste titu les premiers présent de la liste d'attente et les classer par présenceTime
+            $deltaCapacity = abs($newCapacity - $race->availableSlots);
+
             $statement = WCF::getDB()->prepareStatement(
-                "SELECT * FROM wcf" . WCF_N . "_siraca_participation p
-                WHERE p.raceID = {$race->raceID}
-                AND p.waitingList = 1
-                AND p.type = " . ParticipationType::PRESENCE . "
-                ORDER BY p.position ASC
+                "SELECT * FROM wcf" . WCF_N . "_siraca_participation
+                WHERE raceID = {$race->raceID}
+                AND waitingList = 1
+                AND type = " . ParticipationType::PRESENCE . "
+                ORDER BY position ASC
                 LIMIT $deltaCapacity
                 "
             );
             $statement->execute();
 
-            $participations = $statement->fetchObjects(Participation::class);
+            $cumulatedIncrement = 0;
 
-            foreach ($participations as $participation) {
+            while ($participation = $statement->fetchObject(Participation::class)) {
                 $newPosition = self::findTitularPosition($race, $participation->presenceTime);
-                // throw new RuntimeException($newPosition);
+                self::updateNextPositions($race, $newPosition, 0, +1);
+
                 $action = new ParticipationAction([$participation], 'update', [
                     'data' => [
                         'waitingList' => 0,
@@ -69,17 +70,38 @@ class ParticipationManager
                     ],
                 ]);
                 $action->executeAction();
-                self::updateNextPositions($race, $newPosition + 1, 0, +1);
-                self::updateNextPositions($race, $participation->position + 1, 1, -1);
+
+                self::updateNextPositions($race, $participation->position + 1 - $cumulatedIncrement++, 1, -1);
             }
+
+            // $participations = $statement->fetchObjects(Participation::class, "position");
+
+            // foreach ($participations as $participation) {
+            //     $newPosition = self::findTitularPosition($race, $participation->presenceTime);
+            //     // self::updateNextPositions($race, $newPosition, 0, +1);
+
+            //     $action = new ParticipationAction([$participation], 'update', [
+            //         'data' => [
+            //             'waitingList' => 0,
+            //             'position'    => $newPosition,
+            //         ],
+            //     ]);
+            //     $action->executeAction();
+            //     self::updateNextPositions($race, $participation->position + 1, 1, -1);
+            // }
         } else {
             // passer en attente les derniers de la liste titu et les classer par registrationTime
+            $toMoveCount = self::countParticipants($race, 0) - $newCapacity;
+            if ($toMoveCount <= 0) {
+                return;
+            }
+
             $statement = WCF::getDB()->prepareStatement(
                 "SELECT * FROM wcf" . WCF_N . "_siraca_participation p
                 WHERE p.raceID = {$race->raceID}
                 AND p.waitingList = 0
                 ORDER BY p.position DESC
-                LIMIT $deltaCapacity
+                LIMIT $toMoveCount
                 "
             );
             $statement->execute();
@@ -89,7 +111,7 @@ class ParticipationManager
             foreach ($participations as $participation) {
                 $newPosition = self::findPositionInWaitingList($race, $participation->registrationTime);
                 self::updateNextPositions($race, $newPosition, 1, +1);
-                // throw new RuntimeException($newPosition);
+
                 $action = new ParticipationAction([$participation], 'update', [
                     'data' => [
                         'waitingList' => 1,
@@ -97,6 +119,7 @@ class ParticipationManager
                     ],
                 ]);
                 $action->executeAction();
+                self::updateNextPositions($race, $participation->position + 1, 0, -1);
             }
         }
     }
@@ -216,7 +239,7 @@ class ParticipationManager
             return;
         }
 
-        $updateData = [];
+        // $updateData = [];
 
         foreach ($updateList as $participation) {
             $updateData[$participation->participationID] = $participation->position + $increment;

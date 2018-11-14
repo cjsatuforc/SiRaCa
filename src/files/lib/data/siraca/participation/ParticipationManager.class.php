@@ -65,29 +65,87 @@ class ParticipationManager
         }
     }
 
-    private static function switchToList($race, $participation, $toListType, $oldPosition = -1)
+    private static function addParticipation($race, $user, $participationType)
     {
-        switch ($toListType) {
-            case ListType::TITULAR:
-                $newPosition = self::findTitularPosition($race, $participation->presenceTime);
+        switch ($participationType) {
+            case ParticipationType::PRESENCE:
+                self::addPresence($race, $user);
                 break;
-            case ListType::WAITING:
-                $newPosition = self::findWaitingPosition($race, $participation->registrationTime);
+            case ParticipationType::PRESENCE_NOT_CONFIRMED:
+                self::addUnconfirmedParticipation($race, $user);
+                break;
+            case ParticipationType::ABSENCE:
+                throw new \LogicException("Illegal state ABSENCE.");
                 break;
         }
+    }
 
-        self::updateNextPositions($race, $newPosition, $toListType, +1);
+    private static function addPresence($race, $user)
+    {
+        $titularCount = self::countParticipants($race, ListType::TITULAR);
+        $listType     = $titularCount == $race->availableSlots ? ListType::WAITING : ListType::TITULAR;
+        $position     = self::countParticipants($race, $listType) + 1;
+        $time         = (new \DateTime())->getTimestamp();
 
-        $action = new ParticipationAction([$participation], 'update', [
+        $action = new ParticipationAction([], 'create', [
             'data' => [
-                'listType' => $toListType,
-                'position' => $newPosition,
+                'raceID'           => $race->raceID,
+                'userID'           => $user->userID,
+                'type'             => ParticipationType::PRESENCE,
+                'listType'         => $listType,
+                'position'         => $position,
+                'registrationTime' => $time,
+                'presenceTime'     => $time,
             ],
         ]);
-        $action->executeAction();
 
-        self::updateNextPositions($race, $oldPosition != -1 ? $oldPosition + 1 : $participation->position + 1,
-            ListType::getOtherType($toListType), -1);
+        $action->executeAction();
+    }
+
+    private static function addUnconfirmedParticipation($race, $user)
+    {
+        $position = self::countParticipants($race, ListType::WAITING) + 1;
+
+        $action = new ParticipationAction([], 'create', [
+            'data' => [
+                'raceID'           => $race->raceID,
+                'userID'           => $user->userID,
+                'type'             => ParticipationType::PRESENCE_NOT_CONFIRMED,
+                'listType'         => ListType::WAITING,
+                'position'         => $position,
+                'registrationTime' => (new \DateTime())->getTimestamp(),
+            ],
+        ]);
+
+        $action->executeAction();
+    }
+
+    private static function switchToPresence($race, $user, $currentParticipation)
+    {
+        $titularCount = self::countParticipants($race, ListType::TITULAR);
+
+        if ($titularCount == $race->availableSlots) {
+            // STAY IN WAITING LIST AT SAME POSITION
+            $action = new ParticipationAction([$currentParticipation], 'update', [
+                'data' => [
+                    'type'         => ParticipationType::PRESENCE,
+                    'presenceTime' => (new \DateTime())->getTimestamp(),
+                ],
+            ]);
+            $action->executeAction();
+        } else {
+            // MOVE TO END OF TITULAR LIST
+            $action = new ParticipationAction([$currentParticipation], 'update', [
+                'data' => [
+                    'type'         => ParticipationType::PRESENCE,
+                    'listType'     => ListType::TITULAR,
+                    'position'     => $titularCount + 1,
+                    'presenceTime' => (new \DateTime())->getTimestamp(),
+                ],
+            ]);
+            $action->executeAction();
+            self::updateNextPositions($race, $currentParticipation->position + 1, ListType::WAITING, -1);
+        }
     }
 
     private static function switchToUnconfirmed($race, $user, $participation)
@@ -119,34 +177,6 @@ class ParticipationManager
         }
     }
 
-    private static function switchToPresence($race, $user, $currentParticipation)
-    {
-        $titularCount = self::countParticipants($race, ListType::TITULAR);
-
-        if ($titularCount == $race->availableSlots) {
-            // STAY IN WAITING LIST AT SAME POSITION
-            $action = new ParticipationAction([$currentParticipation], 'update', [
-                'data' => [
-                    'type'         => ParticipationType::PRESENCE,
-                    'presenceTime' => (new \DateTime())->getTimestamp(),
-                ],
-            ]);
-            $action->executeAction();
-        } else {
-            // MOVE TO END OF TITULAR LIST
-            $action = new ParticipationAction([$currentParticipation], 'update', [
-                'data' => [
-                    'type'         => ParticipationType::PRESENCE,
-                    'listType'     => ListType::TITULAR,
-                    'position'     => $titularCount + 1,
-                    'presenceTime' => (new \DateTime())->getTimestamp(),
-                ],
-            ]);
-            $action->executeAction();
-            self::updateNextPositions($race, $currentParticipation->position + 1, ListType::WAITING, -1);
-        }
-    }
-
     private static function removeParticipation($race, $user, $participation)
     {
         if ($participation->listType == ListType::TITULAR && self::countParticipants($race, ListType::TITULAR) == $race->availableSlots) {
@@ -164,6 +194,31 @@ class ParticipationManager
 
             self::updateNextPositions($race, $participation->position + 1, $participation->listType, -1);
         }
+    }
+
+    private static function switchToList($race, $participation, $toListType, $oldPosition = -1)
+    {
+        switch ($toListType) {
+            case ListType::TITULAR:
+                $newPosition = self::findTitularPosition($race, $participation->presenceTime);
+                break;
+            case ListType::WAITING:
+                $newPosition = self::findWaitingPosition($race, $participation->registrationTime);
+                break;
+        }
+
+        self::updateNextPositions($race, $newPosition, $toListType, +1);
+
+        $action = new ParticipationAction([$participation], 'update', [
+            'data' => [
+                'listType' => $toListType,
+                'position' => $newPosition,
+            ],
+        ]);
+        $action->executeAction();
+
+        self::updateNextPositions($race, $oldPosition != -1 ? $oldPosition + 1 : $participation->position + 1,
+            ListType::getOtherType($toListType), -1);
     }
 
     private static function findFirstWaitingPresents($race, $limit)
@@ -205,94 +260,13 @@ class ParticipationManager
 
     private static function updateNextPositions($race, $fromPosition, $listType, $increment)
     {
-        $list = new ParticipationList();
-        $list->getConditionBuilder()->add("siraca_participation.raceID = {$race->raceID}");
-        $list->getConditionBuilder()->add("siraca_participation.listType = {$listType}");
-        $list->getConditionBuilder()->add("siraca_participation.position >= {$fromPosition}");
-        $list->readObjects();
-
-        $updateList = $list->getObjects();
-
-        if (empty($updateList)) {
-            return;
-        }
-
-        // $updateData = [];
-
-        foreach ($updateList as $participation) {
-            $updateData[$participation->participationID] = $participation->position + $increment;
-        }
-
-        // TODO Si on peut pas utiliser les actions pour ça, pourquoi les utiliser ailleurs ?
-
-        $statement = WCF::getDB()->prepareStatement(
-            "UPDATE wcf" . WCF_N . "_siraca_participation p
-            SET position = ?
-            WHERE p.participationID = ?");
-
-        WCF::getDB()->beginTransaction();
-        foreach ($updateData as $participationID => $position) {
-            $statement->execute([
-                $position,
-                $participationID,
-            ]);
-        }
-        WCF::getDB()->commitTransaction();
-    }
-
-    private static function addParticipation($race, $user, $participationType)
-    {
-        switch ($participationType) {
-            case ParticipationType::PRESENCE_NOT_CONFIRMED:
-                self::addUnconfirmedParticipation($race, $user);
-                break;
-            case ParticipationType::PRESENCE:
-                self::addPresence($race, $user);
-                break;
-            case ParticipationType::ABSENCE:
-                throw new Exception("Illegal state ABSENCE.");
-                break;
-        }
-    }
-
-    private static function addUnconfirmedParticipation($race, $user)
-    {
-        $position = self::countParticipants($race, ListType::WAITING) + 1;
-
-        $action = new ParticipationAction([], 'create', [
-            'data' => [
-                'raceID'           => $race->raceID,
-                'userID'           => $user->userID,
-                'type'             => ParticipationType::PRESENCE_NOT_CONFIRMED,
-                'listType'         => ListType::WAITING,
-                'position'         => $position,
-                'registrationTime' => (new \DateTime())->getTimestamp(),
-            ],
-        ]);
-
-        $action->executeAction();
-    }
-
-    private static function addPresence($race, $user)
-    {
-        $titularCount = self::countParticipants($race, ListType::TITULAR);
-        $listType     = $titularCount == $race->availableSlots ? ListType::WAITING : ListType::TITULAR;
-        $position     = self::countParticipants($race, $listType) + 1;
-        $time         = (new \DateTime())->getTimestamp();
-
-        $action = new ParticipationAction([], 'create', [
-            'data' => [
-                'raceID'           => $race->raceID,
-                'userID'           => $user->userID,
-                'type'             => ParticipationType::PRESENCE,
-                'listType'         => $listType,
-                'position'         => $position,
-                'registrationTime' => $time,
-                'presenceTime'     => $time,
-            ],
-        ]);
-
-        $action->executeAction();
+        WCF::getDB()->prepareStatement("
+            UPDATE  wcf" . WCF_N . "_siraca_participation
+            SET     position    =  position + $increment
+            WHERE   raceID      =  {$race->raceID}
+            AND     listType    =  {$listType}
+            AND     position    >= {$fromPosition}
+        ")->execute();
     }
 
     private static function countParticipants($race, $listType)

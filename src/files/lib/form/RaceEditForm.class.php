@@ -71,7 +71,7 @@ class RaceEditForm extends RaceAddForm
         $action->executeAction();
 
         if ($this->availableSlots != $this->race->availableSlots) {
-            ParticipationManager::recomputeListsAfterRaceCapacityChange($this->race, $this->availableSlots);
+            ParticipationManager::computePositions($this->race, $this->availableSlots);
         }
 
         $this->saved();

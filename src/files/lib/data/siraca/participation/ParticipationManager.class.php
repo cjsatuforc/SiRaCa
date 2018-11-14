@@ -99,64 +99,6 @@ class ParticipationManager
                 $action->executeAction();
             }
         }
-
-        // // TITULAR LIST
-        // $list = new ParticipationList();
-        // $list->getConditionBuilder()->add("siraca_participation.raceID = {$race->raceID}");
-        // $list->getConditionBuilder()->add("siraca_participation.type = " . ParticipationType::PRESENCE);
-        // $list->sqlOrderBy = "siraca_participation.presenceTime ASC";
-        // $list->sqlLimit   = "{$newCapacity}";
-        // $list->readObjects();
-
-        // $titularList = $list->getObjects();
-
-        // $statement = WCF::getDB()->prepareStatement(
-        //     "UPDATE wcf" . WCF_N . "_siraca_participation p
-        //     SET waitingList = 0,
-        //     position = ?
-        //     WHERE p.participationID = ?");
-
-        // $position   = 1;
-        // $titularIDs = [];
-
-        // WCF::getDB()->beginTransaction();
-        // foreach ($titularList as $participation) {
-        //     $titularIDs[] = $participation->participationID;
-        //     $statement->execute([
-        //         $position++,
-        //         $participation->participationID,
-        //     ]);
-        // }
-        // WCF::getDB()->commitTransaction();
-
-        // // WAITING LIST
-        // $list = new ParticipationList();
-        // $list->getConditionBuilder()->add("siraca_participation.raceID = {$race->raceID}");
-        // $list->sqlOrderBy = "siraca_participation.registrationTime ASC";
-        // $list->readObjects();
-
-        // $registrationList = $list->getObjects();
-
-        // $statement = WCF::getDB()->prepareStatement(
-        //     "UPDATE wcf" . WCF_N . "_siraca_participation p
-        //     SET waitingList = 1,
-        //     position = ?
-        //     WHERE p.participationID = ?");
-
-        // $position = 1;
-
-        // WCF::getDB()->beginTransaction();
-        // foreach ($registrationList as $participation) {
-        //     if (in_array($participation->participationID, $titularIDs)) {
-        //         continue;
-        //     }
-
-        //     $statement->execute([
-        //         $position++,
-        //         $participation->participationID,
-        //     ]);
-        // }
-        // WCF::getDB()->commitTransaction();
     }
 
     private static function switchToUnconfirmed($race, $user, $currentParticipation)
@@ -212,6 +154,7 @@ class ParticipationManager
                 ],
             ]);
             $action->executeAction();
+            self::updateNextPositions($race, $currentParticipation->position + 1, 1, -1);
         }
     }
 
@@ -433,22 +376,4 @@ class ParticipationManager
         }
         return $nextParticipation->position;
     }
-
-    // private static function getTitularList($race)
-    // {
-    //     $list = new ParticipationList();
-    //     $list->getConditionBuilder()->add("siraca_participation.raceID = {$race->$raceID}");
-    //     $list->getConditionBuilder()->add("siraca_participation.waitingList = 0");
-    //     $list->readObjects();
-    //     return $list->getObjects();
-    // }
-
-    // private static function getWaitingList($race)
-    // {
-    //     $list = new ParticipationList();
-    //     $list->getConditionBuilder()->add("siraca_participation.raceID = {$race->$raceID}");
-    //     $list->getConditionBuilder()->add("siraca_participation.waitingList = 1");
-    //     $list->readObjects();
-    //     return $list->getObjects();
-    // }
 }

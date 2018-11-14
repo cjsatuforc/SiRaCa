@@ -42,27 +42,35 @@ class ParticipationManager
             return;
         }
 
-        if ($newCapacity > $race->availableSlots) {
-            // MOVE TO TITULAR FIRST PRESENTS
-            $statement = self::findFirstWaitingPresents($race, abs($newCapacity - $race->availableSlots));
+        WCF::getDB()->beginTransaction();
 
-            $positionDeltaTotal = 0;
-            while ($participation = $statement->fetchObject(Participation::class)) {
-                self::switchToList($race, $participation, ListType::TITULAR, $participation->position - $positionDeltaTotal++);
-            }
-        } else {
-            // MOVE TO WAITING LAST TITULARS
-            $toMoveCount = self::countParticipants($race, ListType::TITULAR) - $newCapacity;
-            if ($toMoveCount <= 0) {
-                return;
-            }
+        self::sql("
+            UPDATE      wcf" . WCF_N . "_siraca_participation
+            SET         listType = 0;
+        ");
+        self::sql("
+            SET         @i:=0;
+        ");
+        self::sql("
+            UPDATE      wcf" . WCF_N . "_siraca_participation
+            SET         position = @i:=@i+1,
+                        listType = " . ListType::TITULAR . "
+            WHERE       type = " . ParticipationType::PRESENCE . "
+            ORDER BY    presenceTime ASC
+            LIMIT       $newCapacity;
+        ");
+        self::sql("
+            SET         @i:=0;
+        ");
+        self::sql("
+            UPDATE      wcf" . WCF_N . "_siraca_participation
+            SET         position = @i:=@i+1,
+                        listType = " . ListType::WAITING . "
+            WHERE       listType = 0
+            ORDER BY    registrationTime ASC;
+        ");
 
-            $statement = self::findLastTitulars($race, $toMoveCount);
-
-            while ($participation = $statement->fetchObject(Participation::class)) {
-                self::switchToList($race, $participation, ListType::WAITING, $participation->position);
-            }
-        }
+        WCF::getDB()->commitTransaction();
     }
 
     private static function addParticipation($race, $user, $participationType)
@@ -120,60 +128,37 @@ class ParticipationManager
         $action->executeAction();
     }
 
-    private static function switchToPresence($race, $user, $currentParticipation)
+    private static function switchToPresence($race, $user, $participation)
     {
-        $titularCount = self::countParticipants($race, ListType::TITULAR);
+        $time = (new \DateTime())->getTimestamp();
 
-        if ($titularCount == $race->availableSlots) {
-            // STAY IN WAITING LIST AT SAME POSITION
-            $action = new ParticipationAction([$currentParticipation], 'update', [
-                'data' => [
-                    'type'         => ParticipationType::PRESENCE,
-                    'presenceTime' => (new \DateTime())->getTimestamp(),
-                ],
-            ]);
-            $action->executeAction();
-        } else {
-            // MOVE TO END OF TITULAR LIST
-            $action = new ParticipationAction([$currentParticipation], 'update', [
-                'data' => [
-                    'type'         => ParticipationType::PRESENCE,
-                    'listType'     => ListType::TITULAR,
-                    'position'     => $titularCount + 1,
-                    'presenceTime' => (new \DateTime())->getTimestamp(),
-                ],
-            ]);
-            $action->executeAction();
-            self::updateNextPositions($race, $currentParticipation->position + 1, ListType::WAITING, -1);
+        $action = new ParticipationAction([$participation], 'update', [
+            'data' => [
+                'type'         => ParticipationType::PRESENCE,
+                'presenceTime' => $time,
+            ],
+        ]);
+        $action->executeAction();
+
+        if (self::countParticipants($race, ListType::TITULAR) < $race->availableSlots) {
+            $participation->presenceTime = $time; // TODO éviter d'avoir à faire ça
+            self::switchToList($race, $participation, ListType::TITULAR);
         }
     }
 
     private static function switchToUnconfirmed($race, $user, $participation)
     {
-        switch ($participation->listType) {
-            case ListType::WAITING:
-                $action = new ParticipationAction([$participation], 'update', [
-                    'data' => [
-                        'type'         => ParticipationType::PRESENCE_NOT_CONFIRMED,
-                        'presenceTime' => null,
-                    ],
-                ]);
-                $action->executeAction();
-                break;
+        $action = new ParticipationAction([$participation], 'update', [
+            'data' => [
+                'type'         => ParticipationType::PRESENCE_NOT_CONFIRMED,
+                'presenceTime' => null,
+            ],
+        ]);
+        $action->executeAction();
 
-            case ListType::TITULAR:
-                self::switchToList($race, $participation, ListType::WAITING);
-
-                $action = new ParticipationAction([$participation], 'update', [
-                    'data' => [
-                        'type'         => ParticipationType::PRESENCE_NOT_CONFIRMED,
-                        'presenceTime' => null,
-                    ],
-                ]);
-                $action->executeAction();
-
-                self::switchFirstWaitingPresentToTitular($race);
-                break;
+        if ($participation->listType == ListType::TITULAR) {
+            self::switchToList($race, $participation, ListType::WAITING);
+            self::switchFirstWaitingPresentToTitular($race);
         }
     }
 
@@ -221,7 +206,7 @@ class ParticipationManager
             ListType::getOtherType($toListType), -1);
     }
 
-    private static function findFirstWaitingPresents($race, $limit)
+    private static function switchFirstWaitingPresentToTitular($race)
     {
         $statement = WCF::getDB()->prepareStatement(
             "SELECT * FROM wcf" . WCF_N . "_siraca_participation
@@ -229,30 +214,12 @@ class ParticipationManager
             AND listType = " . ListType::WAITING . "
             AND type = " . ParticipationType::PRESENCE . "
             ORDER BY position ASC
-            LIMIT $limit
+            LIMIT 1
             "
         );
         $statement->execute();
-        return $statement;
-    }
 
-    private static function findLastTitulars($race, $limit)
-    {
-        $statement = WCF::getDB()->prepareStatement(
-            "SELECT * FROM wcf" . WCF_N . "_siraca_participation p
-            WHERE p.raceID = {$race->raceID}
-            AND p.listType = " . ListType::TITULAR . "
-            ORDER BY p.position DESC
-            LIMIT $limit
-            "
-        );
-        $statement->execute();
-        return $statement;
-    }
-
-    private static function switchFirstWaitingPresentToTitular($race)
-    {
-        $firstWaitingPresent = self::findFirstWaitingPresents($race, 1)->fetchObject(Participation::class);
+        $firstWaitingPresent = $statement->fetchObject(Participation::class);
         if ($firstWaitingPresent != null) {
             self::switchToList($race, $firstWaitingPresent, ListType::TITULAR);
         }
@@ -315,5 +282,10 @@ class ParticipationManager
             return self::countParticipants($race, ListType::WAITING) + 1;
         }
         return $nextParticipation->position;
+    }
+
+    private static function sql($query)
+    {
+        WCF::getDB()->prepareStatement($query)->execute();
     }
 }

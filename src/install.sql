@@ -12,8 +12,8 @@ CREATE TABLE wcf1_siraca_participation (
 	raceID INT(10) NOT NULL,
 	userID INT(10) NOT NULL,
 	type TINYINT NOT NULL,
-    /* waitingList [0,1] */
-    waitingList TINYINT NOT NULL,
+    /* ListType */
+    listType TINYINT NOT NULL,
     /* Local position in list (titular and waiting list are separated) */
     position INT(10) NOT NULL,
     registrationTime INT(10) NOT NULL,

@@ -1,6 +1,7 @@
 <?php
 namespace wcf\page;
 
+use wcf\data\siraca\participation\ListType;
 use wcf\data\siraca\participation\ViewableParticipationList;
 use wcf\data\siraca\race\Race;
 use wcf\data\siraca\race\ViewableRace;
@@ -36,12 +37,12 @@ class RacePage extends AbstractPage
         parent::readData();
 
         $this->titularList = new ViewableParticipationList($this->race->raceID);
-        $this->titularList->getConditionBuilder()->add("siraca_participation.waitingList = 0");
+        $this->titularList->getConditionBuilder()->add("siraca_participation.listType = " . ListType::TITULAR);
         $this->titularList->sqlOrderBy = "position";
         $this->titularList->readObjects(); // TODO regarder quand/pourquoi AbstractPage utilise le readObjectIDs
 
         $this->waitingList = new ViewableParticipationList($this->race->raceID);
-        $this->waitingList->getConditionBuilder()->add("siraca_participation.waitingList = 1");
+        $this->waitingList->getConditionBuilder()->add("siraca_participation.listType = " . ListType::WAITING);
         $this->waitingList->sqlOrderBy = "position";
         $this->waitingList->readObjects();
 

@@ -47,6 +47,7 @@
     <category name="siraca.participation">
         <item name="siraca.participation.link"><![CDATA[Gérer ma participation]]></item>
         <item name="siraca.participation.title"><![CDATA[Participation à ]]></item>
+        <item name="siraca.participation.titleShort"><![CDATA[Participation]]></item>
 
         <item name="siraca.participation.form.presence"><![CDATA[Modifier ma participation]]></item>
         <item name="siraca.participation.form.error.noChange"><![CDATA[Vous n'avez fait aucun changement]]></item>
@@ -65,8 +66,8 @@
     </category>
 
     <category name="siraca.participation.deniedReason">
-        <item name="siraca.participation.deniedReason.guest"><![CDATA[Inscription réservée aux membres du forum]]></item>
-        <item name="siraca.participation.deniedReason.noPermission"><![CDATA[Vous n'êtes pas autorisé à participer]]></item>
+        <item name="siraca.participation.deniedReason.guest"><![CDATA[Restreint aux membres du forum.]]></item>
+        <item name="siraca.participation.deniedReason.noPermission"><![CDATA[Vous ne pouvez pas participer.]]></item>
     </category>
 
     <category name="siraca.participation.registration">

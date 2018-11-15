@@ -2,7 +2,6 @@
 namespace wcf\page;
 
 use wcf\data\siraca\participation\ListType;
-use wcf\data\siraca\participation\ParticipationUtil;
 use wcf\data\siraca\participation\ViewableParticipationList;
 use wcf\data\siraca\race\Race;
 use wcf\data\siraca\race\ViewableRace;
@@ -65,11 +64,10 @@ class RacePage extends AbstractPage
         $waitingArray = $this->waitingList->getObjects();
 
         WCF::getTPL()->assign([
-            'race'                 => $this->race,
-            'titularList'          => $titularArray,
-            'waitingList'          => $waitingArray,
-            'participationSummary' => ParticipationUtil::getParticipantsSummary($this->race),
-            'startTime'            => DateUtil::format($this->startDateTime, DateUtil::DATE_FORMAT, $language, $user)
+            'race'        => $this->race,
+            'titularList' => $titularArray,
+            'waitingList' => $waitingArray,
+            'startTime'   => DateUtil::format($this->startDateTime, DateUtil::DATE_FORMAT, $language, $user)
             . ' - ' .
             DateUtil::format($this->startDateTime, DateUtil::TIME_FORMAT, $language, $user),
             /*

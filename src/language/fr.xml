@@ -63,6 +63,8 @@
         <item name="siraca.participation.detail.waitingListCount"><![CDATA[{$race->waitingListCount} personnes en liste d'attente.]]></item>
         <item name="siraca.participation.detail.titularPosition"><![CDATA[Position {$race->getParticipationPosition()} en liste titulaire.]]></item>
         <item name="siraca.participation.detail.waitingPosition"><![CDATA[Position {$race->getParticipationPosition()} en liste d'attente.]]></item>
+
+        <item name="siraca.participation.globalSummary"><![CDATA[Participants : {$race->titularListCount} / {$race->availableSlots} ({$race->waitingListCount})]]></item>
     </category>
 
     <category name="siraca.participation.deniedReason">

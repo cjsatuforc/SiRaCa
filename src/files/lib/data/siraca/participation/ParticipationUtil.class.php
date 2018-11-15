@@ -38,9 +38,4 @@ class ParticipationUtil
 
         return new ViewableParticipation($participation);
     }
-
-    public static function getParticipantsSummary($race)
-    {
-        return "{$race->titularListCount} ({$race->waitingListCount}) / {$race->availableSlots}";
-    }
 }

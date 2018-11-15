@@ -8,7 +8,7 @@
 
 <div class="section">
     <h2 class="sectionTitle">{lang}siraca.participation.form.presence{/lang}</h2>
-    
+
     <form method="post" action="{link controller='Participation' object=$race}{/link}">
         <div class="section">
             {include file="_participationSummary"}

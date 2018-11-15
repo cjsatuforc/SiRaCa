@@ -10,7 +10,7 @@
 
 <div class="section">
     <div>{$startTime}</div>
-    <div>{lang}siraca.race.slots{/lang}{$participationSummary}</div>
+    <div>{include file='_participantsSummary'}</div>
 </div>
 
 <div class="section sectionContainerList">

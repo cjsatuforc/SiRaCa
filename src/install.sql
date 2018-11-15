@@ -3,7 +3,10 @@ CREATE TABLE wcf1_siraca_race (
 	raceID INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	title VARCHAR(255) NOT NULL,
     startTime INT(10) NOT NULL,
-    availableSlots INT(10) NOT NULL
+    availableSlots INT(10) NOT NULL,
+    participationCount INT(10) NOT NULL DEFAULT 0,
+    titularListCount INT(10) NOT NULL DEFAULT 0,
+    waitingListCount INT(10) NOT NULL DEFAULT 0,
 );
 
 DROP TABLE IF EXISTS wcf1_siraca_participation;

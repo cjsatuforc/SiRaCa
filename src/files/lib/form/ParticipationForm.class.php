@@ -61,39 +61,6 @@ class ParticipationForm extends AbstractForm
         parent::save();
 
         ParticipationManager::setParticipation($this->race, WCF::getUser(), $this->participation->getDecoratedObject(), $this->newParticipationType);
-        /*
-        if ($this->newParticipationType == ParticipationType::ABSENCE) {
-        $action = 'delete';
-        } else {
-        $action = $this->participation->participationID ? 'update' : 'create';
-        }
-
-        switch ($action) {
-        case 'create':
-        $objects = [];
-        $row     = [
-        'raceID' => $this->race->raceID,
-        'userID' => WCF::getUser()->userID,
-        'type'   => $this->newParticipationType,
-        ];
-        break;
-
-        case 'update':
-        $objects = [$this->participation->getDecoratedObject()];
-        $row     = ['type' => $this->newParticipationType];
-        break;
-
-        case 'delete':
-        $objects = [$this->participation->getDecoratedObject()];
-        $row     = [];
-        }
-
-        $this->objectAction = new ParticipationAction($objects, $action, [
-        'data' => array_merge($this->additionalFields, $row),
-        ]);
-
-        $this->objectAction->executeAction();
-         */
 
         $this->saved();
 

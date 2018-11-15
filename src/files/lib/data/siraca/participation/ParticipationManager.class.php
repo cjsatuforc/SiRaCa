@@ -42,7 +42,7 @@ class ParticipationManager
 
         self::sql("
             UPDATE      wcf" . WCF_N . "_siraca_participation
-            SET         listType = 0;
+            SET         listType = -1;
         ");
         self::sql("
             SET         @i:=0;
@@ -62,8 +62,21 @@ class ParticipationManager
             UPDATE      wcf" . WCF_N . "_siraca_participation
             SET         position = @i:=@i+1,
                         listType = " . ListType::WAITING . "
-            WHERE       listType = 0
+            WHERE       listType = -1
             ORDER BY    registrationTime ASC;
+        ");
+
+        self::sql("
+            UPDATE      wcf" . WCF_N . "_siraca_race
+            SET         participationCount = (  SELECT COUNT(*) FROM wcf" . WCF_N . "_siraca_participation
+                                                    WHERE   raceID   = {$race->raceID} ),
+                        titularListCount = (    SELECT COUNT(*) FROM wcf" . WCF_N . "_siraca_participation
+                                                    WHERE   raceID   = {$race->raceID}
+                                                    AND     listType = " . ListType::TITULAR . "),
+                        waitingListCount = (    SELECT COUNT(*) FROM wcf" . WCF_N . "_siraca_participation
+                                                    WHERE   raceID   = {$race->raceID}
+                                                    AND     listType = " . ListType::WAITING . ")
+            WHERE       raceID = {$race->raceID};
         ");
 
         WCF::getDB()->commitTransaction();
@@ -95,6 +108,8 @@ class ParticipationManager
                 'type'             => ParticipationType::PRESENCE,
                 'registrationTime' => $time,
                 'presenceTime'     => $time,
+                'listType'         => -1,
+                'position'         => -1,
             ],
         ]);
 
@@ -109,6 +124,8 @@ class ParticipationManager
                 'userID'           => $user->userID,
                 'type'             => ParticipationType::PRESENCE_NOT_CONFIRMED,
                 'registrationTime' => (new \DateTime())->getTimestamp(),
+                'listType'         => -1,
+                'position'         => -1,
             ],
         ]);
 

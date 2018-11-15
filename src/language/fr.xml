@@ -13,7 +13,7 @@
 
     <category name="siraca.race">
         <item name="siraca.race.title"><![CDATA[Course : ]]></item>
-        <item name="siraca.race.slots"><![CDATA[Inscrits / Capacité : ]]></item>
+        <item name="siraca.race.slots"><![CDATA[Participations : ]]></item>
         <item name="siraca.race.participants"><![CDATA[Participants]]></item>
     </category>
 
@@ -71,5 +71,10 @@
         <item name="siraca.participation.type.presence"><![CDATA[Présent]]></item>
         <item name="siraca.participation.type.absence"><![CDATA[Absent]]></item>
         <item name="siraca.participation.type.presenceNotConfirmed"><![CDATA[Incertain]]></item>
+    </category>
+
+    <category name="siraca.participation.list">
+        <item name="siraca.participation.list.titular.title"><![CDATA[Titulaires]]></item>
+        <item name="siraca.participation.list.waiting.title"><![CDATA[Liste d'attente]]></item>
     </category>
 </language>

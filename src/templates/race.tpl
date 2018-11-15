@@ -31,47 +31,53 @@
 
 <div class="section">
     <div>{$startTime}</div>
-    <div>{lang}siraca.race.slots{/lang}{$participantCount} / {$race->availableSlots}</div>
+    <div>{lang}siraca.race.slots{/lang}{$participationSummary}</div>
 </div>
 
 <div class="section sectionContainerList">
-    <h2 class="sectionTitle">{lang}siraca.race.participants{/lang} <span class="badge">{$participantCount}</span></h2>
-    <div>TEST titulaire</div>
-    <ol> 
-        {foreach from=$titularList item=participation}
-            <li>
-                <div class="box16">
-                    <span>{$participation->position}</span>
-                    <span class="icon ico16 fa-user"></span>
-                    
-                    <div class="details">
-                        <div class="containerHeadline">
-                            <a href="{$participation->getUserLink()}">{$participation->getUsername()}</a>
-                            {if $participation->isUncertain()}<small>({lang}{$participation->getType()->shortTextLangId}{/lang})</small>{/if}
+    <h2 class="sectionTitle">{lang}siraca.race.participants{/lang} <span class="badge">{$race->participationCount}</span></h2>
+    
+    <div class="section">
+        <h3 class="sectionTitle">{lang}siraca.participation.list.titular.title{/lang} <span class="badge">{$race->titularListCount}</span></h3>
+        <ol> 
+            {foreach from=$titularList item=participation}
+                <li>
+                    <div class="box16">
+                        <span>{$participation->position}</span>
+                        <span class="icon ico16 fa-user"></span>
+                        
+                        <div class="details">
+                            <div class="containerHeadline">
+                                <a href="{$participation->getUserLink()}">{$participation->getUsername()}</a>
+                                {if $participation->isUncertain()}<small>({lang}{$participation->getType()->shortTextLangId}{/lang})</small>{/if}
+                            </div>
                         </div>
                     </div>
-                </div>
-            </li>
-        {/foreach}
-    </ol>
-    <div>TEST attente</div>
-    <ol> 
-        {foreach from=$waitingList item=participation}
-            <li>
-                <div class="box16">
-                    <span>{$participation->position}</span>
-                    <span class="icon ico16 fa-user"></span>
-                    
-                    <div class="details">
-                        <div class="containerHeadline">
-                            <a href="{$participation->getUserLink()}">{$participation->getUsername()}</a>
-                            {if $participation->isUncertain()}<small>({lang}{$participation->getType()->shortTextLangId}{/lang})</small>{/if}
+                </li>
+            {/foreach}
+        </ol>
+    </div>
+    
+    <div class="section">
+        <h3 class="sectionTitle">{lang}siraca.participation.list.waiting.title{/lang} <span class="badge">{$race->waitingListCount}</span></h3>
+        <ol> 
+            {foreach from=$waitingList item=participation}
+                <li>
+                    <div class="box16">
+                        <span>{$participation->position}</span>
+                        <span class="icon ico16 fa-user"></span>
+                        
+                        <div class="details">
+                            <div class="containerHeadline">
+                                <a href="{$participation->getUserLink()}">{$participation->getUsername()}</a>
+                                {if $participation->isUncertain()}<small>({lang}{$participation->getType()->shortTextLangId}{/lang})</small>{/if}
+                            </div>
                         </div>
                     </div>
-                </div>
-            </li>
-        {/foreach}
-    </ol>
+                </li>
+            {/foreach}
+        </ol>
+    </div>
 </div>
 
 <footer class="contentFooter">

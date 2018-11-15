@@ -50,6 +50,13 @@
 
         <item name="siraca.participation.form.presence"><![CDATA[Modifier ma participation]]></item>
         <item name="siraca.participation.form.error.noChange"><![CDATA[Vous n'avez fait aucun changement]]></item>
+
+        <item name="siraca.participation.list.titular.title"><![CDATA[Titulaires]]></item>
+        <item name="siraca.participation.list.waiting.title"><![CDATA[Liste d'attente]]></item>
+
+        <item name="siraca.participation.estimation.title"><![CDATA[Position estimée après changement]]></item>
+        <item name="siraca.participation.estimation.titular"><![CDATA[ : Position {$estimation->position} en liste titulaire.]]></item>
+        <item name="siraca.participation.estimation.waiting"><![CDATA[ : Position {$estimation->position} en liste d'attente.]]></item>
     </category>
 
     <category name="siraca.participation.deniedReason">
@@ -58,9 +65,9 @@
     </category>
 
     <category name="siraca.participation.registration">
-        <item name="siraca.participation.registration.registered"><![CDATA[Vous êtes inscrit]]></item>
-        <item name="siraca.participation.registration.notRegistered"><![CDATA[Vous n'êtes pas inscrit]]></item>
-        <item name="siraca.participation.registration.notConfirmed"><![CDATA[Votre inscription n'est pas confirmée]]></item>
+        <item name="siraca.participation.registration.registered"><![CDATA[Vous êtes inscrit.]]></item>
+        <item name="siraca.participation.registration.notRegistered"><![CDATA[Vous n'êtes pas inscrit.]]></item>
+        <item name="siraca.participation.registration.notConfirmed"><![CDATA[Votre inscription n'est pas confirmée.]]></item>
 
         <item name="siraca.participation.registration.registeredShort"><![CDATA[Inscrit]]></item>
         <item name="siraca.participation.registration.notRegisteredShort"><![CDATA[Non inscrit]]></item>
@@ -71,10 +78,9 @@
         <item name="siraca.participation.type.presence"><![CDATA[Présent]]></item>
         <item name="siraca.participation.type.absence"><![CDATA[Absent]]></item>
         <item name="siraca.participation.type.presenceNotConfirmed"><![CDATA[Incertain]]></item>
-    </category>
 
-    <category name="siraca.participation.list">
-        <item name="siraca.participation.list.titular.title"><![CDATA[Titulaires]]></item>
-        <item name="siraca.participation.list.waiting.title"><![CDATA[Liste d'attente]]></item>
+        <item name="siraca.participation.type.3"><![CDATA[Présent]]></item>
+        <item name="siraca.participation.type.1"><![CDATA[Absent]]></item>
+        <item name="siraca.participation.type.2"><![CDATA[Incertain]]></item>
     </category>
 </language>

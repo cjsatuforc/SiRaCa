@@ -65,7 +65,6 @@ class ParticipationManager
             WHERE       listType = -1
             ORDER BY    registrationTime ASC;
         ");
-
         self::sql("
             UPDATE      wcf" . WCF_N . "_siraca_race
             SET         participationCount = (  SELECT COUNT(*) FROM wcf" . WCF_N . "_siraca_participation

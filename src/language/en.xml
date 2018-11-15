@@ -3,8 +3,6 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/tornado/language.xsd" languagecode="en">
 
     <category name="wcf.acp.group">
-        <!-- <item name="wcf.acp.group.option.admin.content.canManagePeople"><![CDATA[Can manage people]]></item> -->
-
         <item name="wcf.acp.group.option.category.mod.siraca"><![CDATA[SiRaCa]]></item>
         <item name="wcf.acp.group.option.category.user.siraca"><![CDATA[SiRaCa]]></item>
 
@@ -52,6 +50,13 @@
 
         <item name="siraca.participation.form.presence"><![CDATA[Change my participation]]></item>
         <item name="siraca.participation.form.error.noChange"><![CDATA[No participation change]]></item>
+
+        <item name="siraca.participation.list.titular.title"><![CDATA[Titular list]]></item>
+        <item name="siraca.participation.list.waiting.title"><![CDATA[Waiting list]]></item>
+
+        <item name="siraca.participation.estimation.title"><![CDATA[Estimated position after change]]></item>
+        <item name="siraca.participation.estimation.titular"><![CDATA[: Position {$estimation->position} in titular list.]]></item>
+        <item name="siraca.participation.estimation.waiting"><![CDATA[: Position {$estimation->position} in waiting list.]]></item>
     </category>
 
     <category name="siraca.participation.deniedReason">
@@ -60,9 +65,9 @@
     </category>
 
     <category name="siraca.participation.registration">
-        <item name="siraca.participation.registration.registered"><![CDATA[You are registered]]></item>
-        <item name="siraca.participation.registration.notRegistered"><![CDATA[You are not registered]]></item>
-        <item name="siraca.participation.registration.notConfirmed"><![CDATA[Your registration is not confirmed]]></item>
+        <item name="siraca.participation.registration.registered"><![CDATA[You are registered.]]></item>
+        <item name="siraca.participation.registration.notRegistered"><![CDATA[You are not registered.]]></item>
+        <item name="siraca.participation.registration.notConfirmed"><![CDATA[Your registration is not confirmed.]]></item>
 
         <item name="siraca.participation.registration.registeredShort"><![CDATA[Registered]]></item>
         <item name="siraca.participation.registration.notRegisteredShort"><![CDATA[Not registered]]></item>
@@ -73,11 +78,10 @@
         <item name="siraca.participation.type.presence"><![CDATA[Present]]></item>
         <item name="siraca.participation.type.absence"><![CDATA[Absent]]></item>
         <item name="siraca.participation.type.presenceNotConfirmed"><![CDATA[Undecided]]></item>
-    </category>
 
-    <category name="siraca.participation.list">
-        <item name="siraca.participation.list.titular.title"><![CDATA[Titular list]]></item>
-        <item name="siraca.participation.list.waiting.title"><![CDATA[Waiting list]]></item>
+        <item name="siraca.participation.type.3"><![CDATA[Present]]></item>
+        <item name="siraca.participation.type.1"><![CDATA[Absent]]></item>
+        <item name="siraca.participation.type.2"><![CDATA[Undecided]]></item>
     </category>
 
     <!-- <category name="wcf.acp.menu">

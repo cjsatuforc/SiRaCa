@@ -1,6 +1,7 @@
 <?php
 namespace wcf\form;
 
+use wcf\data\siraca\participation\EstimatedPosition;
 use wcf\data\siraca\participation\ParticipationManager;
 use wcf\data\siraca\participation\ParticipationType;
 use wcf\data\siraca\participation\ParticipationUtil;
@@ -85,6 +86,7 @@ class ParticipationForm extends AbstractForm
             'race'               => $this->race,
             'participation'      => $this->participation,
             'participationTypes' => ParticipationType::getTypes(),
+            'estimatedPositions' => EstimatedPosition::estimateParticipationChangePositions($this->race, $this->participation),
         ]);
     }
 }

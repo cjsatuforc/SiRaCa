@@ -41,9 +41,8 @@ class EstimatedPosition
                 break;
 
             case ParticipationType::PRESENCE:
-                $titularCount = self::countParticipants($race, ListType::TITULAR);
                 if ($participation->listType == ListType::TITULAR) {
-                    $estimatedPositions[ParticipationType::PRESENCE_NOT_CONFIRMED] = new EstimatedPosition(ListType::WAITING, self::findWaitingPosition($race, $participation->registrationTime));
+                    $estimatedPositions[ParticipationType::PRESENCE_NOT_CONFIRMED] = new EstimatedPosition(ListType::WAITING, self::findWaitingPosition($race, $participation));
                 } else {
                     $estimatedPositions[ParticipationType::PRESENCE_NOT_CONFIRMED] = new EstimatedPosition(ListType::WAITING, $participation->position);
                 }
@@ -70,22 +69,32 @@ class EstimatedPosition
         return $nextParticipation->position;
     }
 
-    private static function findWaitingPosition($race, $registrationTime)
+    private static function findWaitingPosition($race, $participation)
     {
         $statement = WCF::getDB()->prepareStatement(
             "SELECT * FROM wcf" . WCF_N . "_siraca_participation p
             WHERE p.raceID = {$race->raceID}
             AND p.listType = " . ListType::WAITING . "
-            AND p.registrationTime > {$registrationTime}
-            ORDER BY p.registrationTime ASC LIMIT 1"
+            AND p.registrationTime > {$participation->registrationTime}
+            ORDER BY p.registrationTime ASC,
+            p.presenceTime ASC
+            LIMIT 1"
         );
         $statement->execute();
 
         $nextParticipation = $statement->fetchObject(Participation::class);
-        if (!$nextParticipation) {
-            return self::countParticipants($race, ListType::WAITING) + 1;
+
+        $firstPresentDelta   = 0;
+        $firstWaitingPresent = self::findFirstWaitingPresent($race);
+
+        if ($firstWaitingPresent != null && $firstWaitingPresent->registrationTime < $participation->registrationTime) {
+            $firstPresentDelta++;
         }
-        return $nextParticipation->position;
+
+        if (!$nextParticipation) {
+            return self::countParticipants($race, ListType::WAITING) + 1 - $firstPresentDelta;
+        }
+        return $nextParticipation->position - $firstPresentDelta;
     }
 
     private static function titularListHasFreeSlots($race)
@@ -103,5 +112,21 @@ class EstimatedPosition
         $statement->execute();
 
         return $statement->fetchSingleColumn();
+    }
+
+    private static function findFirstWaitingPresent($race)
+    {
+        $statement = WCF::getDB()->prepareStatement(
+            "SELECT * FROM wcf" . WCF_N . "_siraca_participation
+            WHERE raceID = {$race->raceID}
+            AND listType = " . ListType::WAITING . "
+            AND type = " . ParticipationType::PRESENCE . "
+            ORDER BY position ASC
+            LIMIT 1
+            "
+        );
+        $statement->execute();
+
+        return $statement->fetchObject(Participation::class);
     }
 }

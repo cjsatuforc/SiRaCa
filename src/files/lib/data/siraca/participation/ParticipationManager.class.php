@@ -52,7 +52,8 @@ class ParticipationManager
             SET         position = @i:=@i+1,
                         listType = " . ListType::TITULAR . "
             WHERE       type = " . ParticipationType::PRESENCE . "
-            ORDER BY    presenceTime ASC
+            ORDER BY    presenceTime ASC,
+                        registrationTime ASC
             LIMIT       $newCapacity;
         ");
         self::sql("
@@ -63,7 +64,8 @@ class ParticipationManager
             SET         position = @i:=@i+1,
                         listType = " . ListType::WAITING . "
             WHERE       listType = -1
-            ORDER BY    registrationTime ASC;
+            ORDER BY    registrationTime ASC,
+                        presenceTime ASC;
         ");
         self::sql("
             UPDATE      wcf" . WCF_N . "_siraca_race

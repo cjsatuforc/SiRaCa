@@ -70,15 +70,6 @@
     </form>
 </div>
 
-<script data-relocate="true">
-    $(function() {
-        elById("test").addEventListener("click", function(){
-            alert(elById("startTime").value);
-        });
-    });
-</script>
-
-
 {* DELETE RACE *}
 {if $action == 'edit'}
 {* <footer class="contentFooter">

@@ -61,7 +61,7 @@
         <item name="siraca.participation.estimation.leavingFullTitularWarning"><![CDATA[Vous allez être placé en liste d'attente. La liste titulaire étant pleine, si plus tard vous confirmez votre présence, il vous faudra attendre un ou plusieurs désistements pour la réintégrer. Continuer ?]]></item>
 
         <item name="siraca.participation.detail.freeTitularList"><![CDATA[Il reste {$race->getTitularListFreeSlots()} {if $race->getTitularListFreeSlots() > 1}places libres{else}place libre{/if}.]]></item>
-        <item name="siraca.participation.detail.waitingListCount"><![CDATA[{$race->waitingListCount} personnes en liste d'attente.]]></item>
+        <item name="siraca.participation.detail.waitingListCount"><![CDATA[{$race->waitingListCount} {if $race->waitingListCount > 1}personnes{else}personne{/if} en liste d'attente.]]></item>
         <item name="siraca.participation.detail.titularPosition"><![CDATA[{$race->getParticipationPosition()}° en liste titulaire.]]></item>
         <item name="siraca.participation.detail.waitingPosition"><![CDATA[{$race->getParticipationPosition()}° en liste d'attente.]]></item>
 

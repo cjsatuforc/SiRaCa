@@ -14,10 +14,10 @@
 </div>
 
 <div class="section sectionContainerList">
-    <h2 class="sectionTitle">{lang}siraca.race.participants{/lang} <span class="badge">{$race->participationCount}</span></h2>
+    <h2 class="sectionTitle">{lang}siraca.race.participants{/lang} <span class="badge black">{$race->participationCount}</span></h2>
     {if $race->participationCount > 0}
         <div class="section">
-            <h3 class="sectionTitle">{lang}siraca.participation.list.titular.title{/lang} <span class="badge">{$race->titularListCount}</span></h3>
+            <h3 class="sectionTitle">{lang}siraca.participation.list.titular.title{/lang} <span class="badge blue">{$race->titularListCount}</span> <strong>/</strong> <span class="badge blue">{$race->availableSlots}</span></h3>
             <ol> 
                 {foreach from=$titularList item=participation}
                     <li>
@@ -38,7 +38,7 @@
         </div>
         
         <div class="section">
-            <h3 class="sectionTitle">{lang}siraca.participation.list.waiting.title{/lang} <span class="badge">{$race->waitingListCount}</span></h3>
+            <h3 class="sectionTitle">{lang}siraca.participation.list.waiting.title{/lang} <span class="badge brown">{$race->waitingListCount}</span></h3>
             <ol> 
                 {foreach from=$waitingList item=participation}
                     <li>

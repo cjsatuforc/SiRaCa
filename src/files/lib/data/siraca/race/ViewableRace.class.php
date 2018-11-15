@@ -3,7 +3,6 @@ namespace wcf\data\siraca\race;
 
 use wcf\data\DatabaseObject;
 use wcf\data\DatabaseObjectDecorator;
-use wcf\data\siraca\participation\ParticipationType;
 use wcf\data\siraca\participation\ParticipationUtil;
 use wcf\data\siraca\race\Race;
 
@@ -32,7 +31,27 @@ class ViewableRace extends DatabaseObjectDecorator
 
     public function isParticipant()
     {
-        return $this->getParticipationType()->type != ParticipationType::ABSENCE;
+        return $this->participation->isRegistered();
+    }
+
+    public function isTitular()
+    {
+        return $this->participation->isTitular();
+    }
+
+    public function getParticipationPosition()
+    {
+        return $this->participation->position;
+    }
+
+    public function isParticipationConfirmed()
+    {
+        return $this->participation->isConfirmed();
+    }
+
+    public function getTitularListFreeSlots()
+    {
+        return $this->availableSlots - $this->titularListCount;
     }
 
     public function __toString()

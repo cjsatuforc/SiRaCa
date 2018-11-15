@@ -11,7 +11,7 @@
 {/hascontent}
 
 {if $items}
-    {include file='commonRaceList'}
+    {include file='_raceList'}
 {else}
 	<p class="info">{lang}wcf.global.noItems{/lang}</p>
 {/if}

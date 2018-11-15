@@ -11,7 +11,8 @@
     
     <form method="post" action="{link controller='Participation' object=$race}{/link}">
         <div class="section">
-            <span><i>{lang}{$participation->getType()->longTextLangId}{/lang}</i></span>
+            {include file="_participationSummary"}
+
             <dl {if $errorField == 'participationType'} class="formError"{/if}>
                 <dt></dt>
                 <dd>

@@ -6,6 +6,7 @@ use wcf\data\siraca\participation\ParticipationManager;
 use wcf\data\siraca\participation\ParticipationType;
 use wcf\data\siraca\participation\ParticipationUtil;
 use wcf\data\siraca\race\Race;
+use wcf\data\siraca\race\ViewableRace;
 use wcf\form\AbstractForm;
 use wcf\system\exception\IllegalLinkException;
 use wcf\system\exception\UserInputException;
@@ -29,7 +30,7 @@ class ParticipationForm extends AbstractForm
 
         $raceID = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : 0;
 
-        $this->race = new Race($raceID);
+        $this->race = new ViewableRace(new Race($raceID));
 
         if (!$this->race->raceID) {
             throw new IllegalLinkException();
@@ -75,7 +76,7 @@ class ParticipationForm extends AbstractForm
         parent::readData();
 
         $this->participation = ParticipationUtil::getUserParticipation($this->race->raceID);
-        PageLocationManager::getInstance()->addParentLocation('fr.chatcureuil.siraca.Race', $this->race->raceID, $this->race);
+        PageLocationManager::getInstance()->addParentLocation('fr.chatcureuil.siraca.Race', $this->race->raceID, $this->race->getDecoratedObject());
     }
 
     public function assignVariables()

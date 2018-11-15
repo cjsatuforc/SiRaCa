@@ -57,6 +57,12 @@
         <item name="siraca.participation.estimation.title"><![CDATA[Estimated position after change]]></item>
         <item name="siraca.participation.estimation.titular"><![CDATA[: Position {$estimation->position} in titular list.]]></item>
         <item name="siraca.participation.estimation.waiting"><![CDATA[: Position {$estimation->position} in waiting list.]]></item>
+
+
+        <item name="siraca.participation.detail.freeTitularList"><![CDATA[{$race->getTitularListFreeSlots()} free places remaining.]]></item>
+        <item name="siraca.participation.detail.waitingListCount"><![CDATA[{$race->waitingListCount} people in waiting list.]]></item>
+        <item name="siraca.participation.detail.titularPosition"><![CDATA[Position {$race->getParticipationPosition()} in titularlist.]]></item>
+        <item name="siraca.participation.detail.waitingPosition"><![CDATA[Position {$race->getParticipationPosition()} in waiting list.]]></item>
     </category>
 
     <category name="siraca.participation.deniedReason">

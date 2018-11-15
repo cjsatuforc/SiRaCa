@@ -8,7 +8,7 @@
 
 {if $items}
 	
-    {include file='commonRaceList'}
+    {include file='_raceList'}
 	
 	<footer class="contentFooter">
 		{hascontent}

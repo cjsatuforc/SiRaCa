@@ -24,9 +24,19 @@ class ViewableParticipation extends DatabaseObjectDecorator
         return ParticipationType::getTypes()[$this->type];
     }
 
-    public function isUncertain()
+    public function isRegistered()
     {
-        return $this->type == ParticipationType::PRESENCE_NOT_CONFIRMED;
+        return $this->type != ParticipationType::ABSENCE;
+    }
+
+    public function isConfirmed()
+    {
+        return $this->type == ParticipationType::PRESENCE;
+    }
+
+    public function isTitular()
+    {
+        return $this->listType == ListType::TITULAR;
     }
 
     public function getUsername()

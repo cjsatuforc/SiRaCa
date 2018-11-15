@@ -68,7 +68,7 @@ class RacePage extends AbstractPage
             'race'                 => $this->race,
             'titularList'          => $titularArray,
             'waitingList'          => $waitingArray,
-            'participationSummary' => ParticipationUtil::getParticipationSummary($this->race),
+            'participationSummary' => ParticipationUtil::getParticipantsSummary($this->race),
             'startTime'            => DateUtil::format($this->startDateTime, DateUtil::DATE_FORMAT, $language, $user)
             . ' - ' .
             DateUtil::format($this->startDateTime, DateUtil::TIME_FORMAT, $language, $user),

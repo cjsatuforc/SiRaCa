@@ -11,7 +11,7 @@
                 {elseif !$__wcf->getSession()->getPermission('user.siraca.canParticipateRace')}
                     {lang}siraca.participation.deniedReason.noPermission{/lang}
                 {else}
-                    {lang}{$race->getParticipationType()->longTextLangId}{/lang}
+                    {include file="_participationSummary"}
                 {/if}
             </small>
         </li>
@@ -36,48 +36,49 @@
 
 <div class="section sectionContainerList">
     <h2 class="sectionTitle">{lang}siraca.race.participants{/lang} <span class="badge">{$race->participationCount}</span></h2>
-    
-    <div class="section">
-        <h3 class="sectionTitle">{lang}siraca.participation.list.titular.title{/lang} <span class="badge">{$race->titularListCount}</span></h3>
-        <ol> 
-            {foreach from=$titularList item=participation}
-                <li>
-                    <div class="box16">
-                        <span>{$participation->position}</span>
-                        <span class="icon ico16 fa-user"></span>
-                        
-                        <div class="details">
-                            <div class="containerHeadline">
-                                <a href="{$participation->getUserLink()}">{$participation->getUsername()}</a>
-                                {if $participation->isUncertain()}<small>({lang}{$participation->getType()->shortTextLangId}{/lang})</small>{/if}
+    {if $race->participationCount > 0}
+        <div class="section">
+            <h3 class="sectionTitle">{lang}siraca.participation.list.titular.title{/lang} <span class="badge">{$race->titularListCount}</span></h3>
+            <ol> 
+                {foreach from=$titularList item=participation}
+                    <li>
+                        <div class="box16">
+                            <span>{$participation->position}</span>
+                            <span class="icon ico16 fa-user"></span>
+                            
+                            <div class="details">
+                                <div class="containerHeadline">
+                                    <a href="{$participation->getUserLink()}">{$participation->getUsername()}</a>
+                                    {if !$participation->isConfirmed()}<small>({lang}{$participation->getType()->shortTextLangId}{/lang})</small>{/if}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </li>
-            {/foreach}
-        </ol>
-    </div>
-    
-    <div class="section">
-        <h3 class="sectionTitle">{lang}siraca.participation.list.waiting.title{/lang} <span class="badge">{$race->waitingListCount}</span></h3>
-        <ol> 
-            {foreach from=$waitingList item=participation}
-                <li>
-                    <div class="box16">
-                        <span>{$participation->position}</span>
-                        <span class="icon ico16 fa-user"></span>
-                        
-                        <div class="details">
-                            <div class="containerHeadline">
-                                <a href="{$participation->getUserLink()}">{$participation->getUsername()}</a>
-                                {if $participation->isUncertain()}<small>({lang}{$participation->getType()->shortTextLangId}{/lang})</small>{/if}
+                    </li>
+                {/foreach}
+            </ol>
+        </div>
+        
+        <div class="section">
+            <h3 class="sectionTitle">{lang}siraca.participation.list.waiting.title{/lang} <span class="badge">{$race->waitingListCount}</span></h3>
+            <ol> 
+                {foreach from=$waitingList item=participation}
+                    <li>
+                        <div class="box16">
+                            <span>{$participation->position}</span>
+                            <span class="icon ico16 fa-user"></span>
+                            
+                            <div class="details">
+                                <div class="containerHeadline">
+                                    <a href="{$participation->getUserLink()}">{$participation->getUsername()}</a>
+                                    {if !$participation->isConfirmed()}<small>({lang}{$participation->getType()->shortTextLangId}{/lang})</small>{/if}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </li>
-            {/foreach}
-        </ol>
-    </div>
+                    </li>
+                {/foreach}
+            </ol>
+        </div>
+    {/if}
 </div>
 
 <footer class="contentFooter">

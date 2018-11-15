@@ -84,10 +84,12 @@ class ParticipationForm extends AbstractForm
         parent::assignVariables();
 
         WCF::getTPL()->assign([
-            'race'               => $this->race,
-            'participation'      => $this->participation,
-            'participationTypes' => ParticipationType::getTypes(),
-            'estimatedPositions' => EstimatedPosition::estimateParticipationChangePositions($this->race, $this->participation),
+            'race'                                  => $this->race,
+            'participation'                         => $this->participation,
+            'participationTypes'                    => ParticipationType::getTypes(),
+            'estimatedPositions'                    => EstimatedPosition::estimateParticipationChangePositions($this->race, $this->participation),
+            'isTitularFullIfSwitchingToUnconfirmed' => EstimatedPosition::isTitularFullIfSwitchingToUnconfirmed($this->race, $this->participation) ? 1 : 0,
+            'unconfirmedPresenceType'               => ParticipationType::PRESENCE_NOT_CONFIRMED,
         ]);
     }
 }

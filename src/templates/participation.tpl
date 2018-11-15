@@ -9,7 +9,7 @@
 <div class="section">
     <h2 class="sectionTitle">{lang}siraca.participation.form.presence{/lang}</h2>
 
-    <form method="post" action="{link controller='Participation' object=$race}{/link}">
+    <form id="participationForm" method="post" action="{link controller='Participation' object=$race}{/link}">
         <div class="section">
             {include file="_participationSummary"}
 
@@ -52,10 +52,30 @@
         {event name='sections'}
 
         <div class="formSubmit">
-            <input type="submit" value="{lang}wcf.global.button.submit{/lang}" accesskey="s">
+            <input id="submitButton" type="button" value="{lang}wcf.global.button.submit{/lang}" accesskey="s">
             {@SECURITY_TOKEN_INPUT_TAG}
         </div>
     </form>
 </div>
+
+<script data-relocate="true">
+    $(function() {
+        elById("submitButton").addEventListener("click", submitButtonClickHandler);
+        
+        function submitButtonClickHandler(event) {
+            var selectedParticipationType = elById("participationType").value;
+            
+           if({$isTitularFullIfSwitchingToUnconfirmed} == 1 && selectedParticipationType == {$unconfirmedPresenceType}) {
+                WCF.System.Confirmation.show("{lang}siraca.participation.estimation.leavingFullTitularWarning{/lang}", function(action) {
+                    if (action === 'confirm') {
+                        elById("participationForm").submit();
+                    }
+                });
+            } else {
+                elById("participationForm").submit();
+            }
+        }
+    });
+</script>
 
 {include file='footer'}

@@ -143,7 +143,7 @@
             }
 
             function confirmDeletion() {
-                WCF.System.Confirmation.show(WCF.Language.get('{lang}siraca.race.edit.form.delete.confirm{/lang}'), function(action) {
+                WCF.System.Confirmation.show("{lang}siraca.race.edit.form.delete.confirm{/lang}", function(action) {
 					if (action === 'confirm') {
 						deleteRace();
 					}

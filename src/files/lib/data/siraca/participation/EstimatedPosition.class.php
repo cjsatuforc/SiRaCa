@@ -51,6 +51,15 @@ class EstimatedPosition
         return $estimatedPositions;
     }
 
+    public static function isTitularFullIfSwitchingToUnconfirmed($race, $participation)
+    {
+        if ($participation->listType == ListType::WAITING || $participation->type != ParticipationType::PRESENCE) {
+            return false;
+        }
+
+        return self::countParticipants($race, ListType::TITULAR) == $race->availableSlots && self::findFirstWaitingPresent($race) != null;
+    }
+
     private static function findTitularPosition($race, $presenceTime)
     {
         $statement = WCF::getDB()->prepareStatement(

@@ -55,14 +55,15 @@
         <item name="siraca.participation.list.titular.title"><![CDATA[Titulaires]]></item>
         <item name="siraca.participation.list.waiting.title"><![CDATA[Liste d'attente]]></item>
 
-        <item name="siraca.participation.estimation.title"><![CDATA[Position estimée après changement]]></item>
-        <item name="siraca.participation.estimation.titular"><![CDATA[ : Position {$estimation->position} en liste titulaire.]]></item>
-        <item name="siraca.participation.estimation.waiting"><![CDATA[ : Position {$estimation->position} en liste d'attente.]]></item>
+        <item name="siraca.participation.estimation.title"><![CDATA[Position estimée]]></item>
+        <item name="siraca.participation.estimation.titular"><![CDATA[ : {$estimation->position}° en liste <strong>titulaire</strong>.]]></item>
+        <item name="siraca.participation.estimation.waiting"><![CDATA[ : {$estimation->position}° en liste d'<strong>attente</strong>.]]></item>
+        <item name="siraca.participation.estimation.leavingFullTitularWarning"><![CDATA[Vous allez être placé en liste d'attente. La liste titulaire étant pleine, si plus tard vous confirmez votre présence, il vous faudra attendre un ou plusieurs désistements pour la réintégrer. Continuer ?]]></item>
 
-        <item name="siraca.participation.detail.freeTitularList"><![CDATA[Il reste {$race->getTitularListFreeSlots()} places libres.]]></item>
+        <item name="siraca.participation.detail.freeTitularList"><![CDATA[Il reste {$race->getTitularListFreeSlots()} {if $race->getTitularListFreeSlots() > 1}places libres{else}place libre{/if}.]]></item>
         <item name="siraca.participation.detail.waitingListCount"><![CDATA[{$race->waitingListCount} personnes en liste d'attente.]]></item>
-        <item name="siraca.participation.detail.titularPosition"><![CDATA[Position {$race->getParticipationPosition()} en liste titulaire.]]></item>
-        <item name="siraca.participation.detail.waitingPosition"><![CDATA[Position {$race->getParticipationPosition()} en liste d'attente.]]></item>
+        <item name="siraca.participation.detail.titularPosition"><![CDATA[{$race->getParticipationPosition()}° en liste titulaire.]]></item>
+        <item name="siraca.participation.detail.waitingPosition"><![CDATA[{$race->getParticipationPosition()}° en liste d'attente.]]></item>
 
         <item name="siraca.participation.globalSummary"><![CDATA[Participants : {$race->titularListCount} / {$race->availableSlots} ({$race->waitingListCount})]]></item>
     </category>

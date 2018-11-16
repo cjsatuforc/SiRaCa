@@ -52,7 +52,12 @@
         {event name='sections'}
 
         <div class="formSubmit">
-            <input class="submitFormButton" data-full-list-if-leaving-titular="{@$isTitularFullIfSwitchingToUnconfirmed}" type="button" value="{lang}wcf.global.button.submit{/lang}" accesskey="s">
+            <input class="submitFormButton" type="button" value="{lang}wcf.global.button.submit{/lang}" accesskey="s"
+                data-current-participation-type="{@$participation->type}"
+                data-is-titular="{@$participation->isTitular()}"
+                data-absence-participation-type="{@$absenceParticipationType}"
+                data-unconfirmed-participation-type="{@$unconfirmedParticipationType}"
+                >
             {@SECURITY_TOKEN_INPUT_TAG}
         </div>
     </form>
@@ -60,23 +65,40 @@
 
 <script data-relocate="true">
     $(function() {
-        //elById("submitButton").addEventListener("click", submitButtonClickHandler);
-        
         $('.submitFormButton').click(
-        function (event) {
-            var selectedParticipationType = elById("participationType").value;
-            var $target = $(event.currentTarget);
-            
-            if($target.data('fullListIfLeavingTitular') && selectedParticipationType == {$unconfirmedPresenceType}) {
-                WCF.System.Confirmation.show("{lang}siraca.participation.estimation.leavingFullTitularWarning{/lang}", function(action) {
-                    if (action === 'confirm') {
-                        elById("participationForm").submit();
-                    }
-                });
-            } else {
-                elById("participationForm").submit();
+            function (event) {
+                $target = $(event.currentTarget);
+
+                var selectedParticipationType = elById("participationType").value;
+                var currentParticipationType = $target.data("currentParticipationType");
+                var isTitular = $target.data("isTitular");
+                var absenceParticipationType = $target.data("absenceParticipationType");
+                var unconfirmedParticipationType = $target.data("unconfirmedParticipationType");
+
+                if(currentParticipationType == selectedParticipationType) {
+                    elById("participationForm").submit();
+                    return;
+                }
+
+                var message = "";
+
+                if(selectedParticipationType == absenceParticipationType) {
+                    message = "{lang}siraca.participation.confirmation.leavingEvent{/lang}";
+                }
+                else if (selectedParticipationType == unconfirmedParticipationType && isTitular) {
+                    message = "{lang}siraca.participation.confirmation.leavingTitular{/lang}";
+                }
+
+                if(message != "") {
+                    WCF.System.Confirmation.show(message, function(action) {
+                        if (action === 'confirm') {
+                            elById("participationForm").submit();
+                        }
+                    });
+                } else
+                    elById("participationForm").submit();
             }
-        })
+        )
     });
 </script>
 

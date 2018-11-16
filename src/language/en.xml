@@ -58,7 +58,9 @@
         <item name="siraca.participation.estimation.title"><![CDATA[Estimated position]]></item>
         <item name="siraca.participation.estimation.titular"><![CDATA[: #{$estimation->position} in <strong>titular</strong> list.]]></item>
         <item name="siraca.participation.estimation.waiting"><![CDATA[: #{$estimation->position} in <strong>waiting</strong> list.]]></item>
-        <item name="siraca.participation.estimation.leavingFullTitularWarning"><![CDATA[You are about to be moved to waiting list. Titular list is full, so if you come back later to confirm your presence you will have to wait for one or more withdrawals to reinstate it. Continue?]]></item>
+
+        <item name="siraca.participation.confirmation.leavingEvent"><![CDATA[Do you really want to unregister from this event?]]></item>
+        <item name="siraca.participation.confirmation.leavingTitular"><![CDATA[You are about to be moved to waiting list, continue?]]></item>
 
         <item name="siraca.participation.detail.freeTitularList"><![CDATA[{$race->getTitularListFreeSlots()} free {if $race->getTitularListFreeSlots() > 1}places{else}place{/if} remaining.]]></item>
         <item name="siraca.participation.detail.waitingListCount"><![CDATA[{$race->waitingListCount} people in waiting list.]]></item>

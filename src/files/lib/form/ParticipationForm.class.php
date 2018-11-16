@@ -88,7 +88,7 @@ class ParticipationForm extends AbstractForm
             'participation'                         => $this->participation,
             'participationTypes'                    => ParticipationType::getTypes(),
             'estimatedPositions'                    => EstimatedPosition::estimateParticipationChangePositions($this->race, $this->participation),
-            'isTitularFullIfSwitchingToUnconfirmed' => EstimatedPosition::isTitularFullIfSwitchingToUnconfirmed($this->race, $this->participation) ? 1 : 0,
+            'isTitularFullIfSwitchingToUnconfirmed' => EstimatedPosition::isTitularFullIfSwitchingToUnconfirmed($this->race, $this->participation),
             'unconfirmedPresenceType'               => ParticipationType::PRESENCE_NOT_CONFIRMED,
         ]);
     }

@@ -52,7 +52,7 @@
         {event name='sections'}
 
         <div class="formSubmit">
-            <input id="submitButton" type="button" value="{lang}wcf.global.button.submit{/lang}" accesskey="s">
+            <input class="submitFormButton" data-full-list-if-leaving-titular="{@$isTitularFullIfSwitchingToUnconfirmed}" type="button" value="{lang}wcf.global.button.submit{/lang}" accesskey="s">
             {@SECURITY_TOKEN_INPUT_TAG}
         </div>
     </form>
@@ -60,12 +60,14 @@
 
 <script data-relocate="true">
     $(function() {
-        elById("submitButton").addEventListener("click", submitButtonClickHandler);
+        //elById("submitButton").addEventListener("click", submitButtonClickHandler);
         
-        function submitButtonClickHandler(event) {
+        $('.submitFormButton').click(
+        function (event) {
             var selectedParticipationType = elById("participationType").value;
+            var $target = $(event.currentTarget);
             
-           if({$isTitularFullIfSwitchingToUnconfirmed} == 1 && selectedParticipationType == {$unconfirmedPresenceType}) {
+            if($target.data('fullListIfLeavingTitular') && selectedParticipationType == {$unconfirmedPresenceType}) {
                 WCF.System.Confirmation.show("{lang}siraca.participation.estimation.leavingFullTitularWarning{/lang}", function(action) {
                     if (action === 'confirm') {
                         elById("participationForm").submit();
@@ -74,7 +76,7 @@
             } else {
                 elById("participationForm").submit();
             }
-        }
+        })
     });
 </script>
 

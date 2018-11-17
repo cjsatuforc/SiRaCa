@@ -40,8 +40,12 @@
     </category>
 
     <category name="siraca.race.list">
-        <item name="siraca.race.list.link"><![CDATA[Race list]]></item>
-        <item name="siraca.race.list.title"><![CDATA[Races]]></item>
+        <item name="siraca.race.list.title"><![CDATA[Next races]]></item>
+    </category>
+
+    <category name="siraca.calendar">
+        <item name="siraca.calendar.link"><![CDATA[Calendar]]></item>
+        <item name="siraca.calendar.title"><![CDATA[Calendar]]></item>
     </category>
 
     <category name="siraca.participation">
@@ -59,7 +63,7 @@
         <item name="siraca.participation.estimation.titular"><![CDATA[: #{$estimation->position} in <strong>titular</strong> list.]]></item>
         <item name="siraca.participation.estimation.waiting"><![CDATA[: #{$estimation->position} in <strong>waiting</strong> list.]]></item>
 
-        <item name="siraca.participation.confirmation.leavingEvent"><![CDATA[Do you really want to unregister from this event?]]></item>
+        <item name="siraca.participation.confirmation.leavingEvent"><![CDATA[Do you really want to unregister from this race?]]></item>
         <item name="siraca.participation.confirmation.leavingTitular"><![CDATA[You are about to be moved to waiting list, continue?]]></item>
 
         <item name="siraca.participation.detail.freeTitularList"><![CDATA[{$race->getTitularListFreeSlots()} free {if $race->getTitularListFreeSlots() > 1}places{else}place{/if} remaining.]]></item>

@@ -4,18 +4,25 @@
 
     <import>
 
-        <item identifier="fr.chatcureuil.siraca.MainMenu">
+        <item identifier="fr.chatcureuil.siraca.menuItem.MainMenu">
             <menu>com.woltlab.wcf.MainMenu</menu>
             <title language="en">Races</title>
             <title language="fr">Courses</title>
-            <page>fr.chatcureuil.siraca.RaceList</page>
+            <page>fr.chatcureuil.siraca.page.RaceList</page>
         </item>
 
-        <item identifier="fr.chatcureuil.siraca.MyRaces">
-            <parent>fr.chatcureuil.siraca.MainMenu</parent>
+        <item identifier="fr.chatcureuil.siraca.menuItem.MyRaces">
+            <parent>fr.chatcureuil.siraca.menuItem.MainMenu</parent>
             <title language="en">My races</title>
             <title language="fr">Mes courses</title>
-            <page>fr.chatcureuil.siraca.MyRacesList</page>
+            <page>fr.chatcureuil.siraca.page.MyRacesList</page>
+        </item>
+
+        <item identifier="fr.chatcureuil.siraca.menuItem.Calendar">
+            <parent>fr.chatcureuil.siraca.menuItem.MainMenu</parent>
+            <title language="en">Calendar</title>
+            <title language="fr">Calendrier</title>
+            <page>fr.chatcureuil.siraca.page.Calendar</page>
         </item>
 
     </import>

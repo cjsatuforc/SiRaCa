@@ -5,7 +5,7 @@ namespace wcf\data\siraca\race;
 use wcf\data\siraca\race\RaceList;
 use wcf\system\WCF;
 
-class MyRacesList extends RaceList
+class MyRacesList extends NextRacesList
 {
 
     public function __construct()

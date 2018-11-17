@@ -2,7 +2,7 @@
 <data xmlns="http://www.woltlab.com" 
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/tornado/page.xsd">
     <import>
-        <page identifier="fr.chatcureuil.siraca.RaceList">
+        <page identifier="fr.chatcureuil.siraca.page.RaceList">
             <pageType>system</pageType>
             <controller>wcf\page\RaceListPage</controller>
             <name language="en">Races</name>
@@ -16,50 +16,50 @@
             </content>
         </page>
 
-        <page identifier="fr.chatcureuil.siraca.Race">
+        <page identifier="fr.chatcureuil.siraca.page.Race">
             <pageType>system</pageType>
             <controller>wcf\page\RacePage</controller>
             <!-- <handler>wcf\system\page\handler\RacePageHandler</handler> -->
             <name language="en">Race</name>
             <name language="fr">Course</name>
             <requireObjectID>1</requireObjectID>
-            <parent>fr.chatcureuil.siraca.RaceList</parent>
+            <parent>fr.chatcureuil.siraca.page.RaceList</parent>
         </page>
 
-        <page identifier="fr.chatcureuil.siraca.RaceAdd">
+        <page identifier="fr.chatcureuil.siraca.page.RaceAdd">
             <pageType>system</pageType>
             <controller>wcf\form\RaceAddForm</controller>
             <name language="en">Organize race</name>
             <name language="fr">Organiser une course</name>
 
-            <parent>fr.chatcureuil.siraca.RaceList</parent>
+            <parent>fr.chatcureuil.siraca.page.RaceList</parent>
         </page>
 
-        <page identifier="fr.chatcureuil.siraca.RaceEdit">
+        <page identifier="fr.chatcureuil.siraca.page.RaceEdit">
             <pageType>system</pageType>
             <controller>wcf\form\RaceEditForm</controller>
             <name language="en">Edit race</name>
             <name language="fr">Édition de la course</name>
 
-            <parent>fr.chatcureuil.siraca.Race</parent>
+            <parent>fr.chatcureuil.siraca.page.Race</parent>
         </page>
 
-        <page identifier="fr.chatcureuil.siraca.Participation">
+        <page identifier="fr.chatcureuil.siraca.page.Participation">
             <pageType>system</pageType>
             <controller>wcf\form\ParticipationForm</controller>
             <name language="en">Participation</name>
             <name language="fr">Participation</name>
             <requireObjectID>1</requireObjectID>
-            <parent>fr.chatcureuil.siraca.Race</parent>
+            <parent>fr.chatcureuil.siraca.page.Race</parent>
         </page>
 
-        <page identifier="fr.chatcureuil.siraca.MyRacesList">
+        <page identifier="fr.chatcureuil.siraca.page.MyRacesList">
             <pageType>system</pageType>
             <controller>wcf\page\MyRacesListPage</controller>
             <name language="en">My races</name>
             <name language="fr">Mes courses</name>
             <!-- <requireObjectID>1</requireObjectID> -->
-            <parent>fr.chatcureuil.siraca.RaceList</parent>
+            <parent>fr.chatcureuil.siraca.page.RaceList</parent>
 
             <content language="en">
                 <title>My races</title>
@@ -67,6 +67,15 @@
             <content language="fr">
                 <title>Mes courses</title>
             </content>
+        </page>
+
+        <page identifier="fr.chatcureuil.siraca.page.Calendar">
+            <pageType>system</pageType>
+            <controller>wcf\page\RaceCalendarPage</controller>
+            <name language="en">Calendar</name>
+            <name language="fr">Calendrier</name>
+            <requireObjectID>1</requireObjectID>
+            <parent>fr.chatcureuil.siraca.page.RaceList</parent>
         </page>
 
     </import>

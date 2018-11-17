@@ -76,7 +76,7 @@ class ParticipationForm extends AbstractForm
         parent::readData();
 
         $this->participation = ParticipationUtil::getUserParticipation($this->race->raceID);
-        PageLocationManager::getInstance()->addParentLocation('fr.chatcureuil.siraca.Race', $this->race->raceID, $this->race->getDecoratedObject());
+        PageLocationManager::getInstance()->addParentLocation('fr.chatcureuil.siraca.page.Race', $this->race->raceID, $this->race->getDecoratedObject());
     }
 
     public function assignVariables()

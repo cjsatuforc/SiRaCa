@@ -12,18 +12,18 @@ $dayBorder: 1px solid $wcfContentBorderInner;
         &:first-child {
             border-top: $dayBorder;
             
-            @include screen-sm-down {
+            @include screen-xs {
                 border-style: none;
             }
         }
         
         &:last-child {
-            @include screen-sm-down {
+            @include screen-xs {
                 border-bottom: $dayBorder;
             }
         }
 
-        @include screen-sm-down {
+        @include screen-xs {
             display: block;
         }
 
@@ -40,7 +40,7 @@ $dayBorder: 1px solid $wcfContentBorderInner;
                 border-left: $dayBorder;
             }
 
-            @include screen-sm-down {
+            @include screen-xs {
                 height: auto;
 
                 &:first-child {

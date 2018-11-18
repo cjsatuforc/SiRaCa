@@ -1,6 +1,8 @@
 <?php
 namespace wcf\system\siraca\date;
 
+use wcf\system\WCF;
+
 class Day
 {
     private $dateTime;
@@ -15,6 +17,7 @@ class Day
 
         $this->dateTime = new \DateTime();
         $this->dateTime->setDate($month->getYearValue(), $month->getMonthValue(), $dayValue);
+        $this->dateTime->setTime(0, 0, 0, 0);
     }
 
     public function getDayValue()
@@ -30,6 +33,11 @@ class Day
         return $this->dayName;
     }
 
+    public function getMonth()
+    {
+        return $this->month;
+    }
+
     public function getStartTime()
     {
         return $this->dateTime->getTimestamp();
@@ -38,7 +46,18 @@ class Day
     public function getEndTime()
     {
         $endDate = clone $this->dateTime;
-        $endDate->add(new DateInterval("P1d"));
+        $endDate->add(new \DateInterval("P1D"));
         return $endDate->getTimestamp();
+    }
+
+    public static function getToday()
+    {
+        $date = new \DateTime('@' . TIME_NOW);
+        $date->setTimezone(WCF::getUser()->getTimeZone());
+        $year  = $date->format('Y');
+        $month = $date->format('n');
+        $day   = $date->format('j');
+
+        return new Day(new Month($year, $month), $day);
     }
 }

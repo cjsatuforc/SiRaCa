@@ -38,12 +38,7 @@
             <ol> 
                 {foreach from=$estimatedPositions key=participationType item=estimation}
                     <li>
-                        {lang}siraca.participation.type.{$participationType}{/lang}
-                        {if $estimation->listType == 1}
-                            {lang}siraca.participation.estimation.titular{/lang}
-                        {else}
-                            {lang}siraca.participation.estimation.waiting{/lang}
-                        {/if}
+                        {lang}siraca.participation.type.{$participationType}{/lang}{if $estimation->listType == 1}{lang}siraca.participation.estimation.titular{/lang}{else}{lang}siraca.participation.estimation.waiting{/lang}{/if}
                     </li>
                 {/foreach}
             </ol>

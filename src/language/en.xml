@@ -50,6 +50,10 @@
         <item name="siraca.calendar.monthView.showMoreRaces"><![CDATA[See more...]]></item>
     </category>
 
+    <category name="siraca.raceDay">
+        <item name="siraca.raceDay.title"><![CDATA[Races on ]]></item>
+    </category>
+
     <category name="siraca.participation">
         <item name="siraca.participation.link"><![CDATA[Manage my participation]]></item>
         <item name="siraca.participation.title"><![CDATA[Registration to ]]></item>

@@ -40,6 +40,7 @@
             <controller>wcf\form\RaceEditForm</controller>
             <name language="en">Edit race</name>
             <name language="fr">Édition de la course</name>
+            <requireObjectID>1</requireObjectID>
 
             <parent>fr.chatcureuil.siraca.page.Race</parent>
         </page>
@@ -74,8 +75,21 @@
             <controller>wcf\page\RaceCalendarPage</controller>
             <name language="en">Calendar</name>
             <name language="fr">Calendrier</name>
-            <requireObjectID>1</requireObjectID>
-            <parent>fr.chatcureuil.siraca.page.RaceList</parent>
+
+            <content language="en">
+                <title>Calendar</title>
+            </content>
+            <content language="fr">
+                <title>Calendrier</title>
+            </content>
+        </page>
+
+        <page identifier="fr.chatcureuil.siraca.page.RaceDay">
+            <pageType>system</pageType>
+            <controller>wcf\page\RaceDayPage</controller>
+            <name language="en">Race day</name>
+            <name language="fr">Courses du jour</name>
+            <parent>fr.chatcureuil.siraca.page.Calendar</parent>
         </page>
 
     </import>

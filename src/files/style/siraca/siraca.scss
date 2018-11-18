@@ -55,7 +55,14 @@ $dayBorder: 1px solid $wcfContentBorderInner;
             }
 
             .dayName {
-                color: $wcfTabularBoxHeadline;
+                > a {
+                    color: $wcfTabularBoxHeadline;
+                }
+            }
+
+            a.showMore {
+                font-size: small;
+                color: $wcfContentText;
             }
             
             .dayRaces {

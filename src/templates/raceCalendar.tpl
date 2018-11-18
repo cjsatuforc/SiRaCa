@@ -8,7 +8,7 @@
             <ol class="siracaMonthLine">
         {/if}
         <li>
-            <div class="dayName">{lang}wcf.date.day.{$day->getDayName()}{/lang} {$day->getDayValue()}</div>
+            <div class="dayName"><a href="{link controller='RaceDay' year=$month->getYearValue() month=$month->getMonthValue() day=$day->getDayValue()}{/link}">{lang}wcf.date.day.{$day->getDayName()}{/lang} {$day->getDayValue()}</a></div>
             {assign var=dayRaces value=$raceMonth->getDayRaces($day->getDayValue(), 4)}
             {if $dayRaces|count}
                 <div class="dayRaces">
@@ -20,7 +20,7 @@
                         {/foreach}
                     </ol>
                     {if $raceMonth->getDayRaces($day->getDayValue())|count > 4}
-                        <small>{lang}siraca.calendar.monthView.showMoreRaces{/lang}</small>
+                        <a class="showMore" href="{link controller='RaceDay' year=$month->getYearValue() month=$month->getMonthValue() day=$day->getDayValue()}{/link}">{lang}siraca.calendar.monthView.showMoreRaces{/lang}</a>
                     {/if}
                 </div>
             {/if}

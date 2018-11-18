@@ -5,6 +5,7 @@ class Month
 {
     private $yearValue  = 0;
     private $monthValue = 0;
+    private $monthName;
 
     private $days;
     private $dateTime;
@@ -26,6 +27,14 @@ class Month
     public function getMonthValue()
     {
         return $this->monthValue;
+    }
+
+    public function getMonthName()
+    {
+        if (!$this->monthName) {
+            $this->monthName = strtolower($this->dateTime->format("F"));
+        }
+        return $this->monthName;
     }
 
     public function getDays()

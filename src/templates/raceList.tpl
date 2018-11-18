@@ -10,11 +10,7 @@
 	</div>
 {/hascontent}
 
-{if $items}
-    {include file='_raceList'}
-{else}
-	<p class="info">{lang}wcf.global.noItems{/lang}</p>
-{/if}
+{include file='_raceList'}
 
 <footer class="contentFooter">
     {hascontent}

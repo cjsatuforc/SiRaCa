@@ -45,7 +45,7 @@
 
     <category name="siraca.calendar">
         <item name="siraca.calendar.link"><![CDATA[Calendrier]]></item>
-        <item name="siraca.calendar.title"><![CDATA[Calendrier des courses]]></item>
+        <item name="siraca.calendar.title"><![CDATA[Courses de ]]></item>
 
         <item name="siraca.calendar.monthView.showMoreRaces"><![CDATA[Voir la suite...]]></item>
     </category>

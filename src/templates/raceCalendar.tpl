@@ -1,5 +1,5 @@
-{capture assign='pageTitle'}{lang}siraca.calendar.title{/lang}{/capture}
-{capture assign='contentTitle'}{lang}siraca.calendar.title{/lang}{/capture}
+{capture assign='pageTitle'}{lang}siraca.calendar.title{/lang} {lang}wcf.date.month.{$month->getMonthName()}{/lang} {$month->getYearValue()}{/capture}
+{capture assign='contentTitle'}{lang}siraca.calendar.title{/lang} {lang}wcf.date.month.{$month->getMonthName()}{/lang} {$month->getYearValue()}{/capture}
 {include file='header'}
 
 <div class="section siracaMonthView">

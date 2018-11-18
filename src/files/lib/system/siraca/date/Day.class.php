@@ -5,6 +5,7 @@ class Day
 {
     private $dateTime;
     private $dayValue;
+    private $dayName;
     private $month;
 
     public function __construct($month, $dayValue)
@@ -19,6 +20,14 @@ class Day
     public function getDayValue()
     {
         return $this->dayValue;
+    }
+
+    public function getDayName()
+    {
+        if (!$this->dayName) {
+            $this->dayName = strtolower($this->dateTime->format("l"));
+        }
+        return $this->dayName;
     }
 
     public function getStartTime()

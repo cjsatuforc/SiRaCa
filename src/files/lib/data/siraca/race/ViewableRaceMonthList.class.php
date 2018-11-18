@@ -42,7 +42,7 @@ class ViewableRaceMonthList extends RaceList
             return [];
         }
 
-        if ($maxLength > 0) {
+        if ($maxLength > 0 && count($this->racesByDayValue[$dayValue]) > $maxLength) {
             return array_slice($this->racesByDayValue[$dayValue], 0, $maxLength);
         }
         return $this->racesByDayValue[$dayValue];

@@ -45,7 +45,9 @@
 
     <category name="siraca.calendar">
         <item name="siraca.calendar.link"><![CDATA[Calendar]]></item>
-        <item name="siraca.calendar.title"><![CDATA[Calendar]]></item>
+        <item name="siraca.calendar.title"><![CDATA[Race calendar]]></item>
+
+        <item name="siraca.calendar.monthView.showMoreRaces"><![CDATA[See more...]]></item>
     </category>
 
     <category name="siraca.participation">
@@ -97,10 +99,6 @@
         <item name="siraca.participation.type.3"><![CDATA[Present]]></item>
         <item name="siraca.participation.type.1"><![CDATA[Absent]]></item>
         <item name="siraca.participation.type.2"><![CDATA[Undecided]]></item>
-    </category>
-
-    <category name="siraca.calendar">
-        <item name="siraca.calendar.monthView.showMoreRaces"><![CDATA[See more...]]></item>
     </category>
 
     <!-- <category name="wcf.acp.menu">

@@ -1,23 +1,57 @@
+$dayBorder: 1px solid $wcfContentBorderInner;
+
 .siracaMonthView {
-    .siracaMonthGrid {
+
+    ol {
+        list-style: none;
+    }
+
+    .siracaMonthLine {
         display: flex;
+
+        &:first-child {
+            border-top: $dayBorder;
+        }
 
         > li {
             flex: 0 0 14.27%;
             height: 1.5em * 6;
             text-align: left;
+            padding: 2px;
+
+            border-right: $dayBorder;
+            border-bottom: $dayBorder;
+
+            &:first-child {
+                border-left: $dayBorder;
+            }
+
+            .dayName {
+                color: $wcfTabularBoxHeadline;
+            }
             
             .dayRaces {
                 overflow: hidden;
                 
-                > li {
-                    font-size: small;
-                    line-height: 1.5em;
-
-                    white-space: nowrap;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
+                > ol {
+                    > li {
+                        font-size: small;
+                        line-height: 1.5em;
+    
+                        &:before {
+                            content: "\2022";
+                            color: $wcfContentLink;
+                            font-weight: bold;
+                            display: inline-block;
+                        }
+                    }
                 }
+            }
+
+            * {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
         }
     }

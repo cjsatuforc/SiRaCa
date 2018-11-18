@@ -43,7 +43,7 @@ class RaceEditForm extends RaceAddForm
             $this->availableSlots = $this->race->availableSlots;
         }
 
-        PageLocationManager::getInstance()->addParentLocation('fr.chatcureuil.siraca.Race', $this->race->raceID, $this->race);
+        PageLocationManager::getInstance()->addParentLocation('fr.chatcureuil.siraca.page.Race', $this->race->raceID, $this->race);
     }
 
     public function assignVariables()

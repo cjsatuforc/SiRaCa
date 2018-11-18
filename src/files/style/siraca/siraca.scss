@@ -1,0 +1,24 @@
+.siracaMonthView {
+    .siracaMonthGrid {
+        display: flex;
+
+        > li {
+            flex: 0 0 14.27%;
+            height: 1.5em * 6;
+            text-align: left;
+            
+            .dayRaces {
+                overflow: hidden;
+                
+                > li {
+                    font-size: small;
+                    line-height: 1.5em;
+
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+            }
+        }
+    }
+}

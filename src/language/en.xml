@@ -99,6 +99,10 @@
         <item name="siraca.participation.type.2"><![CDATA[Undecided]]></item>
     </category>
 
+    <category name="siraca.calendar">
+        <item name="siraca.calendar.monthView.showMoreRaces"><![CDATA[See more...]]></item>
+    </category>
+
     <!-- <category name="wcf.acp.menu">
 		<item name="wcf.acp.menu.link.person"><![CDATA[People]]></item>
 		<item name="wcf.acp.menu.link.person.add"><![CDATA[Add Person]]></item>

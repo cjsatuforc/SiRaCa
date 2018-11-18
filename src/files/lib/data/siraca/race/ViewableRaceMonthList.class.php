@@ -36,12 +36,15 @@ class ViewableRaceMonthList extends RaceList
         }
     }
 
-    public function getDayRaces($dayValue)
+    public function getDayRaces($dayValue, $maxLength = -1)
     {
         if (!array_key_exists($dayValue, $this->racesByDayValue)) {
             return [];
         }
 
+        if ($maxLength > 0) {
+            return array_slice($this->racesByDayValue[$dayValue], 0, $maxLength);
+        }
         return $this->racesByDayValue[$dayValue];
     }
 }

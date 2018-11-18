@@ -11,6 +11,20 @@ $dayBorder: 1px solid $wcfContentBorderInner;
 
         &:first-child {
             border-top: $dayBorder;
+            
+            @include screen-sm-down {
+                border-style: none;
+            }
+        }
+        
+        &:last-child {
+            @include screen-sm-down {
+                border-bottom: $dayBorder;
+            }
+        }
+
+        @include screen-sm-down {
+            display: block;
         }
 
         > li {
@@ -24,6 +38,20 @@ $dayBorder: 1px solid $wcfContentBorderInner;
 
             &:first-child {
                 border-left: $dayBorder;
+            }
+
+            @include screen-sm-down {
+                height: auto;
+
+                &:first-child {
+                    border-top: $dayBorder;
+                }
+                border-left: $dayBorder;
+                border-right: $dayBorder;
+                
+                &:last-child {
+                    border-bottom: none;
+                }
             }
 
             .dayName {

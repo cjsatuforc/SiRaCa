@@ -30,11 +30,19 @@ $dayBorder: 1px solid $wcfContentBorderInner;
         > li {
             flex: 0 0 14.27%;
             height: 1.5em * 6;
+            max-height: 1.5em * 6;
             text-align: left;
             padding: 2px;
 
             border-right: $dayBorder;
             border-bottom: $dayBorder;
+
+            &.today {
+                background-color: #e5f3ff;
+                .dayName {
+                    font-weight: bold;
+                }
+            }
 
             &:first-child {
                 border-left: $dayBorder;

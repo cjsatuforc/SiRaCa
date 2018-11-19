@@ -12,6 +12,10 @@ class Day
 
     public function __construct($month, $dayValue)
     {
+        if (!$month) {
+            throw new \LogicException("Month can't be null.");
+        }
+
         $this->month    = $month;
         $this->dayValue = $dayValue;
 
@@ -59,6 +63,11 @@ class Day
         return $endDate->getTimestamp();
     }
 
+    public function isToday()
+    {
+        return self::getToday()->equals($this);
+    }
+
     public static function getToday()
     {
         $date = new \DateTime('@' . TIME_NOW);
@@ -67,6 +76,11 @@ class Day
         $month = $date->format('n');
         $day   = $date->format('j');
 
-        return new Day(new Month($year, $month), $day);
+        return new Day(Month::getMonth($year, $month), $day);
+    }
+
+    public function equals($day)
+    {
+        return $this->month->equals($day->month) && $this->dayValue == $day->dayValue;
     }
 }

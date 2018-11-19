@@ -3,16 +3,16 @@
 
 {capture assign='contentHeaderNavigation'}
     <ol class="buttonGroup">
-        <li><a class="button"
-            href="{link controller="RaceCalendar"
+        <li><a class="button {if !$month->getPreviousMonth()}disabled{/if}"
+            {if $month->getPreviousMonth()}href="{link controller="RaceCalendar"
             year=$month->getPreviousMonth()->getYearValue()
-            month=$month->getPreviousMonth()->getMonthValue()}{/link}">
+            month=$month->getPreviousMonth()->getMonthValue()}{/link}{/if}">
             <span class="icon icon16 fa-chevron-left"></span></a>
         </li>
-        <li><a class="button"
-            href="{link controller="RaceCalendar"
+        <li><a class="button {if !$month->getNextMonth()}disabled{/if}"
+            {if $month->getNextMonth()}href="{link controller="RaceCalendar"
             year=$month->getNextMonth()->getYearValue()
-            month=$month->getNextMonth()->getMonthValue()}{/link}">
+            month=$month->getNextMonth()->getMonthValue()}{/link}{/if}">
             <span class="icon icon16 fa-chevron-right"></span></a>
         </li>
     </ol>

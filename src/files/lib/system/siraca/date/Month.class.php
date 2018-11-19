@@ -100,7 +100,7 @@ class Month
             $month += 1;
         }
 
-        return new Month($year, $month, 1);
+        return self::getMonth($year, $month);
     }
 
     public function getPreviousMonth()
@@ -115,7 +115,7 @@ class Month
             $month -= 1;
         }
 
-        return new Month($year, $month, 1);
+        return self::getMonth($year, $month);
     }
 
     public function getStartTime()
@@ -126,7 +126,7 @@ class Month
     public function getEndTime()
     {
         $endDate = clone $this->dateTime;
-        $endDate->setDate($this->yearValue, $this->getNextMonth()->monthValue, 1);
+        $endDate->add(new \DateInterval("P" . count($this->getDays()) . "D"));
         return $endDate->getTimestamp();
     }
 }

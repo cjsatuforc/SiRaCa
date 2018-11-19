@@ -108,3 +108,32 @@ $dayBorder: 1px solid $wcfContentBorderInner;
         display: inline-block;
     }
 }
+
+button.siracaAdminButton,
+input[type="button"].siracaAdminButton,
+.button.siracaAdminButton,
+a.button.siracaAdminButton {
+	background-color: #196cb0;
+	color: $wcfButtonPrimaryText;
+	
+	&.active,
+	&:hover {
+		background-color: #135387;
+		color: $wcfButtonPrimaryTextActive;
+	}
+}
+
+button.siracaAdminDangerousButton,
+input[type="button"].siracaAdminDangerousButton,
+.button.siracaAdminDangerousButton,
+a.button.siracaAdminDangerousButton {
+	background-color: #f24e22;
+	color: $wcfButtonPrimaryText;
+	
+	&.active,
+	&:hover {
+		background-color: #c9401a;
+		color: $wcfButtonPrimaryTextActive;
+	}
+}
+

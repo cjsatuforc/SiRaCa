@@ -89,7 +89,7 @@
                         </dl>
 
                         <div class="formSubmit"><!-- TODO remplacer formSubmit par un autre style centré -->
-                            <a class="button buttonPrimary" id="deleteRaceButton" name="deleteRaceButton">
+                            <a class="button siracaAdminDangerousButton" id="deleteRaceButton" name="deleteRaceButton">
                                     <span class="icon icon16 fa-trash"></span> <span>{lang}wcf.global.button.delete{/lang}</span></a>
                         </div>
                     </div>

@@ -67,7 +67,7 @@
                 {content}
                     {if $__wcf->user->userID && $__wcf->session->getPermission('mod.siraca.canManageRace')}
                         <li>
-                            <a href="{link controller='RaceEdit' object=$race}{/link}" class="button buttonPrimary">
+                            <a href="{link controller='RaceEdit' object=$race}{/link}" class="button siracaAdminButton">
                             <span class="icon icon16 fa-pencil"></span> <span>{lang}wcf.global.button.edit{/lang}</span></a>
                         </li>
                     {/if}

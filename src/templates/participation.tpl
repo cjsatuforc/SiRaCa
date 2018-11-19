@@ -47,7 +47,7 @@
         {event name='sections'}
 
         <div class="formSubmit">
-            <input class="submitFormButton" type="button" value="{lang}wcf.global.button.submit{/lang}" accesskey="s"
+            <input class="submitFormButton buttonPrimary" type="button" value="{lang}wcf.global.button.submit{/lang}" accesskey="s"
                 data-current-participation-type="{@$participation->type}"
                 data-is-titular="{@$participation->isTitular()}"
                 data-absence-participation-type="{@$absenceParticipationType}"

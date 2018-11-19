@@ -87,6 +87,15 @@ $dayBorder: 1px solid $wcfContentBorderInner;
                             font-weight: bold;
                             display: inline-block;
                         }
+
+                        &.participant {
+                            &:not(.participationConfirmed) {
+                                background-color: #f5f5f5;
+                            }
+                            &.participationConfirmed {
+                                background-color: #e1fae5;
+                            }
+                        }
                     }
                 }
             }
@@ -114,6 +123,13 @@ $dayBorder: 1px solid $wcfContentBorderInner;
     .button {
         vertical-align: middle;
         display: inline-block;
+    }
+
+    .participationConfirmed {
+        background-color: #84d992;
+        &:hover {
+            background-color: #66b373;
+        }
     }
 }
 

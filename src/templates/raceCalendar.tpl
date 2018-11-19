@@ -36,7 +36,7 @@
                     <div class="dayRaces">
                         <ol>
                             {foreach from=$dayRaces item=race}
-                                <li>
+                                <li class="{if $race->isParticipant()}participant{/if} {if $race->isParticipationConfirmed()}participationConfirmed{/if}">
                                     <a href="{$race->getLink()}">{$race->title}</a>
                                 </li>
                             {/foreach}

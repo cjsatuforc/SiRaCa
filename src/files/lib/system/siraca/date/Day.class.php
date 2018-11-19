@@ -20,6 +20,7 @@ class Day
         $this->dayValue = $dayValue;
 
         $this->dateTime = new \DateTime();
+        // $this->dateTime->setTimezone(WCF::getUser()->getTimeZone());
         $this->dateTime->setDate($month->getYearValue(), $month->getMonthValue(), $dayValue);
         try {
             $this->dateTime->setTime(0, 0, 0, 0);

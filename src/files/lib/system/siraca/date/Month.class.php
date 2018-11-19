@@ -18,7 +18,13 @@ class Month
         $this->monthValue = $month;
 
         $this->dateTime = new \DateTime();
+        // $this->dateTime->setTimezone(WCF::getUser()->getTimeZone());
         $this->dateTime->setDate($this->yearValue, $this->monthValue, 1);
+        try {
+            $this->dateTime->setTime(0, 0, 0, 0);
+        } catch (\Exception $e) {
+            $this->dateTime->setTime(0, 0, 0);
+        }
     }
 
     public static function getMonth($yearValue, $monthValue, $ignoreTimestampLimits = false)

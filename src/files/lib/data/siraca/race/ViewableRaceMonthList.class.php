@@ -3,6 +3,7 @@ namespace wcf\data\siraca\race;
 
 use wcf\data\siraca\race\RaceList;
 use wcf\data\siraca\race\ViewableRace;
+use wcf\system\WCF;
 
 class ViewableRaceMonthList extends RaceList
 {
@@ -26,8 +27,9 @@ class ViewableRaceMonthList extends RaceList
 
         foreach ($this->objects as $race) {
             $raceDate = new \DateTime();
+            // $raceDate->setTimezone(WCF::getUser()->getTimeZone());
             $raceDate->setTimestamp($race->startTime);
-            $raceDayValue = $raceDate->format("d");
+            $raceDayValue = $raceDate->format("j");
 
             if (!array_key_exists($raceDayValue, $this->racesByDayValue)) {
                 $this->racesByDayValue[$raceDayValue] = [];

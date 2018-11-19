@@ -35,7 +35,7 @@
                 {if $dayRaces|count}
                     <div class="dayRaces">
                         <ol>
-                            {foreach name=races from=$dayRaces item=race}
+                            {foreach from=$dayRaces item=race}
                                 <li>
                                     <a href="{$race->getLink()}">{$race->title}</a>
                                 </li>

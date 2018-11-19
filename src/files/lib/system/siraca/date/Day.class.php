@@ -1,6 +1,7 @@
 <?php
 namespace wcf\system\siraca\date;
 
+use wcf\system\siraca\date\DateUtil;
 use wcf\system\WCF;
 
 class Day
@@ -19,8 +20,7 @@ class Day
         $this->month    = $month;
         $this->dayValue = $dayValue;
 
-        $this->dateTime = new \DateTime();
-        // $this->dateTime->setTimezone(WCF::getUser()->getTimeZone());
+        $this->dateTime = DateUtil::getNewDate();
         $this->dateTime->setDate($month->getYearValue(), $month->getMonthValue(), $dayValue);
         try {
             $this->dateTime->setTime(0, 0, 0, 0);
@@ -71,8 +71,7 @@ class Day
 
     public static function getToday()
     {
-        $date = new \DateTime('@' . TIME_NOW);
-        $date->setTimezone(WCF::getUser()->getTimeZone());
+        $date  = DateUtil::getNewDate();
         $year  = $date->format('Y');
         $month = $date->format('n');
         $day   = $date->format('j');

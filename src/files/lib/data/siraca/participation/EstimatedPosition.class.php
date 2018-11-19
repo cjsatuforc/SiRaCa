@@ -1,6 +1,7 @@
 <?php
 namespace wcf\data\siraca\participation;
 
+use wcf\system\siraca\date\DateUtil;
 use wcf\system\WCF;
 
 class EstimatedPosition
@@ -34,7 +35,7 @@ class EstimatedPosition
             case ParticipationType::PRESENCE_NOT_CONFIRMED:
                 $titularCount = self::countParticipants($race, ListType::TITULAR);
                 if ($titularCount < $race->availableSlots) {
-                    $estimatedPositions[ParticipationType::PRESENCE] = new EstimatedPosition(ListType::TITULAR, self::findTitularPosition($race, (new \DateTime())->getTimestamp()));
+                    $estimatedPositions[ParticipationType::PRESENCE] = new EstimatedPosition(ListType::TITULAR, self::findTitularPosition($race, DateUtil::getTimestamp()));
                 } else {
                     $estimatedPositions[ParticipationType::PRESENCE] = new EstimatedPosition(ListType::WAITING, $participation->position);
                 }

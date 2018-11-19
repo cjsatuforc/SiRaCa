@@ -1,8 +1,8 @@
 <?php
 namespace wcf\data\siraca\race;
 
-use wcf\data\DatabaseObjectList;
 use wcf\data\siraca\race\Race;
+use wcf\system\siraca\date\DateUtil;
 
 class NextRacesList extends RaceList
 {
@@ -13,7 +13,7 @@ class NextRacesList extends RaceList
         parent::__construct();
 
         // TODO Time Zone ?
-        $currentTimestamp = (new \DateTime())->getTimestamp();
+        $currentTimestamp = DateUtil::getTimestamp();
 
         $this->getConditionBuilder()->add("siraca_race.startTime >= $currentTimestamp");
         $this->sqlOrderBy = "siraca_race.startTime";

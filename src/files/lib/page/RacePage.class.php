@@ -7,8 +7,8 @@ use wcf\data\siraca\race\Race;
 use wcf\data\siraca\race\ViewableRace;
 use wcf\page\AbstractPage;
 use wcf\system\exception\IllegalLinkException;
+use wcf\system\siraca\date\DateUtil;
 use wcf\system\WCF;
-use wcf\util\DateUtil;
 
 class RacePage extends AbstractPage
 {
@@ -39,18 +39,14 @@ class RacePage extends AbstractPage
         $this->titularList = new ViewableParticipationList($this->race->raceID);
         $this->titularList->getConditionBuilder()->add("siraca_participation.listType = " . ListType::TITULAR);
         $this->titularList->sqlOrderBy = "position";
-        $this->titularList->readObjects(); // TODO regarder quand/pourquoi AbstractPage utilise le readObjectIDs
+        $this->titularList->readObjects();
 
         $this->waitingList = new ViewableParticipationList($this->race->raceID);
         $this->waitingList->getConditionBuilder()->add("siraca_participation.listType = " . ListType::WAITING);
         $this->waitingList->sqlOrderBy = "position";
         $this->waitingList->readObjects();
 
-        $this->startDateTime = DateUtil::getDateTimeByTimestamp($this->race->startTime);
-
-        // $timezoneObj         = WCF::getUser()->getTimeZone();
-        // $this->startDateTime = new \DateTime('now', $timezoneObj);
-        // $this->startDateTime->setTimestamp($this->race->startTime);
+        $this->startDateTime = DateUtil::getNewDate($this->race->startTime);
     }
 
     public function assignVariables()
@@ -67,9 +63,9 @@ class RacePage extends AbstractPage
             'race'        => $this->race,
             'titularList' => $titularArray,
             'waitingList' => $waitingArray,
-            'startTime'   => DateUtil::format($this->startDateTime, DateUtil::DATE_FORMAT, $language, $user)
+            'startTime'   => \wcf\util\DateUtil::format($this->startDateTime, \wcf\util\DateUtil::DATE_FORMAT, $language, $user)
             . ' - ' .
-            DateUtil::format($this->startDateTime, DateUtil::TIME_FORMAT, $language, $user),
+            \wcf\util\DateUtil::format($this->startDateTime, \wcf\util\DateUtil::TIME_FORMAT, $language, $user),
             /*
         TODO : intégrer nom du jour. cf. le date format de calendar.date.dateFormat dans le calendar et la trad FR.
          */

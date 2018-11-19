@@ -5,6 +5,7 @@ use wcf\data\siraca\race\RaceAction;
 use wcf\form\AbstractForm;
 use wcf\system\exception\UserInputException;
 use wcf\system\request\LinkHandler;
+use wcf\system\siraca\date\DateUtil;
 use wcf\system\WCF;
 use wcf\util\HeaderUtil;
 use wcf\util\StringUtil;
@@ -24,8 +25,8 @@ class RaceAddForm extends AbstractForm
 
         if (isset($_REQUEST['startTimestamp'])) {
             //$this->startTime     = $_REQUEST['startTime'];
-            $this->startDateTime = new \DateTime("@" . intval($_REQUEST['startTimestamp']));
-            $this->startDateTime->setTimezone(WCF::getUser()->getTimeZone());
+            // TODO check value validity
+            $this->startDateTime = DateUtil::getNewDate(intval($_REQUEST['startTimestamp']));
         }
     }
 
@@ -72,8 +73,7 @@ class RaceAddForm extends AbstractForm
         } else if ($this->startDateTime === false) {
             throw new UserInputException('startTime', 'invalid');
         } else {
-            $currentTimestamp = (new \DateTime())->getTimestamp();
-            if ($this->startDateTime->getTimestamp() < $currentTimestamp) {
+            if ($this->startDateTime->getTimestamp() < DateUtil::getTimestamp()) {
                 throw new UserInputException('startTime', 'past');
             }
         }

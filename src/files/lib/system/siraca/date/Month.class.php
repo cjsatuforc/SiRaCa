@@ -1,6 +1,7 @@
 <?php
 namespace wcf\system\siraca\date;
 
+use wcf\system\siraca\date\DateUtil;
 use wcf\system\WCF;
 
 class Month
@@ -17,8 +18,7 @@ class Month
         $this->yearValue  = $year;
         $this->monthValue = $month;
 
-        $this->dateTime = new \DateTime();
-        // $this->dateTime->setTimezone(WCF::getUser()->getTimeZone());
+        $this->dateTime = DateUtil::getNewDate();
         $this->dateTime->setDate($this->yearValue, $this->monthValue, 1);
         try {
             $this->dateTime->setTime(0, 0, 0, 0);
@@ -39,8 +39,7 @@ class Month
 
     public static function getCurrentMonth()
     {
-        $date = new \DateTime('@' . TIME_NOW);
-        $date->setTimezone(WCF::getUser()->getTimeZone());
+        $date  = DateUtil::getNewDate();
         $year  = $date->format('Y');
         $month = $date->format('n');
 
@@ -49,11 +48,7 @@ class Month
 
     public function isCurrentMonth()
     {
-        $date = new \DateTime('@' . TIME_NOW);
-        $date->setTimezone(WCF::getUser()->getTimeZone());
-        $yearValue  = $date->format('Y');
-        $monthValue = $date->format('n');
-        return $this->monthValue == $monthValue && $this->yearValue == $yearValue;
+        return $this->equals(self::getCurrentMonth());
     }
 
     public function getYearValue()

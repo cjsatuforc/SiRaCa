@@ -6,6 +6,7 @@ use wcf\data\siraca\race\Race;
 use wcf\data\siraca\race\RaceAction;
 use wcf\system\page\PageLocationManager;
 use wcf\system\request\LinkHandler;
+use wcf\system\siraca\date\DateUtil;
 use wcf\system\WCF;
 use wcf\util\HeaderUtil;
 
@@ -36,10 +37,7 @@ class RaceEditForm extends RaceAddForm
         if (empty($_POST)) {
             $this->title = $this->race->title;
 
-            $timezoneObj         = WCF::getUser()->getTimeZone();
-            $this->startDateTime = new \DateTime('now', $timezoneObj);
-            $this->startDateTime->setTimestamp($this->race->startTime);
-
+            $this->startDateTime  = DateUtil::getNewDate($this->race->startTime);
             $this->availableSlots = $this->race->availableSlots;
         }
 

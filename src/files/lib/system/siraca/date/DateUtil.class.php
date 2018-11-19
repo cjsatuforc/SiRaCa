@@ -1,6 +1,8 @@
 <?php
 namespace wcf\system\siraca\date;
 
+use wcf\system\WCF;
+
 class DateUtil
 {
     const MIN_YEAR = 1970;
@@ -8,15 +10,27 @@ class DateUtil
 
     public static function getCurrentYear()
     {
-        $date = new \DateTime('@' . TIME_NOW);
-        $date->setTimezone(WCF::getUser()->getTimeZone());
-        return $date->format('Y');
+        return self::getNewDate()->format('Y');
     }
 
     public static function getCurrentMonth()
     {
-        $date = new \DateTime('@' . TIME_NOW);
-        $date->setTimezone(WCF::getUser()->getTimeZone());
-        return $date->format('n');
+        return self::getNewDate()->format('n');
+    }
+
+    public static function getNewDate($timestamp = -1)
+    {
+        if ($timestamp > -1) {
+            $date = new \DateTime("@$timestamp");
+            $date->setTimezone(WCF::getUser()->getTimeZone());
+            return $date;
+        }
+
+        return new \DateTime(null, WCF::getUser()->getTimeZone());
+    }
+
+    public static function getTimestamp()
+    {
+        return (new \DateTime())->getTimestamp();
     }
 }

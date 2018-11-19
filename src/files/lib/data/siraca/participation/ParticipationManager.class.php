@@ -2,6 +2,7 @@
 
 namespace wcf\data\siraca\participation;
 
+use wcf\system\siraca\date\DateUtil;
 use wcf\system\WCF;
 
 /**
@@ -100,7 +101,7 @@ class ParticipationManager
 
     private static function addPresence($race, $user)
     {
-        $time = (new \DateTime())->getTimestamp();
+        $time = DateUtil::getTimestamp();
 
         $action = new ParticipationAction([], 'create', [
             'data' => [
@@ -124,7 +125,7 @@ class ParticipationManager
                 'raceID'           => $race->raceID,
                 'userID'           => $user->userID,
                 'type'             => ParticipationType::PRESENCE_NOT_CONFIRMED,
-                'registrationTime' => (new \DateTime())->getTimestamp(),
+                'registrationTime' => DateUtil::getTimestamp(),
                 'listType'         => -1,
                 'position'         => -1,
             ],
@@ -138,7 +139,7 @@ class ParticipationManager
         $action = new ParticipationAction([$participation], 'update', [
             'data' => [
                 'type'         => ParticipationType::PRESENCE,
-                'presenceTime' => (new \DateTime())->getTimestamp(),
+                'presenceTime' => DateUtil::getTimestamp(),
             ],
         ]);
         $action->executeAction();

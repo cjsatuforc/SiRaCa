@@ -41,6 +41,15 @@ class Month
         return new Month($year, $month);
     }
 
+    public function isCurrentMonth()
+    {
+        $date = new \DateTime('@' . TIME_NOW);
+        $date->setTimezone(WCF::getUser()->getTimeZone());
+        $yearValue  = $date->format('Y');
+        $monthValue = $date->format('n');
+        return $this->monthValue == $monthValue && $this->yearValue == $yearValue;
+    }
+
     public function getYearValue()
     {
         return $this->yearValue;

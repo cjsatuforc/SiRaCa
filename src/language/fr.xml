@@ -48,6 +48,7 @@
         <item name="siraca.calendar.title"><![CDATA[Courses de ]]></item>
 
         <item name="siraca.calendar.monthView.showMoreRaces"><![CDATA[Voir la suite...]]></item>
+        <item name="siraca.calendar.monthView.thisMonth"><![CDATA[Ce mois]]></item>
     </category>
 
     <category name="siraca.raceDay">

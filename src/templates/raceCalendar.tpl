@@ -9,6 +9,9 @@
             month=$month->getPreviousMonth()->getMonthValue()}{/link}{/if}">
             <span class="icon icon16 fa-chevron-left"></span></a>
         </li>
+        <li><a class="button {if $month->isCurrentMonth()}disabled{/if}"
+            href="{link controller="RaceCalendar"}{/link}">{lang}siraca.calendar.monthView.thisMonth{/lang}</a>
+        </li>
         <li><a class="button {if !$month->getNextMonth()}disabled{/if}"
             {if $month->getNextMonth()}href="{link controller="RaceCalendar"
             year=$month->getNextMonth()->getYearValue()

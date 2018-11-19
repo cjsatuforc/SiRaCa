@@ -48,6 +48,7 @@
         <item name="siraca.calendar.title"><![CDATA[Races on ]]></item>
 
         <item name="siraca.calendar.monthView.showMoreRaces"><![CDATA[See more...]]></item>
+        <item name="siraca.calendar.monthView.thisMonth"><![CDATA[This month]]></item>
     </category>
 
     <category name="siraca.raceDay">

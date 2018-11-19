@@ -6,15 +6,8 @@
 
         <item identifier="fr.chatcureuil.siraca.menuItem.MainMenu">
             <menu>com.woltlab.wcf.MainMenu</menu>
-            <title language="en">Race calendar</title>
-            <title language="fr">Calendrier des courses</title>
-            <page>fr.chatcureuil.siraca.page.Calendar</page>
-        </item>
-
-        <item identifier="fr.chatcureuil.siraca.menuItem.RaceList">
-            <parent>fr.chatcureuil.siraca.menuItem.MainMenu</parent>
-            <title language="en">Next races</title>
-            <title language="fr">Prochaines courses</title>
+            <title language="en">Races</title>
+            <title language="fr">Courses</title>
             <page>fr.chatcureuil.siraca.page.RaceList</page>
         </item>
 

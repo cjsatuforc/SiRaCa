@@ -17,7 +17,11 @@ class Day
 
         $this->dateTime = new \DateTime();
         $this->dateTime->setDate($month->getYearValue(), $month->getMonthValue(), $dayValue);
-        $this->dateTime->setTime(0, 0, 0, 0);
+        try {
+            $this->dateTime->setTime(0, 0, 0, 0);
+        } catch (\Exception $e) {
+            $this->dateTime->setTime(0, 0, 0);
+        }
     }
 
     public function getDayValue()

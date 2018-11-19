@@ -6,17 +6,17 @@ use wcf\system\WCF;
 
 class Month
 {
-    private $yearValue  = 0;
-    private $monthValue = 0;
+    private $yearValue;
+    private $monthValue;
     private $monthName;
 
     private $days;
     private $dateTime;
 
-    private function __construct($year, $month)
+    private function __construct($yearValue, $monthValue)
     {
-        $this->yearValue  = $year;
-        $this->monthValue = $month;
+        $this->yearValue  = intval($yearValue);
+        $this->monthValue = intval($monthValue);
 
         $this->dateTime = DateUtil::getNewDate();
         $this->dateTime->setDate($this->yearValue, $this->monthValue, 1);
@@ -90,7 +90,7 @@ class Month
 
     public function getLastDay()
     {
-        $dayCount = $this->dateTime->format('t');
+        $dayCount = intval($this->dateTime->format('t'));
         return $this->getDays()[$dayCount];
     }
 

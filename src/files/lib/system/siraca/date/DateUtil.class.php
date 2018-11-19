@@ -10,12 +10,12 @@ class DateUtil
 
     public static function getCurrentYear()
     {
-        return self::getNewDate()->format('Y');
+        return intval(self::getNewDate()->format('Y'));
     }
 
     public static function getCurrentMonth()
     {
-        return self::getNewDate()->format('n');
+        return intval(self::getNewDate()->format('n'));
     }
 
     public static function getNewDate($timestamp = -1)

@@ -18,10 +18,10 @@ class Day
         }
 
         $this->month    = $month;
-        $this->dayValue = $dayValue;
+        $this->dayValue = intval($dayValue);
 
         $this->dateTime = DateUtil::getNewDate();
-        $this->dateTime->setDate($month->getYearValue(), $month->getMonthValue(), $dayValue);
+        $this->dateTime->setDate($month->getYearValue(), $month->getMonthValue(), $this->dayValue);
         try {
             $this->dateTime->setTime(0, 0, 0, 0);
         } catch (\Exception $e) {
@@ -44,7 +44,7 @@ class Day
 
     public function getWeekDayValue()
     {
-        return $this->dateTime->format("N");
+        return intval($this->dateTime->format("N"));
     }
 
     public function getMonth()

@@ -21,9 +21,9 @@ class Month
         $this->dateTime->setDate($this->yearValue, $this->monthValue, 1);
     }
 
-    public static function getMonth($yearValue, $monthValue)
+    public static function getMonth($yearValue, $monthValue, $ignoreTimestampLimits = false)
     {
-        if ($yearValue < DateUtil::MIN_YEAR || $yearValue > DateUtil::MAX_YEAR
+        if (!$ignoreTimestampLimits && ($yearValue < DateUtil::MIN_YEAR || $yearValue > DateUtil::MAX_YEAR)
             || $monthValue < 1 || $monthValue > 12) {
             return null;
         }
@@ -82,6 +82,11 @@ class Month
         return $this->days;
     }
 
+    public function getFirstDay()
+    {
+        return $this->getDays()[1];
+    }
+
     public function getLastDay()
     {
         $dayCount = $this->dateTime->format('t');
@@ -94,10 +99,32 @@ class Month
             return null;
         }
 
-        return $this->days[$dayValue];
+        return $this->getDays()[$dayValue];
     }
 
-    public function getNextMonth()
+    /**
+     * 0 -> last day
+     * -1 -> previous one...
+     */
+    public function getDayFromEnd($fromEnd)
+    {
+        if ($fromEnd > 0 || $fromEnd <= -$this->getLastDay()->getDayValue()) {
+            return null;
+        }
+
+        return $this->getDays()[$this->getLastDay()->getDayValue() + $fromEnd];
+    }
+
+    public function getNextDay($day)
+    {
+        if (!$this->contains($day)) {
+            throw new \LogicException("This day is not part of this month.");
+        }
+
+        return $this->getDay($day->getDayValue() + 1);
+    }
+
+    public function getNextMonth($ignoreTimestampLimits = false)
     {
         $year  = $this->yearValue;
         $month = $this->monthValue;
@@ -109,10 +136,10 @@ class Month
             $month += 1;
         }
 
-        return self::getMonth($year, $month);
+        return self::getMonth($year, $month, $ignoreTimestampLimits);
     }
 
-    public function getPreviousMonth()
+    public function getPreviousMonth($ignoreTimestampLimits = false)
     {
         $year  = $this->yearValue;
         $month = $this->monthValue;
@@ -124,7 +151,7 @@ class Month
             $month -= 1;
         }
 
-        return self::getMonth($year, $month);
+        return self::getMonth($year, $month, $ignoreTimestampLimits);
     }
 
     public function getStartTime()
@@ -137,5 +164,15 @@ class Month
         $endDate = clone $this->dateTime;
         $endDate->add(new \DateInterval("P" . count($this->getDays()) . "D"));
         return $endDate->getTimestamp();
+    }
+
+    public function contains($day)
+    {
+        return $day->getMonth()->equals($this);
+    }
+
+    public function equals($month)
+    {
+        return $this->yearValue == $month->yearValue && $this->monthValue == $month->monthValue;
     }
 }

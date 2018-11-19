@@ -5,12 +5,15 @@ use wcf\data\siraca\race\ViewableRaceMonthList;
 use wcf\page\AbstractPage;
 use wcf\system\exception\IllegalLinkException;
 use wcf\system\siraca\date\DateUtil;
-use wcf\system\siraca\date\Month;use wcf\system\WCF;
+use wcf\system\siraca\date\Month;
+use wcf\system\siraca\view\MonthView;
+use wcf\system\WCF;
 
 class RaceCalendarPage extends AbstractPage
 {
     private $month;
     private $raceMonth;
+    private $monthView;
 
     public function readParameters()
     {
@@ -48,6 +51,8 @@ class RaceCalendarPage extends AbstractPage
 
         $this->raceMonth = new ViewableRaceMonthList($this->month);
         $this->raceMonth->readObjects();
+
+        $this->monthView = new MonthView($this->month);
     }
 
     public function assignVariables()
@@ -56,6 +61,7 @@ class RaceCalendarPage extends AbstractPage
 
         WCF::getTPL()->assign([
             'month'     => $this->month,
+            'monthView' => $this->monthView,
             'raceMonth' => $this->raceMonth,
         ]);
     }

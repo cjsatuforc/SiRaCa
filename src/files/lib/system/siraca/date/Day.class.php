@@ -37,6 +37,11 @@ class Day
         return $this->dayName;
     }
 
+    public function getWeekDayValue()
+    {
+        return $this->dateTime->format("N");
+    }
+
     public function getMonth()
     {
         return $this->month;

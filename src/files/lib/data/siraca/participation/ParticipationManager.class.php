@@ -40,42 +40,50 @@ class ParticipationManager
     public static function computePositions($race, $newCapacity)
     {
         WCF::getDB()->beginTransaction();
-
+        // Reset participations
         self::sql("
             UPDATE      wcf" . WCF_N . "_siraca_participation
-            SET         listType = -1;
+            SET         listType    = -1
+            WHERE       raceID      = {$race->raceID};
         ");
+
         self::sql("
             SET         @i:=0;
         ");
+        // Create titular list
         self::sql("
             UPDATE      wcf" . WCF_N . "_siraca_participation
-            SET         position = @i:=@i+1,
-                        listType = " . ListType::TITULAR . "
-            WHERE       type = " . ParticipationType::PRESENCE . "
+            SET         position    = @i:=@i+1,
+                        listType    = " . ListType::TITULAR . "
+            WHERE       raceID      = {$race->raceID}
+            AND         type        = " . ParticipationType::PRESENCE . "
             ORDER BY    presenceTime ASC,
                         registrationTime ASC
             LIMIT       $newCapacity;
         ");
+
         self::sql("
             SET         @i:=0;
         ");
+        // Create waiting list
         self::sql("
             UPDATE      wcf" . WCF_N . "_siraca_participation
-            SET         position = @i:=@i+1,
-                        listType = " . ListType::WAITING . "
-            WHERE       listType = -1
+            SET         position    = @i:=@i+1,
+                        listType    = " . ListType::WAITING . "
+            WHERE       raceID      = {$race->raceID}
+            AND         listType    = -1
             ORDER BY    registrationTime ASC,
                         presenceTime ASC;
         ");
+        // Store summary on race
         self::sql("
             UPDATE      wcf" . WCF_N . "_siraca_race
-            SET         participationCount = (  SELECT COUNT(*) FROM wcf" . WCF_N . "_siraca_participation
+            SET         participationCount  = ( SELECT COUNT(*) FROM wcf" . WCF_N . "_siraca_participation
                                                     WHERE   raceID   = {$race->raceID} ),
-                        titularListCount = (    SELECT COUNT(*) FROM wcf" . WCF_N . "_siraca_participation
+                        titularListCount    = ( SELECT COUNT(*) FROM wcf" . WCF_N . "_siraca_participation
                                                     WHERE   raceID   = {$race->raceID}
                                                     AND     listType = " . ListType::TITULAR . "),
-                        waitingListCount = (    SELECT COUNT(*) FROM wcf" . WCF_N . "_siraca_participation
+                        waitingListCount    = ( SELECT COUNT(*) FROM wcf" . WCF_N . "_siraca_participation
                                                     WHERE   raceID   = {$race->raceID}
                                                     AND     listType = " . ListType::WAITING . ")
             WHERE       raceID = {$race->raceID};

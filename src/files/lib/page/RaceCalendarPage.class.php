@@ -3,8 +3,9 @@ namespace wcf\page;
 
 use wcf\data\siraca\race\ViewableRaceMonthList;
 use wcf\page\AbstractPage;
-use wcf\system\siraca\date\Month;
-use wcf\system\WCF;
+use wcf\system\exception\IllegalLinkException;
+use wcf\system\siraca\date\DateUtil;
+use wcf\system\siraca\date\Month;use wcf\system\WCF;
 
 class RaceCalendarPage extends AbstractPage
 {
@@ -14,18 +15,37 @@ class RaceCalendarPage extends AbstractPage
     public function readParameters()
     {
         parent::readParameters();
+
+        $yearValue = $monthValue = 0;
+
+        if (isset($_REQUEST['year'])) {
+            $yearValue = intval($_REQUEST['year']);
+        }
+        if (isset($_REQUEST['month'])) {
+            $monthValue = intval($_REQUEST['month']);
+        }
+
+        if (!$yearValue && !$monthValue) {
+            $this->month = Month::getCurrentMonth();
+        } else {
+            if (!$yearValue) {
+                $yearValue = DateUtil::getCurrentYear();
+            }
+            if (!$monthValue) {
+                $monthValue = DateUtil::getCurrentMonth();
+            }
+            $this->month = Month::getMonth($yearValue, $monthValue);
+        }
+
+        if ($this->month == null) {
+            throw new IllegalLinkException();
+        }
     }
 
     public function readData()
     {
         parent::readData();
 
-        $date = new \DateTime('@' . TIME_NOW);
-        $date->setTimezone(WCF::getUser()->getTimeZone());
-        $year  = $date->format('Y');
-        $month = $date->format('n');
-
-        $this->month     = new Month($year, $month);
         $this->raceMonth = new ViewableRaceMonthList($this->month);
         $this->raceMonth->readObjects();
     }

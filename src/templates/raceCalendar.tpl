@@ -1,5 +1,23 @@
 {capture assign='pageTitle'}{lang}siraca.calendar.title{/lang} {lang}wcf.date.month.{$month->getMonthName()}{/lang} {$month->getYearValue()}{/capture}
 {capture assign='contentTitle'}{lang}siraca.calendar.title{/lang} {lang}wcf.date.month.{$month->getMonthName()}{/lang} {$month->getYearValue()}{/capture}
+
+{capture assign='contentHeaderNavigation'}
+    <ol class="buttonGroup">
+        <li><a class="button"
+            href="{link controller="RaceCalendar"
+            year=$month->getPreviousMonth()->getYearValue()
+            month=$month->getPreviousMonth()->getMonthValue()}{/link}">
+            <span class="icon icon16 fa-chevron-left"></span></a>
+        </li>
+        <li><a class="button"
+            href="{link controller="RaceCalendar"
+            year=$month->getNextMonth()->getYearValue()
+            month=$month->getNextMonth()->getMonthValue()}{/link}">
+            <span class="icon icon16 fa-chevron-right"></span></a>
+        </li>
+    </ol>
+{/capture}
+
 {include file='header'}
 
 <div class="section siracaMonthView">

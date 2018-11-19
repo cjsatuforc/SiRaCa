@@ -1,6 +1,8 @@
 <?php
 namespace wcf\system\siraca\date;
 
+use wcf\system\WCF;
+
 class Month
 {
     private $yearValue  = 0;
@@ -10,13 +12,33 @@ class Month
     private $days;
     private $dateTime;
 
-    public function __construct($year, $month)
+    private function __construct($year, $month)
     {
         $this->yearValue  = $year;
         $this->monthValue = $month;
 
         $this->dateTime = new \DateTime();
         $this->dateTime->setDate($this->yearValue, $this->monthValue, 1);
+    }
+
+    public static function getMonth($yearValue, $monthValue)
+    {
+        if ($yearValue < DateUtil::MIN_YEAR || $yearValue > DateUtil::MAX_YEAR
+            || $monthValue < 1 || $monthValue > 12) {
+            return null;
+        }
+
+        return new Month($yearValue, $monthValue);
+    }
+
+    public static function getCurrentMonth()
+    {
+        $date = new \DateTime('@' . TIME_NOW);
+        $date->setTimezone(WCF::getUser()->getTimeZone());
+        $year  = $date->format('Y');
+        $month = $date->format('n');
+
+        return new Month($year, $month);
     }
 
     public function getYearValue()
@@ -44,11 +66,26 @@ class Month
 
             $this->days = [];
             for ($i = 1; $i <= $dayCount; $i++) {
-                $this->days[] = new Day($this, $i);
+                $this->days[$i] = new Day($this, $i);
             }
         }
 
         return $this->days;
+    }
+
+    public function getLastDay()
+    {
+        $dayCount = $this->dateTime->format('t');
+        return $this->getDays()[$dayCount];
+    }
+
+    public function getDay($dayValue)
+    {
+        if ($dayValue < 1 || $dayValue > $this->getLastDay()->getDayValue()) {
+            return null;
+        }
+
+        return $this->days[$dayValue];
     }
 
     public function getNextMonth()
@@ -61,6 +98,21 @@ class Month
             $month = 1;
         } else {
             $month += 1;
+        }
+
+        return new Month($year, $month, 1);
+    }
+
+    public function getPreviousMonth()
+    {
+        $year  = $this->yearValue;
+        $month = $this->monthValue;
+
+        if ($month == 1) {
+            $year -= 1;
+            $month = 12;
+        } else {
+            $month -= 1;
         }
 
         return new Month($year, $month, 1);

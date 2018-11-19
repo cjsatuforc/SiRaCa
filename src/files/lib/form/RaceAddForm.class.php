@@ -18,6 +18,17 @@ class RaceAddForm extends AbstractForm
     public $startDateTime  = null;
     public $availableSlots = null;
 
+    public function readParameters()
+    {
+        parent::readParameters();
+
+        if (isset($_REQUEST['startTimestamp'])) {
+            //$this->startTime     = $_REQUEST['startTime'];
+            $this->startDateTime = new \DateTime("@" . intval($_REQUEST['startTimestamp']));
+            $this->startDateTime->setTimezone(WCF::getUser()->getTimeZone());
+        }
+    }
+
     public function readFormParameters()
     {
         parent::readFormParameters();

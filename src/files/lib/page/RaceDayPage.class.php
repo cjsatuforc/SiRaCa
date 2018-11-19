@@ -2,15 +2,13 @@
 namespace wcf\page;
 
 use wcf\data\siraca\race\ViewableDailyRacesList;
-use wcf\page\AbstractPage;
 use wcf\system\exception\IllegalLinkException;
 use wcf\system\siraca\date\Day;
 use wcf\system\siraca\date\Month;
 use wcf\system\WCF;
 
-class RaceDayPage extends AbstractPage
+class RaceDayPage extends MultipleLinkPage
 {
-    private $races;
 
     public function readParameters()
     {
@@ -48,10 +46,11 @@ class RaceDayPage extends AbstractPage
     public function readData()
     {
         parent::readData();
+    }
 
-        $list = new ViewableDailyRacesList($this->day);
-        $list->readObjects();
-        $this->races = $list->getObjects();
+    protected function initObjectList()
+    {
+        $this->objectList = new ViewableDailyRacesList($this->day);
     }
 
     public function assignVariables()
@@ -59,8 +58,7 @@ class RaceDayPage extends AbstractPage
         parent::assignVariables();
 
         WCF::getTPL()->assign([
-            'day'   => $this->day,
-            'races' => $this->races,
+            'day' => $this->day,
         ]);
     }
 }

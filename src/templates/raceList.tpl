@@ -1,5 +1,4 @@
 {capture assign='pageTitle'}{lang}siraca.race.list.title{/lang}{/capture}
-
 {capture assign='contentTitle'}{lang}siraca.race.list.title{/lang}{/capture}
 
 {include file='header'}

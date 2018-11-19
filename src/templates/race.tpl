@@ -2,7 +2,7 @@
 
 {capture assign='contentTitle'}{lang}siraca.race.title{/lang}{$race}{/capture}
 
-{capture assign='sidebarRight'}
+{capture assign='contentHeaderNavigation'}
 	{include file='_participationButton'}
 {/capture}
 

@@ -91,3 +91,20 @@ $dayBorder: 1px solid $wcfContentBorderInner;
         }
     }
 }
+
+.siracaParticipationBox {
+    font-size: small;
+    background-color: $wcfContentContainerBackground;
+    border: 1px solid $wcfContentContainerBorder;
+    padding: 4px;
+
+    > .siracaParticipationSummary {
+        vertical-align: middle;
+        display: inline-block;
+    }
+
+    .button {
+        vertical-align: middle;
+        display: inline-block;
+    }
+}

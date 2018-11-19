@@ -3,13 +3,13 @@
 
 {include file='header'}
 
-{assign var="year" value=$day->getMonth()->getYearValue()}
-{assign var="month" value=$day->getMonth()->getMonthValue()}
-{assign var="day" value=$day->getDayValue()}
+{assign var="yearValue" value=$day->getMonth()->getYearValue()}
+{assign var="monthValue" value=$day->getMonth()->getMonthValue()}
+{assign var="dayValue" value=$day->getDayValue()}
 
 {hascontent}
 	<div class="paginationTop">
-		{content}{pages print=true assign=pagesLinks controller="RaceDay" link="pageNo=%d&year=$year&month=$month&day=$day"}
+		{content}{pages print=true assign=pagesLinks controller="RaceDay" link="pageNo=%d&year=$yearValue&month=$monthValue&day=$dayValue"}
         {/content}
 	</div>
 {/hascontent}
@@ -29,7 +29,7 @@
                 {content}
                     {if $__wcf->user->userID && $__wcf->session->getPermission('mod.siraca.canManageRace')}
                         <li>
-                            <a href="{link controller='RaceAdd'}{/link}" class="button siracaAdminButton">
+                            <a href="{link controller='RaceAdd' startTimestamp=$day->getStartTime()}{/link}" class="button siracaAdminButton">
                                 <span class="icon icon16 fa-plus"></span> <span>{lang}siraca.race.add.link{/lang}</span>
                             </a>
                         </li>

@@ -13,7 +13,8 @@
 
     <category name="siraca.race">
         <item name="siraca.race.title"><![CDATA[Course : ]]></item>
-        <item name="siraca.race.slots"><![CDATA[Participations : ]]></item>
+        <item name="siraca.race.starts"><![CDATA[Démarre le ]]></item>
+        <item name="siraca.race.capacity"><![CDATA[Capacité : {$race->availableSlots} places]]></item>
         <item name="siraca.race.participants"><![CDATA[Participants]]></item>
     </category>
 

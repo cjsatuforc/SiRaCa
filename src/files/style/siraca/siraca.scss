@@ -50,15 +50,29 @@ $dayBorder: 1px solid $wcfContentBorderInner;
 
             @include screen-xs {
                 height: auto;
+                border-top: none;
+                border-bottom: none;
+                border-left: $dayBorder;
+                border-right: $dayBorder;
 
                 &:first-child {
                     border-top: $dayBorder;
                 }
-                border-left: $dayBorder;
-                border-right: $dayBorder;
                 
                 &:last-child {
                     border-bottom: none;
+                }
+
+                &.dayOffMonth {
+                    display: none;
+
+                    + :not(.dayOffMonth) {
+                        border-top: $dayBorder;
+                    }
+                }
+
+                + :not(.dayOffMonth) {
+                    border-top: $dayBorder;
                 }
             }
 
@@ -76,8 +90,6 @@ $dayBorder: 1px solid $wcfContentBorderInner;
             }
             
             .dayRaces {
-                overflow: hidden;
-                
                 > ol {
                     > li {
                         font-size: small;
@@ -103,6 +115,7 @@ $dayBorder: 1px solid $wcfContentBorderInner;
                 }
             }
 
+            // TODO Bug avec Edge, le showMore n'a pas l'ellipse.
             * {
                 white-space: nowrap;
                 overflow: hidden;

@@ -28,7 +28,7 @@
         {if $tpl.foreach.days.iteration % 7 == 1}
             <ol class="siracaMonthLine">
         {/if}
-        <li class="{if $day->isToday()}today{/if}">
+        <li class="{if $day->isToday()}today{/if} {if !$month->contains($day)}dayOffMonth{/if}">
             {if $month->contains($day)}
                 <div class="dayName"><a href="{link controller='RaceDay' year=$month->getYearValue() month=$month->getMonthValue() day=$day->getDayValue()}{/link}">{lang}wcf.date.day.{$day->getDayName()}{/lang} {$day->getDayValue()}</a></div>
                 {assign var=dayRaces value=$raceMonth->getDayRaces($day->getDayValue(), 4)}

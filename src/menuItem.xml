@@ -2,27 +2,29 @@
 <data xmlns="http://www.woltlab.com" 
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/tornado/menuItem.xsd">
 
+    <!-- Never 2 items linking the same page or it break the whole WoltLab frontend after uninstallation/reinstallation -->
+
     <import>
 
         <item identifier="fr.chatcureuil.siraca.menuItem.MainMenu">
             <menu>com.woltlab.wcf.MainMenu</menu>
-            <title language="en">Races</title>
-            <title language="fr">Courses</title>
-            <page>fr.chatcureuil.siraca.page.RaceList</page>
+            <title language="en">Races calendar</title>
+            <title language="fr">Calendrier des courses</title>
+            <page>fr.chatcureuil.siraca.page.Calendar</page>
         </item>
 
-        <item identifier="fr.chatcureuil.siraca.menuItem.MyRaces">
+        <item identifier="fr.chatcureuil.siraca.menuItem.MyRacesList">
             <parent>fr.chatcureuil.siraca.menuItem.MainMenu</parent>
             <title language="en">My races</title>
             <title language="fr">Mes courses</title>
             <page>fr.chatcureuil.siraca.page.MyRacesList</page>
         </item>
 
-        <item identifier="fr.chatcureuil.siraca.menuItem.Calendar">
+        <item identifier="fr.chatcureuil.siraca.menuItem.RaceList">
             <parent>fr.chatcureuil.siraca.menuItem.MainMenu</parent>
-            <title language="en">Calendar</title>
-            <title language="fr">Calendrier</title>
-            <page>fr.chatcureuil.siraca.page.Calendar</page>
+            <title language="en">Next races</title>
+            <title language="fr">Prochaines courses</title>
+            <page>fr.chatcureuil.siraca.page.RaceList</page>
         </item>
 
     </import>

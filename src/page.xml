@@ -2,6 +2,20 @@
 <data xmlns="http://www.woltlab.com" 
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/tornado/page.xsd">
     <import>
+        <page identifier="fr.chatcureuil.siraca.page.Calendar">
+            <pageType>system</pageType>
+            <controller>wcf\page\RaceCalendarPage</controller>
+            <name language="en">Calendar</name>
+            <name language="fr">Calendrier</name>
+
+            <content language="en">
+                <title>Calendar</title>
+            </content>
+            <content language="fr">
+                <title>Calendrier</title>
+            </content>
+        </page>
+
         <page identifier="fr.chatcureuil.siraca.page.RaceList">
             <pageType>system</pageType>
             <controller>wcf\page\RaceListPage</controller>
@@ -14,6 +28,8 @@
             <content language="fr">
                 <title>Courses</title>
             </content>
+
+            <parent>fr.chatcureuil.siraca.page.Calendar</parent>
         </page>
 
         <page identifier="fr.chatcureuil.siraca.page.Race">
@@ -23,7 +39,8 @@
             <name language="en">Race</name>
             <name language="fr">Course</name>
             <requireObjectID>1</requireObjectID>
-            <parent>fr.chatcureuil.siraca.page.RaceList</parent>
+
+            <parent>fr.chatcureuil.siraca.page.Calendar</parent>
         </page>
 
         <page identifier="fr.chatcureuil.siraca.page.RaceAdd">
@@ -32,7 +49,7 @@
             <name language="en">Organize race</name>
             <name language="fr">Organiser une course</name>
 
-            <parent>fr.chatcureuil.siraca.page.RaceList</parent>
+            <parent>fr.chatcureuil.siraca.page.Calendar</parent>
         </page>
 
         <page identifier="fr.chatcureuil.siraca.page.RaceEdit">
@@ -51,6 +68,7 @@
             <name language="en">Participation</name>
             <name language="fr">Participation</name>
             <requireObjectID>1</requireObjectID>
+
             <parent>fr.chatcureuil.siraca.page.Race</parent>
         </page>
 
@@ -60,7 +78,6 @@
             <name language="en">My races</name>
             <name language="fr">Mes courses</name>
             <!-- <requireObjectID>1</requireObjectID> -->
-            <parent>fr.chatcureuil.siraca.page.RaceList</parent>
 
             <content language="en">
                 <title>My races</title>
@@ -68,20 +85,8 @@
             <content language="fr">
                 <title>Mes courses</title>
             </content>
-        </page>
 
-        <page identifier="fr.chatcureuil.siraca.page.Calendar">
-            <pageType>system</pageType>
-            <controller>wcf\page\RaceCalendarPage</controller>
-            <name language="en">Calendar</name>
-            <name language="fr">Calendrier</name>
-
-            <content language="en">
-                <title>Calendar</title>
-            </content>
-            <content language="fr">
-                <title>Calendrier</title>
-            </content>
+            <parent>fr.chatcureuil.siraca.page.Calendar</parent>
         </page>
 
         <page identifier="fr.chatcureuil.siraca.page.RaceDay">
@@ -89,6 +94,7 @@
             <controller>wcf\page\RaceDayPage</controller>
             <name language="en">Race day</name>
             <name language="fr">Courses du jour</name>
+
             <parent>fr.chatcureuil.siraca.page.Calendar</parent>
         </page>
 

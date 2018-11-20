@@ -70,7 +70,9 @@ $dayBorder: 1px solid $wcfContentBorderInner;
 
             a.showMore {
                 font-size: small;
-                color: $wcfContentText;
+                font-style: italic;
+                color: $wcfContentDimmedText;
+                margin-left: 1em;
             }
             
             .dayRaces {
@@ -89,8 +91,9 @@ $dayBorder: 1px solid $wcfContentBorderInner;
                         }
 
                         &.participant {
+                            font-weight: bold;
                             &:not(.participationConfirmed) {
-                                background-color: #f5f5f5;
+                                background-color: #f3f3f3;
                             }
                             &.participationConfirmed {
                                 background-color: #e1fae5;

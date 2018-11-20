@@ -22,13 +22,8 @@
         <nav class="contentFooterNavigation">
             <ul>
                 {content}
-                    {if $__wcf->user->userID && $__wcf->session->getPermission('mod.siraca.canManageRace')}
-                        <li>
-                            <a href="{link controller='RaceAdd'}{/link}" class="button siracaAdminButton">
-                                <span class="icon icon16 fa-plus"></span> <span>{lang}siraca.race.add.link{/lang}</span>
-                            </a>
-                        </li>
-                    {/if}
+                    {include file="_organizeRaceButton"}
+                    
                     {event name='contentFooterNavigation'}
                 {/content}
             </ul>

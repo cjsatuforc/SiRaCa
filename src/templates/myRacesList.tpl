@@ -21,4 +21,18 @@
 	<p class="info">{lang}wcf.global.noItems{/lang}</p>
 {/if}
 
+<footer class="contentFooter">
+    {hascontent}
+        <nav class="contentFooterNavigation">
+            <ul>
+                {content}
+                    {include file="_organizeRaceButton"}
+                    
+                    {event name='contentFooterNavigation'}
+                {/content}
+            </ul>
+        </nav>
+    {/hascontent}
+</footer>
+
 {include file='footer'}

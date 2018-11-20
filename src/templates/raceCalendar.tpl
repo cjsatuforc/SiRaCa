@@ -54,4 +54,18 @@
     {/foreach}
 </div>
 
+<footer class="contentFooter">
+    {hascontent}
+        <nav class="contentFooterNavigation">
+            <ul>
+                {content}
+                    {include file="_organizeRaceButton"}
+                    
+                    {event name='contentFooterNavigation'}
+                {/content}
+            </ul>
+        </nav>
+    {/hascontent}
+</footer>
+
 {include file='footer'}

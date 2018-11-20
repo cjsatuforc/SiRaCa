@@ -10,7 +10,7 @@
 
 <div class="section">
     <ul>
-        <li>{lang}siraca.race.starts{/lang}{$startTime}</li>
+        <li>{lang}siraca.race.starts{/lang}{$race->getFormattedStartTime()}</li>
         <li>{lang}siraca.race.capacity{/lang}</li>
         <li>{include file='_participantsSummary'}</li>
     </ul>

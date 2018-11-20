@@ -5,6 +5,7 @@ use wcf\data\DatabaseObject;
 use wcf\data\DatabaseObjectDecorator;
 use wcf\data\siraca\participation\ParticipationUtil;
 use wcf\data\siraca\race\Race;
+use wcf\system\siraca\date\DateUtil;
 
 class ViewableRace extends DatabaseObjectDecorator
 {
@@ -52,6 +53,11 @@ class ViewableRace extends DatabaseObjectDecorator
     public function getTitularListFreeSlots()
     {
         return $this->availableSlots - $this->titularListCount;
+    }
+
+    public function getFormattedStartTime()
+    {
+        return DateUtil::getFormattedDate($this->formattedStartTime);
     }
 
     public function __toString()

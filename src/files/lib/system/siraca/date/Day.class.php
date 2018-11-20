@@ -34,12 +34,14 @@ class Day
         return $this->dayValue;
     }
 
-    public function getDayName()
+    public function getTitle()
     {
-        if (!$this->dayName) {
-            $this->dayName = strtolower($this->dateTime->format("l"));
-        }
-        return $this->dayName;
+        return DateUtil::getFormattedDate($this->getStartTime(), "siraca.raceDay.dayDateFormat");
+    }
+
+    public function getTitleShort()
+    {
+        return DateUtil::getFormattedDate($this->getStartTime(), "siraca.raceDay.dayDateFormatShort");
     }
 
     public function getWeekDayValue()

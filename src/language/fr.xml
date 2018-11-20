@@ -11,6 +11,10 @@
         <item name="wcf.acp.group.option.user.siraca.canParticipateRace"><![CDATA[Participation aux courses]]></item>
     </category>
 
+    <category name="siraca.date">
+        <item name="siraca.date.format"><![CDATA[D j M Y, H:i]]></item>
+    </category>
+
     <category name="siraca.race">
         <item name="siraca.race.title"><![CDATA[Course : ]]></item>
         <item name="siraca.race.starts"><![CDATA[Démarre le ]]></item>
@@ -48,12 +52,16 @@
         <item name="siraca.calendar.link"><![CDATA[Calendrier]]></item>
         <item name="siraca.calendar.title"><![CDATA[Courses de ]]></item>
 
+        <item name="siraca.calendar.monthDateFormat"><![CDATA[M Y]]></item>
+
         <item name="siraca.calendar.monthView.showMoreRaces"><![CDATA[Voir la suite...]]></item>
         <item name="siraca.calendar.monthView.thisMonth"><![CDATA[Ce mois]]></item>
     </category>
 
     <category name="siraca.raceDay">
         <item name="siraca.raceDay.title"><![CDATA[Courses du ]]></item>
+        <item name="siraca.raceDay.dayDateFormat"><![CDATA[D j M Y]]></item>
+        <item name="siraca.raceDay.dayDateFormatShort"><![CDATA[D j]]></item>
     </category>
 
     <category name="siraca.participation">

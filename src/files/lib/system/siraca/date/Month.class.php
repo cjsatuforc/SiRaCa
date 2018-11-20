@@ -61,12 +61,9 @@ class Month
         return $this->monthValue;
     }
 
-    public function getMonthName()
+    public function getTitle()
     {
-        if (!$this->monthName) {
-            $this->monthName = strtolower($this->dateTime->format("F"));
-        }
-        return $this->monthName;
+        return DateUtil::getFormattedDate($this->getStartTime(), "siraca.calendar.monthDateFormat");
     }
 
     public function getDays()

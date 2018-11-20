@@ -33,4 +33,31 @@ class DateUtil
     {
         return (new \DateTime())->getTimestamp();
     }
+
+    public static function getFormattedDate($timestamp = -1, $format = null)
+    {
+        if (!$format) {
+            $format = "siraca.date.format";
+        }
+
+        $date     = self::getNewDate($timestamp);
+        $language = WCF::getLanguage();
+
+        $englishDayName   = strtolower($date->format("l"));
+        $englishMonthName = strtolower($date->format("F"));
+
+        $dayName   = $language->get("wcf.date.day.$englishDayName");
+        $monthName = $language->get("wcf.date.month.$englishMonthName");
+
+        $formattedDate = $date->format($language->get($format));
+
+        $searchDay     = $date->format("l") . "|" . $date->format("D");
+        $formattedDate = preg_replace("/$searchDay/", $dayName, $formattedDate);
+
+        $searchMonth   = $date->format("F") . "|" . $date->format("M");
+        $formattedDate = preg_replace("/$searchMonth/", $monthName, $formattedDate);
+
+        return $formattedDate;
+
+    }
 }

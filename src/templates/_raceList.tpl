@@ -9,8 +9,9 @@
                         <div class="details">
                             <div class="containerHeadline">
                                 <h3><a href="{$race->getLink()}">{$race}</a></h3>
-                                {if $race->isParticipant()}<span>{lang}{$race->getParticipationType()->shortTextLangId}{/lang}</span>{/if}
+                                <div>{$race->getFormattedStartTime()}</div>
                                 <div>{include file='_participantsSummary'}</div>
+                                <div><strong>{if $race->isParticipant()}{lang}{$race->getParticipationType()->shortTextLangId}{/lang}{/if}</strong></div>
                             </div>
                         </div>
                     </div>

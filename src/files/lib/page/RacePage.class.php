@@ -53,9 +53,6 @@ class RacePage extends AbstractPage
     {
         parent::assignVariables();
 
-        $language = WCF::getLanguage();
-        $user     = WCF::getUser();
-
         $titularArray = $this->titularList->getObjects();
         $waitingArray = $this->waitingList->getObjects();
 
@@ -63,12 +60,6 @@ class RacePage extends AbstractPage
             'race'        => $this->race,
             'titularList' => $titularArray,
             'waitingList' => $waitingArray,
-            'startTime'   => \wcf\util\DateUtil::format($this->startDateTime, \wcf\util\DateUtil::DATE_FORMAT, $language, $user)
-            . ' - ' .
-            \wcf\util\DateUtil::format($this->startDateTime, \wcf\util\DateUtil::TIME_FORMAT, $language, $user),
-            /*
-        TODO : intégrer nom du jour. cf. le date format de calendar.date.dateFormat dans le calendar et la trad FR.
-         */
         ]);
     }
 }

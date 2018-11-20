@@ -12,7 +12,7 @@
     </category>
 
     <category name="siraca.date">
-        <item name="siraca.date.format"><![CDATA[D j M Y, H:i]]></item>
+        <item name="siraca.date.format"><![CDATA[D j M Y \à H:i]]></item>
     </category>
 
     <category name="siraca.race">

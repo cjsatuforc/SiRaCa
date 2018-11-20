@@ -57,7 +57,7 @@ class ViewableRace extends DatabaseObjectDecorator
 
     public function getFormattedStartTime()
     {
-        return DateUtil::getFormattedDate($this->formattedStartTime);
+        return DateUtil::getFormattedDate($this->getDecoratedObject()->startTime);
     }
 
     public function __toString()

@@ -26,7 +26,7 @@ class RaceEditForm extends RaceAddForm
 
         $this->race = new Race($raceID);
         if (!$this->race->raceID) {
-            throw new IllegalLinkException();
+            throw new \IllegalLinkException();
         }
     }
 

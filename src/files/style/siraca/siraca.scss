@@ -1,4 +1,5 @@
-$dayBorder: 1px solid $wcfContentBorderInner;
+$contentBorder: 1px solid $wcfContentBorderInner;
+$highlightColor: #f2f9ff;
 
 .siracaMonthView {
 
@@ -10,7 +11,7 @@ $dayBorder: 1px solid $wcfContentBorderInner;
         display: flex;
 
         &:first-child {
-            border-top: $dayBorder;
+            border-top: $contentBorder;
             
             @include screen-xs {
                 border-style: none;
@@ -19,7 +20,7 @@ $dayBorder: 1px solid $wcfContentBorderInner;
         
         &:last-child {
             @include screen-xs {
-                border-bottom: $dayBorder;
+                border-bottom: $contentBorder;
             }
         }
 
@@ -34,29 +35,29 @@ $dayBorder: 1px solid $wcfContentBorderInner;
             text-align: left;
             padding: 2px;
 
-            border-right: $dayBorder;
-            border-bottom: $dayBorder;
+            border-right: $contentBorder;
+            border-bottom: $contentBorder;
 
             &.today {
-                background-color: #e5f3ff;
+                background-color: $highlightColor;
                 .dayName {
                     font-weight: bold;
                 }
             }
 
             &:first-child {
-                border-left: $dayBorder;
+                border-left: $contentBorder;
             }
 
             @include screen-xs {
                 height: auto;
                 border-top: none;
                 border-bottom: none;
-                border-left: $dayBorder;
-                border-right: $dayBorder;
+                border-left: $contentBorder;
+                border-right: $contentBorder;
 
                 &:first-child {
-                    border-top: $dayBorder;
+                    border-top: $contentBorder;
                 }
                 
                 &:last-child {
@@ -67,12 +68,12 @@ $dayBorder: 1px solid $wcfContentBorderInner;
                     display: none;
 
                     + :not(.dayOffMonth) {
-                        border-top: $dayBorder;
+                        border-top: $contentBorder;
                     }
                 }
 
                 + :not(.dayOffMonth) {
-                    border-top: $dayBorder;
+                    border-top: $contentBorder;
                 }
             }
 
@@ -155,11 +156,11 @@ $dayBorder: 1px solid $wcfContentBorderInner;
     .raceContainer {
         $raceBorder: 1px solid $wcfContentBorderInner;
 
-        padding: 10px 16px;
+        padding: 14px;
         border-bottom: $raceBorder;
 
         &:hover {
-            background-color: #f2f9ff;
+            background-color: $highlightColor;
         }
 
         &:last-child {

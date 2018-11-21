@@ -149,6 +149,55 @@ $dayBorder: 1px solid $wcfContentBorderInner;
     }
 }
 
+.siracaRaceList {
+    // TODO overflow
+
+    .raceContainer {
+        $raceBorder: 1px solid $wcfContentBorderInner;
+
+        padding: 10px 16px;
+        border-bottom: $raceBorder;
+
+        &:hover {
+            background-color: #f2f9ff;
+        }
+
+        &:last-child {
+            margin-bottom: 0px;
+            border-bottom: none;
+        }
+
+        .participationContainer {
+            // text-align: right;
+            font-size: small;
+            .participants {
+                display: inline-block;
+            }
+            .participation {
+                display: inline-block;
+                font-weight: bold;
+            }
+        }
+
+        .title {
+            font-size: 1.5em;
+            // font-weight: bold;
+        }
+
+        .date {
+            //text-align: right;
+            font-size: small;
+            font-style: italic;
+        }
+    }
+}
+
+
+
+
+
+
+
 button.siracaAdminButton,
 input[type="button"].siracaAdminButton,
 .button.siracaAdminButton,

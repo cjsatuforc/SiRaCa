@@ -15,7 +15,7 @@ class NextRacesList extends RaceList
         // TODO Time Zone ?
         $currentTimestamp = DateUtil::getTimestamp();
 
-        $this->getConditionBuilder()->add("siraca_race.startTime >= $currentTimestamp");
-        $this->sqlOrderBy = "siraca_race.startTime";
+        $this->getConditionBuilder()->add("startTime >= $currentTimestamp");
+        $this->sqlOrderBy = "startTime ASC, title ASC";
     }
 }
